@@ -3,3 +3,4 @@ dist/
 dist-server/
 web-whizz-site.zip
 .DS_Store
+.claude/
