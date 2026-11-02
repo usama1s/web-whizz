@@ -12,7 +12,9 @@ const { render, pages, SITE } = await import(path.join(serverDir, "entry-server.
 
 for (const route of pages) {
   const { html, head } = render(route);
-  const out = template.replace("<!--app-head-->", head).replace("<!--app-html-->", html);
+  const out = template
+    .replace('<html lang="en">', `<html lang="${route.lang || "en"}">`)
+    .replace("<!--app-head-->", head).replace("<!--app-html-->", html);
   const file = route.path === "/404" ? path.join(dist, "404.html") : path.join(dist, route.path, "index.html");
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, out);

@@ -3,7 +3,7 @@
 export const SITE = {
   name: "Web Whizz",
   url: "https://web-whizz.com",
-  email: "usamamunir1s@gmail.com"
+  email: "support@web-whizz.com"
 };
 
 export const FLOW = {
@@ -12,10 +12,18 @@ export const FLOW = {
   name: "Flow Bulk Downloader",
   storeName: "Bulk Downloader for Google Flow™ – Videos & Images",
   version: "2.6.0",
-  // Chrome Web Store listing link, once it's published. Empty = the page says "Coming soon".
-  // Submitted Oct 26, 2026; after approval it will be https://chromewebstore.google.com/detail/cbnojammdmehkhjmngnomofcjejleglf
-  chromeStoreUrl: "",
-  // Lemon Squeezy "Supporter License" checkout link. Empty = no support button.
-  supportUrl: "",
+  // Chrome Web Store listing. Empty = the page says "Coming soon".
+  chromeStoreUrl: "https://chromewebstore.google.com/detail/bulk-downloader-for-googl/cbnojammdmehkhjmngnomofcjejleglf",
+  // Copy these from the store listing now and then (shown next to the Add to Chrome button).
+  // Small numbers look worse than none, so each one stays hidden until it reaches its minimum.
+  stats: { users: 5, rating: 5.0, ratingCount: 1 },
+  statsMin: { users: 100, ratingCount: 5, rating: 4.0 },
+  // A real screen recording of a run (e.g. "demo.mp4" in public/e/flow-downloader/). Empty = the animated demo is shown.
+  demoVideo: "",
+  // The "Pro coming soon" form posts here (public/api/waitlist.php, PHP on the cPanel host).
+  waitlistUrl: "/api/waitlist.php",
   img: (file) => `/e/flow-downloader/${file}`
 };
+
+// Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).
+export const RELEASES = [{ version: "2.6.0", date: "2026-10-28" }];
