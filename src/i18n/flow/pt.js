@@ -265,7 +265,7 @@ export default {
   },
   waitlist: {
     title: "O Flow Bulk Downloader Pro está chegando",
-    text: "O downloader continua grátis. O Pro vai adicionar extras, como histórico de downloads e exportação para editores. Deixe o seu e-mail e avisaremos quando for lançado.",
+    text: "Deixe o seu e-mail e avisaremos quando o Pro for lançado.",
     label: "Endereço de e-mail",
     placeholder: "voce@exemplo.com",
     button: "Entrar na lista de espera",

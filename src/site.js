@@ -15,8 +15,9 @@ export const FLOW = {
   // Chrome Web Store listing. Empty = the page says "Coming soon".
   chromeStoreUrl: "https://chromewebstore.google.com/detail/bulk-downloader-for-googl/cbnojammdmehkhjmngnomofcjejleglf",
   // Copy these from the store listing now and then (shown next to the Add to Chrome button).
-  // users: 0 hides the user count; ratingCount: 0 hides the rating.
+  // Small numbers look worse than none, so each one stays hidden until it reaches its minimum.
   stats: { users: 5, rating: 5.0, ratingCount: 1 },
+  statsMin: { users: 100, ratingCount: 5, rating: 4.0 },
   // A real screen recording of a run (e.g. "demo.mp4" in public/e/flow-downloader/). Empty = the animated demo is shown.
   demoVideo: "",
   // The "Pro coming soon" form posts here (public/api/waitlist.php, PHP on the cPanel host).

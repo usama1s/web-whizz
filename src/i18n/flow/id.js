@@ -265,7 +265,7 @@ export default {
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro segera hadir",
-    text: "Pengunduhnya tetap gratis. Pro akan menambahkan fitur ekstra, seperti riwayat unduhan dan ekspor ke editor. Tinggalkan email Anda dan kami akan memberi tahu saat diluncurkan.",
+    text: "Tinggalkan email Anda dan kami akan memberi tahu saat Pro diluncurkan.",
     label: "Alamat email",
     placeholder: "anda@contoh.com",
     button: "Gabung daftar tunggu",

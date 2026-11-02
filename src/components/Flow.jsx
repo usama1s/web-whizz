@@ -22,10 +22,11 @@ export function StoreButton({ t }) {
 // Rating, users, version and "No account · No tracking", next to the Add to Chrome button.
 export function Trust({ t, lang }) {
   const { users, rating, ratingCount } = FLOW.stats;
+  const min = FLOW.statsMin;
   const num = (n, digits = 0) => n.toLocaleString(lang, { minimumFractionDigits: digits, maximumFractionDigits: digits });
   return (
     <ul className="trust">
-      {ratingCount > 0 && (
+      {ratingCount >= min.ratingCount && rating >= min.rating && (
         <li>
           <a href={FLOW.chromeStoreUrl + "/reviews"} target="_blank" rel="noopener noreferrer">
             <span className="stars" aria-hidden="true">
@@ -35,7 +36,7 @@ export function Trust({ t, lang }) {
           </a>
         </li>
       )}
-      {users > 0 && <li>{fill(users === 1 ? t.usersOne : t.usersMany, { n: num(users) })}</li>}
+      {users >= min.users && <li>{fill(users === 1 ? t.usersOne : t.usersMany, { n: num(users) })}</li>}
       <li>v{FLOW.version}</li>
       <li>{t.trust}</li>
     </ul>

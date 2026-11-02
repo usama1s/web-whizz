@@ -14,7 +14,7 @@ The Web Whizz website: a static site made with plain React + Vite (no router, no
 ## Things you'll change most
 
 Edit `src/site.js`:
-- `FLOW.stats`: users, star rating and number of ratings shown next to **Add to Chrome**. Copy them from the store listing now and then.
+- `FLOW.stats`: users, star rating and number of ratings shown next to **Add to Chrome**. Copy them from the store listing now and then. Each stays hidden until it reaches `FLOW.statsMin` (100 users; 5 ratings averaging 4.0+).
 - `FLOW.version` and `RELEASES`: add a line to `RELEASES` for every new version, and its notes under `changelog.entries` in each language file.
 - `FLOW.demoVideo`: put a screen recording (e.g. `demo.mp4`) in `public/e/flow-downloader/` and name it here to replace the animated demo.
 - `FLOW.chromeStoreUrl`, `SITE.email`.

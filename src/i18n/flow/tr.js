@@ -264,7 +264,7 @@ export default {
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro geliyor",
-    text: "İndirici ücretsiz kalacak. Pro, indirme geçmişi ve düzenleyiciye aktarma gibi ek özellikler getirecek. E-postanızı bırakın, çıktığında size haber verelim.",
+    text: "E-postanızı bırakın, Pro çıktığında size haber verelim.",
     label: "E-posta adresi",
     placeholder: "siz@ornek.com",
     button: "Bekleme listesine katıl",

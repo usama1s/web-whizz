@@ -265,7 +265,7 @@ export default {
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro sắp ra mắt",
-    text: "Trình tải vẫn miễn phí. Bản Pro sẽ thêm các tính năng bổ sung như lịch sử tải và xuất sang trình chỉnh sửa. Để lại email, chúng tôi sẽ báo bạn khi ra mắt.",
+    text: "Để lại email, chúng tôi sẽ báo bạn khi Pro ra mắt.",
     label: "Địa chỉ email",
     placeholder: "ban@vidu.com",
     button: "Tham gia danh sách chờ",

@@ -267,7 +267,7 @@ export default {
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro is coming",
-    text: "The downloader stays free. Pro will add extras on top, like download history and editor export. Leave your email and we'll tell you when it launches.",
+    text: "Leave your email and we'll let you know when Pro launches.",
     label: "Email address",
     placeholder: "you@example.com",
     button: "Join the waitlist",
