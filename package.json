@@ -1,0 +1,19 @@
+{
+  "name": "web-whizz-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-server && node prerender.mjs",
+    "preview": "vite preview",
+    "zip": "npm run build && rm -f web-whizz-site.zip && cd dist && zip -r -X ../web-whizz-site.zip . -x '*.DS_Store'"
+  },
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "5.1.0",
+    "vite": "7.1.12"
+  }
+}
