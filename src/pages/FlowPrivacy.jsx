@@ -9,7 +9,7 @@ export default function FlowPrivacy() {
           <a href={FLOW.path}>{FLOW.name}</a>
         </p>
         <h1>Privacy Policy</h1>
-        <p className="meta">Last updated: October 26, 2026</p>
+        <p className="meta">Last updated: November 6, 2026</p>
 
         <p>
           {FLOW.name} (“{FLOW.storeName}”) is a browser extension that downloads videos and images from your own Google Flow projects to your computer.
@@ -20,7 +20,8 @@ export default function FlowPrivacy() {
 
         <h2>What stays on your device</h2>
         <ul>
-          <li>Your settings (preferred quality, wait time, pick mode), stored in Chrome's extension storage.</li>
+          <li>Your settings (preferred quality, wait time), stored in Chrome's extension storage.</li>
+          <li>A list of the items you've already downloaded from each Flow project (their titles), so “Select all except downloaded” can leave them out next time. It is kept only in Chrome's extension storage on your computer and removed when you uninstall the extension.</li>
           <li>The videos and images you download, saved directly to the folder you choose.</li>
         </ul>
 
