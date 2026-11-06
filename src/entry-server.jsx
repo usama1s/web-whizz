@@ -22,6 +22,11 @@ function head(route) {
     `<meta property="og:description" content="${esc(route.description)}" />`,
     `<meta property="og:url" content="${esc(url)}" />`
   ];
+  // Each translation of a page points to all the others, so search engines show the right language.
+  if (route.alternates) {
+    for (const a of route.alternates) tags.push(`<link rel="alternate" hreflang="${a.hreflang}" href="${esc(SITE.url + a.path)}" />`);
+    tags.push(`<link rel="alternate" hreflang="x-default" href="${esc(SITE.url + route.alternates[0].path)}" />`);
+  }
   if (route.image) {
     tags.push(`<meta property="og:image" content="${esc(SITE.url + route.image)}" />`, `<meta name="twitter:card" content="summary_large_image" />`);
   }

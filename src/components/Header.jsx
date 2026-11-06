@@ -1,7 +1,6 @@
 import { Brand } from "./Brand.jsx";
-import { FLOW } from "../site.js";
 
-export default function Header({ path }) {
+export default function Header({ path, ui, flowPath }) {
   const here = (p) => (path === p ? "page" : undefined);
   return (
     <header className="header">
@@ -9,12 +8,12 @@ export default function Header({ path }) {
         <Brand />
         <nav className="nav" aria-label="Main">
           <a href="/#products" className="nav-hide-sm">
-            Products
+            {ui.navProducts}
           </a>
-          <a href={FLOW.path} aria-current={here(FLOW.path)}>
-            Flow Downloader
+          <a href={flowPath} aria-current={here(flowPath)}>
+            {ui.navFlow}
           </a>
-          <a href="/#contact">Contact</a>
+          <a href="/#contact">{ui.navContact}</a>
         </nav>
       </div>
     </header>

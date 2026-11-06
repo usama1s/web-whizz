@@ -3,6 +3,7 @@ import FlowDownloader from "./pages/FlowDownloader.jsx";
 import FlowPrivacy from "./pages/FlowPrivacy.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { FLOW } from "./site.js";
+import { LOCALES } from "./i18n/flow/index.js";
 
 // Every page of the site. Each one is pre-rendered to <path>/index.html at build time.
 export const ROUTES = [
@@ -12,14 +13,16 @@ export const ROUTES = [
     title: "Web Whizz — Online tools that work for you",
     description: "Web Whizz builds focused online tools — point-of-sale systems, browser extensions and more — that take the busywork out of your day."
   },
-  {
-    path: FLOW.path,
+  // The Flow page in every language (see src/i18n/flow/).
+  ...LOCALES.map((l) => ({
+    path: l.path,
     Page: FlowDownloader,
-    title: "Flow Bulk Downloader — Download all your Google Flow videos & images | Web Whizz",
-    description:
-      "A free Chrome extension that downloads all or selected Google Flow videos and images in one go — 1080p, 4K, GIF or 2K — into any folder you choose.",
-    image: FLOW.img("og.png")
-  },
+    lang: l.hreflang,
+    title: l.t.meta.title,
+    description: l.t.meta.description,
+    image: FLOW.img("og.png"),
+    alternates: LOCALES
+  })),
   {
     path: FLOW.privacyPath,
     Page: FlowPrivacy,
