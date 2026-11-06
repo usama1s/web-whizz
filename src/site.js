@@ -11,7 +11,7 @@ export const FLOW = {
   privacyPath: "/e/flow-downloader/privacy/",
   name: "Flow Bulk Downloader",
   storeName: "Bulk Downloader for Google Flow™ – Videos & Images",
-  version: "2.6.0",
+  version: "2.6.1",
   // Chrome Web Store listing. Empty = the page says "Coming soon".
   chromeStoreUrl: "https://chromewebstore.google.com/detail/bulk-downloader-for-googl/cbnojammdmehkhjmngnomofcjejleglf",
   // Copy these from the store listing now and then (shown next to the Add to Chrome button).
@@ -26,4 +26,7 @@ export const FLOW = {
 };
 
 // Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).
-export const RELEASES = [{ version: "2.6.0", date: "2026-10-28" }];
+export const RELEASES = [
+  { version: "2.6.1", date: "2026-11-06" },
+  { version: "2.6.0", date: "2026-10-28" }
+];

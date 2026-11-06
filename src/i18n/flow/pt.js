@@ -62,13 +62,13 @@ export default {
     title: "Baixe em massa vídeos Veo e imagens Nano Banana em 4K",
     items: [
       { icon: "video", title: "Vídeos e imagens", text: "Vídeos em GIF, 720p, 1080p ou 4K e imagens em 1K, 2K ou 4K — 4K quando o seu plano permite." },
-      { icon: "sliders", title: "Só o que o seu plano oferece", text: "Ele lê primeiro o próprio menu Download do Flow e lista só as qualidades que você realmente pode obter." },
-      { icon: "pick", title: "Escolha ou leve tudo", text: "Marque exatamente os itens que quiser, ou não marque nada para baixar o projeto inteiro." },
+      { icon: "sliders", title: "Só o que o seu plano oferece", text: "Ele lê primeiro o próprio menu Download do Flow e lista só as qualidades que você realmente pode obter. Se uma custar créditos, você vê a estimativa e aprova antes." },
+      { icon: "pick", title: "Escolha ou leve tudo", text: "Marque exatamente os itens que quiser, não marque nada para levar o projeto inteiro, ou selecione tudo exceto o que você já baixou." },
       { icon: "layers", title: "Vários projetos de uma vez", text: "Comece pela página inicial do Flow; cada projeto vai para a sua própria subpasta." },
       { icon: "folder", title: "Qualquer pasta, nomes limpos", text: "Salve em qualquer lugar — até numa pasta nova — como “01 - Título.mp4”, “02 - …”. Nada é sobrescrito." },
       { icon: "inbox", title: "Não mexe nos outros downloads", text: "Só os arquivos do seu projeto são tratados. Todo o resto que você baixa mantém o próprio nome e pasta." },
       { icon: "grid", title: "Status em cada bloco", text: "Amarelo = baixando, verde = pronto, vermelho = pulado. Progresso ao vivo de cada projeto." },
-      { icon: "retry", title: "Nada se perde em silêncio", text: "Tudo o que demorou demais é listado no fim, com “Tentar de novo” em um clique." }
+      { icon: "retry", title: "Nada se perde em silêncio", text: "Tudo o que o Flow marcou com erro ou que demorou demais é listado no fim, com “Tentar de novo” em um clique." }
     ]
   },
   gallery: {
@@ -76,8 +76,8 @@ export default {
     shots: {
       "shot-downloading.png": ["Um projeto sendo baixado, com blocos verdes, amarelos, vermelhos e na fila", "Cada bloco mostra onde está: baixado, baixando, pulado ou na fila."],
       "shot-several-projects.png": ["Tela de bloqueio mostrando 2 de 5 projetos concluídos e uma lista por projeto", "Vários projetos numa só execução, cada um na sua subpasta."],
-      "shot-quality-folder.png": ["Janela de qualidade e pasta", "Só as qualidades do seu plano; escolha qualquer pasta."],
-      "shot-retry.png": ["Janela listando um item que expirou, com o botão Tentar de novo", "Tudo o que expirou é listado, com nova tentativa em um clique."]
+      "shot-credits.png": ["Janela de qualidade com 4K escolhido, a estimativa de créditos e uma caixa de aprovação", "4K custa créditos: você vê a estimativa e aprova antes de começar."],
+      "shot-retry.png": ["Janela listando um item com falha e outro que expirou, com o botão Tentar de novo", "Tudo o que falhou ou expirou é listado, com nova tentativa em um clique."]
     }
   },
   guide: {
@@ -103,9 +103,9 @@ export default {
           {
             ol: [
               "Abra o seu projeto no Google Flow e mantenha essa aba em primeiro plano.",
-              "Clique no ícone da extensão → **Download** (ou pressione [[Alt]]+[[Shift]]+[[D]]).",
+              "Clique no ícone da extensão → **Baixar** (ou pressione [[Alt]]+[[Shift]]+[[D]]).",
               "Escolha a qualidade dos vídeos e das imagens. Só aparecem as qualidades do seu plano; as indisponíveis são indicadas abaixo.",
-              "Escolha onde salvar: **Choose folder…** (qualquer pasta, ou clique em **New folder**), **Same folder as last time** ou **Just use your Downloads folder**. O Chrome pode pedir uma vez para a página editar essa pasta — clique em **Allow / Edit files**.",
+              "Escolha onde salvar: **Escolher pasta…** (qualquer pasta, ou clique em **Nova pasta**), **Mesma pasta da última vez** ou **Usar a pasta Downloads**. O Chrome pode pedir uma vez para a página editar essa pasta — clique em **Allow / Edit files**.",
               "Relaxe. Os itens são baixados um de cada vez; cada ampliação pode levar alguns minutos."
             ]
           }
@@ -116,7 +116,7 @@ export default {
         title: "Escolher itens específicos",
         blocks: [
           {
-            p: "Marque **Pick videos & images** no pop-up. Uma caixa de seleção aparece em cada bloco concluído — marque os que quiser e pressione Download. **Select all** e **Clear** ficam no pop-up. Sem nada marcado, tudo é baixado. Gerações com falha nunca recebem caixa de seleção."
+            p: "Marque **Escolher vídeos e imagens** no pop-up. Uma caixa de seleção aparece em cada bloco concluído — marque os que quiser e pressione Baixar. **Selecionar tudo** e **Limpar** ficam no pop-up. Sem nada marcado, tudo é baixado. Gerações com falha nunca recebem caixa de seleção. **Selecionar tudo exceto os baixados** marca tudo o que você ainda não baixou deste projeto, para você levar só o que é novo."
           }
         ]
       },
@@ -127,8 +127,8 @@ export default {
           {
             ol: [
               "Vá para a página inicial do Flow (a sua lista de projetos).",
-              "Opcional: marque **Pick projects** no pop-up e marque os projetos que quiser (nenhum marcado = todos os projetos).",
-              "Pressione Download. Ele dá uma olhada nos projetos para ver quais tipos e qualidades existem e depois pergunta qualidade e pasta uma única vez.",
+              "Opcional: marque **Escolher projetos** no pop-up e marque os projetos que quiser (nenhum marcado = todos os projetos).",
+              "Pressione Baixar. Ele dá uma olhada nos projetos para ver quais tipos e qualidades existem e depois pergunta qualidade e pasta uma única vez.",
               "Ele abre cada projeto sozinho e salva numa subpasta com o nome do projeto, por exemplo `Minha pasta/Vídeo de viagem/01 - Taj Mahal ao amanhecer.mp4`."
             ]
           }
@@ -148,7 +148,21 @@ export default {
             }
           },
           {
-            p: "A sua última escolha fica salva. Se ela não estiver disponível no seu plano, a mais próxima é escolhida e a janela avisa. **Skip** só aparece quando um lote tem vídeos e imagens, e nunca fica salvo."
+            p: "A sua última escolha fica salva. Se ela não estiver disponível no seu plano, a mais próxima é escolhida e a janela avisa. **Ignorar** só aparece quando um lote tem vídeos e imagens, e nunca fica salvo."
+          }
+        ]
+      },
+      {
+        id: "credits",
+        title: "Créditos do Flow: nada é gasto sem perguntar",
+        blocks: [
+          {
+            ul: [
+              "Se uma qualidade escolhida custa créditos do Flow (4K usa cerca de 50 por vídeo pelo preço publicado pelo Google, ou o que o Flow mostrar no menu), a janela mostra uma estimativa para o lote inteiro. Nada começa até você marcar **Aprovo usar…**.",
+              "Durante a execução, quando o Flow pede para confirmar um preço, a extensão confirma só o que você aprovou: mesmo tipo, preço igual ou menor e dentro do total.",
+              "Qualquer outra coisa pausa a execução e pergunta a você: permitir no resto, ignorar este item ou parar.",
+              "Nunca clica em Fazer upgrade nem em Comprar, e para quando o Flow diz que seus créditos acabaram."
+            ]
           }
         ]
       },
@@ -171,22 +185,22 @@ export default {
         blocks: [
           {
             ul: [
-              "Cada bloco mostra o seu status: {y|amarelo} baixando (com um cronômetro), {g|verde} baixado, {r|vermelho} pulado e uma pequena etiqueta {q|QUEUED} para os que estão esperando.",
-              "Um painel cobre a página com o progresso e um botão **Stop downloading**. Cliques e digitação na página ficam bloqueados para nada interromper a execução.",
+              "Cada bloco mostra o seu status: {y|amarelo} baixando (com um cronômetro), {g|verde} baixado, {r|vermelho} pulado e uma pequena etiqueta {q|NA FILA} para os que estão esperando.",
+              "Um painel cobre a página com o progresso e um botão **Parar download**. Cliques e digitação na página ficam bloqueados para nada interromper a execução.",
               "O título da aba mostra o progresso, e fechar ou recarregar a aba pede confirmação.",
               "Mude para outra aba e ele pausa; volte e ele continua. Um item interrompido é tentado de novo, não pulado.",
               "Se o projeto for alterado manualmente, ele para de forma limpa em vez de baixar os itens errados.",
-              "Ao terminar, uma caixa de resumo mostra o que foi baixado e o que foi pulado. **Clear marks** remove as molduras coloridas."
+              "Ao terminar, uma caixa de resumo mostra o que foi baixado e o que foi pulado. **Limpar** remove as molduras coloridas e as caixas de seleção."
             ]
           }
         ]
       },
       {
         id: "timeouts",
-        title: "Tempo esgotado e nova tentativa",
+        title: "Erros, tempo esgotado e nova tentativa",
         blocks: [
           {
-            p: "Se o Flow não começar o download de um item dentro da **espera máxima** (10 minutos por padrão), o item é pulado e a execução segue. No fim você recebe uma lista de todos os itens que expiraram — com número, tipo, projeto e título — e um botão **Try again**. Um arquivo tentado de novo mantém o número original, por exemplo `02 - …`. Se o Flow terminar algum deles depois, o Chrome o salva na pasta Downloads, como de costume."
+            p: "Se o Flow mostrar um erro depois do clique (por exemplo, que a ampliação falhou), o item é tentado mais uma vez alguns segundos depois; se falhar de novo, é pulado na hora em vez de esperar. Se o Flow não começar o download de um item dentro da **espera máxima** (10 minutos por padrão), ele também é pulado. No fim você recebe uma lista de todos os itens que não foram baixados — com número, tipo, projeto e título — e um botão **Tentar de novo**. Um arquivo tentado de novo mantém o número original, por exemplo `02 - …`. Se o Flow terminar algum deles depois, o Chrome o salva na pasta Downloads, como de costume."
           }
         ]
       },
@@ -205,8 +219,8 @@ export default {
         blocks: [
           {
             ul: [
-              "**Max wait per item:** quanto tempo esperar o Flow iniciar um download (minutos). Ampliações em 4K demoram mais — aumente se estiverem expirando.",
-              "**Pause between items:** uma pequena pausa após cada download (segundos).",
+              "**Espera máxima por item:** quanto tempo esperar o Flow iniciar um download (minutos). Ampliações em 4K demoram mais — aumente se estiverem expirando.",
+              "**Pausa entre itens:** uma pequena pausa após cada download (segundos).",
               "**Atalho:** [[Alt]]+[[Shift]]+[[D]] inicia ou para uma execução. Altere em `chrome://extensions/shortcuts`."
             ]
           }
@@ -218,8 +232,8 @@ export default {
         blocks: [
           {
             ul: [
-              "**“No videos or images found”** — abra um projeto do Flow que tenha itens concluídos (ou a página inicial do Flow para vários projetos).",
-              "**Itens expiram** — mantenha a aba do Flow em primeiro plano e aumente **Max wait per item** para 4K.",
+              "**“Nenhum vídeo ou imagem encontrado”** — abra um projeto do Flow que tenha itens concluídos (ou a página inicial do Flow para vários projetos).",
+              "**Itens expiram** — mantenha a aba do Flow em primeiro plano e aumente **Espera máxima por item** para 4K.",
               "**“Fazer download de vários arquivos?”** — a extensão permite downloads automáticos no Flow, então isso não deveria aparecer. Se aparecer, clique em **Permitir**.",
               "**A pasta escolhida não funciona** — escolha a pasta de novo e clique em **Allow / Edit files** quando o Chrome pedir. Algumas pastas do sistema não podem ser usadas; escolha uma dentro da sua pasta de usuário.",
               "**Ainda com problemas?** Pressione [[F12]] → Console, procure linhas que começam com `[Flow Bulk Downloader]` e [mande para nós por e-mail]($email) o que você vê."
@@ -235,19 +249,29 @@ export default {
       ["É grátis?", "Sim. Tudo funciona de graça, sem conta e sem limite diário."],
       [
         "Ele usa os meus créditos do Flow?",
-        "A extensão clica nas próprias opções de Download do Flow por você, exatamente como você faria à mão. Se uma qualidade (por exemplo, uma ampliação para 1080p ou 4K) custa créditos é algo decidido pelo Flow e pelo seu plano, então confira isso no Flow antes de baixar um lote grande."
+        "Só se você aprovar. Se uma qualidade custa créditos (como 4K), a janela mostra uma estimativa antes de começar, e o download só começa quando você marca “Aprovo usar…”. Se o Flow pedir mais do que o aprovado, ou perguntar algo inesperado, a execução pausa e pergunta a você."
       ],
       ["Ele mexe nos meus outros downloads?", "Não. Ele só trata o arquivo que o Flow inicia logo depois de clicar em Download num dos seus itens. Todo o resto que você baixa mantém o próprio nome e pasta, mesmo durante um lote."],
       ["Ele sobrescreve arquivos que eu já tenho?", "Nunca. Se um nome de arquivo já existir, o novo arquivo ganha (2), (3) e assim por diante."],
       ["Ele clica no botão “Upgrade” do Flow?", "Nunca. Qualidades que o seu plano não inclui simplesmente não são oferecidas."],
       ["Funciona junto com outras extensões do Flow?", "Sim. Ele ignora downloads iniciados por outras extensões e só ajusta nomes de arquivo quando uma execução dele precisa de subpastas."],
       ["Quais navegadores são compatíveis?", "Google Chrome no computador (Windows, Mac, Linux, ChromeOS). Outros navegadores Chromium podem funcionar, mas não foram testados."],
+      ["Em quais idiomas ele está?", "A extensão segue o idioma do seu Chrome: português (Brasil), inglês, espanhol, vietnamita, indonésio e hindi; em qualquer outro idioma, inglês. Funciona com o Flow em qualquer idioma."],
       ["É feito pelo Google?", "Não. O Flow Bulk Downloader é uma ferramenta independente da Web Whizz e não tem afiliação com o Google."]
     ]
   },
   changelog: {
     title: "Histórico de versões",
     entries: {
+      "2.6.1": [
+        "Pergunta antes de gastar créditos do Flow: mostra uma estimativa para 4K e outras qualidades pagas, e pausa se o Flow pedir mais.",
+        "Novo botão “Selecionar tudo exceto os baixados”: leve só o que é novo desde a última visita.",
+        "Quando o Flow diz que uma ampliação falhou, o item é tentado mais uma vez e depois pulado na hora, sem esperar o tempo máximo.",
+        "Funciona com o Flow em qualquer idioma.",
+        "A extensão agora está em português (Brasil), inglês, espanhol, vietnamita, indonésio e hindi.",
+        "Não altera mais a página do Flow, então o aviso de “extensões que modificam a página” não aparece mais.",
+        "“Limpar” depois de uma execução remove todas as marcas e caixas."
+      ],
       "2.6.0": [
         "Seus outros downloads nunca são tocados — só os arquivos do seu projeto do Flow são tratados.",
         "Itens que expiram são listados pelo nome no fim, com “Tentar de novo” em um clique.",
@@ -261,7 +285,7 @@ export default {
   },
   privacy: {
     title: "Privacidade",
-    text: "O Flow Bulk Downloader não coleta nada: sem servidores, sem contas, sem análises, sem rastreamento. Suas configurações ficam no Chrome, e seus arquivos vão direto do Google Flow para o seu computador. [Leia a política de privacidade completa]($privacy) (em inglês)."
+    text: "O Flow Bulk Downloader não coleta nada: sem servidores, sem contas, sem análises, sem rastreamento. Suas configurações e a lista do que você já baixou ficam no Chrome, no seu computador, e seus arquivos vão direto do Google Flow para o seu computador. [Leia a política de privacidade completa]($privacy) (em inglês)."
   },
   waitlist: {
     title: "O Flow Bulk Downloader Pro está chegando",

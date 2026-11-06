@@ -64,13 +64,13 @@ export default {
     title: "Bulk download Veo videos and Nano Banana images in 4K",
     items: [
       { icon: "video", title: "Videos and images", text: "GIF, 720p, 1080p or 4K videos and 1K, 2K or 4K images — 4K where your plan allows." },
-      { icon: "sliders", title: "Only what your plan offers", text: "It reads Flow's own Download menu first and lists only the qualities you can actually get." },
-      { icon: "pick", title: "Pick or take it all", text: "Tick exactly the items you want, or tick nothing to download the whole project." },
+      { icon: "sliders", title: "Only what your plan offers", text: "It reads Flow's own Download menu first and lists only the qualities you can actually get. If one costs credits, you see the estimate and approve it first." },
+      { icon: "pick", title: "Pick or take it all", text: "Tick exactly the items you want, tick nothing to take the whole project, or select everything except what you already downloaded." },
       { icon: "layers", title: "Several projects at once", text: "Start from Flow's home page; each project lands in its own subfolder." },
       { icon: "folder", title: "Any folder, clean names", text: "Save anywhere — even a new folder — as “01 - Title.mp4”, “02 - …”. Nothing is ever overwritten." },
       { icon: "inbox", title: "Leaves other downloads alone", text: "Only the files from your project are handled. Everything else you download keeps its own name and folder." },
       { icon: "grid", title: "Status on every tile", text: "Yellow = downloading, green = done, red = skipped. Live progress for every project." },
-      { icon: "retry", title: "Nothing missed quietly", text: "Anything that took too long is listed at the end with a one-click “Try again”." }
+      { icon: "retry", title: "Nothing missed quietly", text: "Anything Flow reported an error for, or that took too long, is listed at the end with a one-click “Try again”." }
     ]
   },
   gallery: {
@@ -78,8 +78,8 @@ export default {
     shots: {
       "shot-downloading.png": ["A project downloading, with green, yellow, red and queued tiles", "Every tile shows where it is: downloaded, downloading, skipped or queued."],
       "shot-several-projects.png": ["Lock screen showing 2 of 5 projects finished and a per-project list", "Several projects in one run, each into its own subfolder."],
-      "shot-quality-folder.png": ["Quality and folder dialog", "Only the qualities your plan offers; pick any folder."],
-      "shot-retry.png": ["Dialog listing one timed-out item with a Try again button", "Anything that timed out is listed, with one-click retry."]
+      "shot-credits.png": ["Quality dialog with 4K selected, showing a credit estimate and an approval checkbox", "4K costs credits: you see the estimate and approve it before anything starts."],
+      "shot-retry.png": ["Dialog listing one failed and one timed-out item, with a Try again button", "Anything that failed or timed out is listed, with one-click retry."]
     }
   },
   guide: {
@@ -118,7 +118,7 @@ export default {
         title: "Pick specific items",
         blocks: [
           {
-            p: "Tick **Pick videos & images** in the popup. A checkbox appears on every finished tile — tick the ones you want, then press Download. **Select all** and **Clear** are in the popup. With nothing ticked, everything is downloaded. Failed generations never get a checkbox."
+            p: "Tick **Pick videos & images** in the popup. A checkbox appears on every finished tile — tick the ones you want, then press Download. **Select all** and **Clear** are in the popup. With nothing ticked, everything is downloaded. Failed generations never get a checkbox. **Select all except downloaded** ticks everything you haven't downloaded from this project yet, so you only get what's new."
           }
         ]
       },
@@ -155,6 +155,20 @@ export default {
         ]
       },
       {
+        id: "credits",
+        title: "Flow credits: nothing spent without asking",
+        blocks: [
+          {
+            ul: [
+              "If a quality you pick costs Flow credits (4K uses about 50 per video at Google's published price, or whatever Flow shows in its menu), the dialog shows an estimate for the whole batch. Nothing starts until you tick **I approve…**.",
+              "During the run, when Flow asks to confirm a price, the extension confirms only what you approved: same kind, same or lower price, within the total.",
+              "Anything else pauses the run and asks you: allow it for the rest of the run, skip this item, or stop.",
+              "It never clicks Upgrade or Buy, and it stops when Flow says you're out of credits."
+            ]
+          }
+        ]
+      },
+      {
         id: "files",
         title: "Where files go",
         blocks: [
@@ -178,17 +192,17 @@ export default {
               "The tab title shows progress, and closing or reloading the tab asks first.",
               "Switch to another tab and it pauses; come back and it continues. An interrupted item is retried, not skipped.",
               "If the project is changed by hand, it stops cleanly instead of downloading the wrong items.",
-              "When it's done, a summary box shows what was downloaded and skipped. **Clear marks** removes the colored frames."
+              "When it's done, a summary box shows what was downloaded and skipped. **Clear** removes the colored frames and tick boxes."
             ]
           }
         ]
       },
       {
         id: "timeouts",
-        title: "Timeouts and retry",
+        title: "Errors, timeouts and retry",
         blocks: [
           {
-            p: "If Flow doesn't start an item's download within the **max wait** (10 minutes by default), the item is skipped and the run moves on. At the end you get a list of every item that timed out — with its number, type, project and title — and a **Try again** button. A retried file keeps its original number, e.g. `02 - …`. If Flow finishes one of them later anyway, Chrome saves it in your Downloads folder as usual."
+            p: "If Flow shows an error after the click (for example “Upscaling failed”), the item is tried once more a few seconds later; if it fails again, it's skipped right away instead of waiting. If Flow doesn't start an item's download within the **max wait** (10 minutes by default), it's skipped too. At the end you get a list of every item that didn't download — with its number, type, project and title — and a **Try again** button. A retried file keeps its original number, e.g. `02 - …`. If Flow finishes one of them later anyway, Chrome saves it in your Downloads folder as usual."
           }
         ]
       },
@@ -237,19 +251,29 @@ export default {
       ["Is it free?", "Yes. Everything works for free, with no account and no daily limit."],
       [
         "Does it use my Flow credits?",
-        "The extension clicks Flow's own Download options for you, exactly as you would by hand. Whether a quality (for example a 1080p or 4K upscale) costs credits is decided by Flow and your plan, so check that in Flow before downloading a large batch."
+        "Only if you approve it. If a quality costs credits (like 4K), the dialog shows an estimate before anything starts, and the download only begins once you tick “I approve…”. If Flow asks for more than you approved, or asks something unexpected, the run pauses and asks you."
       ],
       ["Does it touch my other downloads?", "No. It only handles the file Flow starts right after it clicks Download on one of your items. Everything else you download keeps its own name and folder, even while a batch is running."],
       ["Will it overwrite files I already have?", "Never. If a file name is taken, the new file gets (2), (3) and so on."],
       ["Does it click Flow's “Upgrade” button?", "Never. Qualities your plan doesn't include simply aren't offered."],
       ["Does it work alongside other Flow extensions?", "Yes. It ignores downloads started by other extensions and only adjusts file names while one of its own runs needs subfolders."],
       ["Which browsers are supported?", "Google Chrome on desktop (Windows, Mac, Linux, ChromeOS). Other Chromium browsers may work but aren't tested."],
+      ["Which languages does it speak?", "The extension follows your Chrome language: English, Spanish, Portuguese (Brazil), Vietnamese, Indonesian and Hindi, with English for any other language. It works whatever language Flow itself is shown in."],
       ["Is it made by Google?", "No. Flow Bulk Downloader is an independent tool by Web Whizz and isn't affiliated with Google."]
     ]
   },
   changelog: {
     title: "Changelog",
     entries: {
+      "2.6.1": [
+        "Asks before spending Flow credits: shows an estimate for 4K and other paid qualities, and pauses if Flow asks for more.",
+        "New “Select all except downloaded” button: grab only what's new since your last visit.",
+        "When Flow says an upscale failed, the item is tried once more and then skipped right away, instead of waiting for the timeout.",
+        "Works with Flow in any language.",
+        "The extension now speaks English, Spanish, Portuguese (Brazil), Vietnamese, Indonesian and Hindi.",
+        "No longer changes Flow's page, so Flow's “extensions that modify the page” warning no longer appears.",
+        "“Clear” after a run now removes all marks and tick boxes."
+      ],
       "2.6.0": [
         "Your other downloads are never touched — only files from your Flow project are handled.",
         "Items that time out are listed by name at the end, with a one-click “Try again”.",
@@ -263,7 +287,7 @@ export default {
   },
   privacy: {
     title: "Privacy",
-    text: "Flow Bulk Downloader collects nothing: no servers, no accounts, no analytics, no tracking. Your settings stay in Chrome, and your files go straight from Google Flow to your computer. [Read the full privacy policy]($privacy)."
+    text: "Flow Bulk Downloader collects nothing: no servers, no accounts, no analytics, no tracking. Your settings, and the list of items you've already downloaded, stay in Chrome on your computer, and your files go straight from Google Flow to your computer. [Read the full privacy policy]($privacy)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro is coming",

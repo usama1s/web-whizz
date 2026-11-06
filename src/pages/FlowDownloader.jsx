@@ -5,7 +5,7 @@ import { FLOW, RELEASES, SITE } from "../site.js";
 import { locale } from "../i18n/flow/index.js";
 
 // One layout for every language; all text comes from src/i18n/flow/<lang>.js.
-const SHOTS = ["shot-downloading.png", "shot-several-projects.png", "shot-quality-folder.png", "shot-retry.png"];
+const SHOTS = ["shot-downloading.png", "shot-several-projects.png", "shot-credits.png", "shot-retry.png"];
 
 function Blocks({ blocks, links }) {
   return blocks.map((b, i) => {
