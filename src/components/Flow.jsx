@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "./Icon.jsx";
 import { FLOW } from "../site.js";
 import { LOCALES, fill } from "../i18n/flow/index.js";
@@ -137,20 +137,26 @@ export function Demo({ t }) {
 }
 
 // "Pro coming soon" email signup. Posts to FLOW.waitlistUrl (public/api/waitlist.php).
-// Without JavaScript the form still works: the PHP script sends the visitor back here with ?waitlist=ok.
+// It needs JavaScript: the script sends "elapsed", and a form posted without it is treated as a bot (see waitlist.php).
 export function Waitlist({ t, lang }) {
   const [status, setStatus] = useState("idle");
+  // When the form appeared, on the browser's own monotonic clock. On submit, the seconds since then are sent as
+  // "elapsed", so the server's "too fast / too old" check never compares two different computers' clocks.
+  const shownAt = useRef(0);
 
   useEffect(() => {
     const q = new URLSearchParams(location.search).get("waitlist");
     if (q === "ok" || q === "error") setStatus(q);
+    shownAt.current = performance.now();
   }, []);
 
   async function submit(e) {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch(FLOW.waitlistUrl, { method: "POST", body: new FormData(e.currentTarget), headers: { Accept: "application/json" } });
+      const body = new FormData(e.currentTarget);
+      body.set("elapsed", String(Math.floor((performance.now() - shownAt.current) / 1000)));
+      const res = await fetch(FLOW.waitlistUrl, { method: "POST", body, headers: { Accept: "application/json" } });
       const data = await res.json();
       setStatus(data.ok ? "ok" : "error");
     } catch {

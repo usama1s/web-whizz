@@ -29,6 +29,13 @@ Button names inside the extension (**Download**, **Choose folder…**) are writt
 
 The form on the Flow page posts to `/api/waitlist.php`. Every new email is added to `/home2/codifyp1/web-whizz-data/flow-pro-waitlist.csv` (outside the web root, so it can't be downloaded from the site; open it in cPanel → File Manager), and a notice is emailed to `support@web-whizz.com`.
 
+Spam protection works without a captcha. Bots are told "you're on the list", but nothing is saved or emailed when:
+- the hidden honeypot field is filled in,
+- the form was sent without running the page (so it needs JavaScript), within 3 seconds of appearing, or more than a day later (timed by the browser, so a wrong clock on the visitor's computer doesn't matter),
+- the same IP has already signed up 3 times in the last hour (only a hash of the IP is kept, in `web-whizz-data/waitlist-rate.json`, for an hour).
+
+Addresses that can't receive mail get the normal error, so a person can fix a typo: test domains like `example.com`, common throwaway inboxes like Mailinator, and domains with no mail server. The list of throwaway domains is in `waitlist.php`.
+
 ## Commands
 
 ```bash
