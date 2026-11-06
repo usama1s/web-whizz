@@ -61,13 +61,13 @@ export default {
     title: "Veo videolarını ve Nano Banana görsellerini 4K olarak toplu indirin",
     items: [
       { icon: "video", title: "Videolar ve görseller", text: "GIF, 720p, 1080p veya 4K videolar ve 1K, 2K veya 4K görseller — planınız izin veriyorsa 4K." },
-      { icon: "sliders", title: "Yalnızca planınızdakiler", text: "Önce Flow'un kendi İndir menüsünü okur ve yalnızca gerçekten alabileceğiniz kaliteleri listeler." },
-      { icon: "pick", title: "Seçin ya da hepsini alın", text: "Tam olarak istediğiniz öğeleri işaretleyin ya da hiçbirini işaretlemeyip tüm projeyi indirin." },
+      { icon: "sliders", title: "Yalnızca planınızdakiler", text: "Önce Flow'un kendi İndir menüsünü okur ve yalnızca gerçekten alabileceğiniz kaliteleri listeler. Kredi gerektiren bir kalite varsa tahmini görür ve önce onaylarsınız." },
+      { icon: "pick", title: "Seçin ya da hepsini alın", text: "Tam olarak istediğiniz öğeleri işaretleyin, hiçbirini işaretlemeden tüm projeyi alın ya da zaten indirdikleriniz dışındaki her şeyi seçin." },
       { icon: "layers", title: "Aynı anda birden çok proje", text: "Flow'un ana sayfasından başlayın; her proje kendi alt klasörüne kaydedilir." },
       { icon: "folder", title: "Her klasör, temiz adlar", text: "İstediğiniz yere — yeni bir klasöre bile — “01 - Başlık.mp4”, “02 - …” olarak kaydedin. Hiçbir şeyin üzerine yazılmaz." },
       { icon: "inbox", title: "Diğer indirmelere dokunmaz", text: "Yalnızca projenizin dosyaları işlenir. İndirdiğiniz diğer her şey kendi adını ve klasörünü korur." },
       { icon: "grid", title: "Her kutucukta durum", text: "Sarı = indiriliyor, yeşil = tamam, kırmızı = atlandı. Her proje için canlı ilerleme." },
-      { icon: "retry", title: "Hiçbir şey sessizce kaçmaz", text: "Çok uzun süren her öğe sonunda listelenir ve tek tıkla “Tekrar dene” sunulur." }
+      { icon: "retry", title: "Hiçbir şey sessizce kaçmaz", text: "Flow'un hata bildirdiği ya da çok uzun süren her öğe sonunda listelenir ve tek tıkla “Tekrar dene” sunulur." }
     ]
   },
   gallery: {
@@ -75,8 +75,8 @@ export default {
     shots: {
       "shot-downloading.png": ["Yeşil, sarı, kırmızı ve sıradaki kutucuklarla indirilen bir proje", "Her kutucuk durumunu gösterir: indirildi, indiriliyor, atlandı veya sırada."],
       "shot-several-projects.png": ["5 projeden 2'sinin bittiğini ve proje listesini gösteren kilit ekranı", "Tek seferde birden çok proje, her biri kendi alt klasörüne."],
-      "shot-quality-folder.png": ["Kalite ve klasör penceresi", "Yalnızca planınızdaki kaliteler; istediğiniz klasörü seçin."],
-      "shot-retry.png": ["Zaman aşımına uğrayan bir öğeyi ve Tekrar dene düğmesini gösteren pencere", "Zaman aşımına uğrayan her şey listelenir, tek tıkla yeniden denenir."]
+      "shot-credits.png": ["4K seçili kalite penceresi, kredi tahmini ve onay kutusu", "4K kredi harcar: başlamadan önce tahmini görür ve onaylarsınız."],
+      "shot-retry.png": ["Başarısız bir öğeyi ve zaman aşımına uğrayan bir öğeyi Tekrar dene düğmesiyle gösteren pencere", "Başarısız olan ya da zaman aşımına uğrayan her şey listelenir, tek tıkla yeniden denenir."]
     }
   },
   guide: {
@@ -115,7 +115,7 @@ export default {
         title: "Belirli öğeleri seçin",
         blocks: [
           {
-            p: "Açılır pencerede **Pick videos & images** seçeneğini işaretleyin. Tamamlanmış her kutucukta bir onay kutusu belirir — istediklerinizi işaretleyin ve Download'a basın. **Select all** ve **Clear** açılır penceredededir. Hiçbir şey işaretli değilse her şey indirilir. Başarısız üretimlerde onay kutusu olmaz."
+            p: "Açılır pencerede **Pick videos & images** seçeneğini işaretleyin. Tamamlanmış her kutucukta bir onay kutusu belirir — istediklerinizi işaretleyin ve Download'a basın. **Select all** ve **Clear** açılır penceredededir. Hiçbir şey işaretli değilse her şey indirilir. Başarısız üretimlerde onay kutusu olmaz. **Select all except downloaded**, bu projeden henüz indirmediğiniz her şeyi işaretler; böylece yalnızca yenileri alırsınız."
           }
         ]
       },
@@ -152,6 +152,20 @@ export default {
         ]
       },
       {
+        id: "credits",
+        title: "Flow kredileri: sormadan hiçbir şey harcanmaz",
+        blocks: [
+          {
+            ul: [
+              "Seçtiğiniz kalite Flow kredisi gerektiriyorsa (4K, Google'ın yayımladığı fiyata göre video başına yaklaşık 50 kredi ya da Flow'un menüsünde gösterdiği fiyat), pencere tüm toplu indirme için bir tahmin gösterir. **I approve…** kutusunu işaretleyene kadar hiçbir şey başlamaz.",
+              "İşlem sırasında Flow bir fiyatı onaylamanızı isterse eklenti yalnızca onayladığınızı onaylar: aynı tür, aynı ya da daha düşük fiyat ve toplamın içinde.",
+              "Bunun dışındaki her durumda işlem duraklar ve size sorar: işlemin geri kalanı için izin ver, bu öğeyi atla ya da durdur.",
+              "Asla Yükselt ya da Satın al düğmesine tıklamaz ve Flow krediniz bittiğini söylediğinde durur."
+            ]
+          }
+        ]
+      },
+      {
         id: "files",
         title: "Dosyalar nereye gider",
         blocks: [
@@ -175,17 +189,17 @@ export default {
               "Sekme başlığı ilerlemeyi gösterir; sekmeyi kapatmak veya yenilemek önce onay ister.",
               "Başka bir sekmeye geçerseniz duraklar; geri döndüğünüzde devam eder. Yarıda kalan öğe atlanmaz, yeniden denenir.",
               "Proje elle değiştirilirse yanlış öğeleri indirmek yerine düzgünce durur.",
-              "Bittiğinde bir özet kutusu neyin indirildiğini ve atlandığını gösterir. **Clear marks** renkli çerçeveleri kaldırır."
+              "Bittiğinde bir özet kutusu neyin indirildiğini ve atlandığını gösterir. **Clear** renkli çerçeveleri ve onay kutularını kaldırır."
             ]
           }
         ]
       },
       {
         id: "timeouts",
-        title: "Zaman aşımı ve yeniden deneme",
+        title: "Hatalar, zaman aşımı ve yeniden deneme",
         blocks: [
           {
-            p: "Flow bir öğenin indirmesini **maksimum bekleme** süresi (varsayılan 10 dakika) içinde başlatmazsa öğe atlanır ve işlem devam eder. Sonunda zaman aşımına uğrayan her öğenin — numarası, türü, projesi ve başlığıyla — bir listesini ve **Try again** düğmesini alırsınız. Yeniden denenen dosya orijinal numarasını korur, örneğin `02 - …`. Flow bunlardan birini sonradan yine de bitirirse Chrome onu her zamanki gibi İndirilenler klasörüne kaydeder."
+            p: "Flow tıklamadan sonra bir hata gösterirse (örneğin büyütme başarısız olduysa), öğe birkaç saniye sonra bir kez daha denenir; yine başarısız olursa beklemeden hemen atlanır. Flow bir öğenin indirmesini **maksimum bekleme** süresi (varsayılan 10 dakika) içinde başlatmazsa o öğe de atlanır. Sonunda inmeyen her öğenin — numarası, türü, projesi ve başlığıyla — bir listesini ve **Try again** düğmesini alırsınız. Yeniden denenen dosya orijinal numarasını korur, örneğin `02 - …`. Flow bunlardan birini sonradan yine de bitirirse Chrome onu her zamanki gibi İndirilenler klasörüne kaydeder."
           }
         ]
       },
@@ -234,19 +248,29 @@ export default {
       ["Ücretsiz mi?", "Evet. Her şey ücretsiz çalışır; hesap ve günlük sınır yoktur."],
       [
         "Flow kredilerimi kullanır mı?",
-        "Eklenti, Flow'un kendi İndir seçeneklerine sizin yerinize, tıpkı elle yapacağınız gibi tıklar. Bir kalitenin (örneğin 1080p veya 4K büyütme) kredi harcayıp harcamadığına Flow ve planınız karar verir; büyük bir toplu indirmeden önce bunu Flow'da kontrol edin."
+        "Yalnızca siz onaylarsanız. Bir kalite kredi gerektiriyorsa (4K gibi), pencere başlamadan önce bir tahmin gösterir ve indirme ancak “I approve…” kutusunu işaretlediğinizde başlar. Flow onayladığınızdan fazlasını isterse ya da beklenmedik bir şey sorarsa işlem duraklar ve size sorar."
       ],
       ["Diğer indirmelerime dokunur mu?", "Hayır. Yalnızca öğelerinizden birinde İndir'e tıkladıktan hemen sonra Flow'un başlattığı dosyayı işler. İndirdiğiniz diğer her şey, toplu indirme sürerken bile kendi adını ve klasörünü korur."],
       ["Mevcut dosyalarımın üzerine yazar mı?", "Asla. Bir dosya adı alınmışsa yeni dosya (2), (3) vb. alır."],
       ["Flow'un “Yükselt” düğmesine tıklar mı?", "Asla. Planınızda olmayan kaliteler hiç sunulmaz."],
       ["Diğer Flow eklentileriyle birlikte çalışır mı?", "Evet. Diğer eklentilerin başlattığı indirmeleri yok sayar ve dosya adlarını yalnızca kendi işlemlerinden biri alt klasöre ihtiyaç duyduğunda düzenler."],
       ["Hangi tarayıcılar destekleniyor?", "Masaüstünde Google Chrome (Windows, Mac, Linux, ChromeOS). Diğer Chromium tarayıcılarında çalışabilir ancak test edilmemiştir."],
+      ["Hangi dillerde kullanılabilir?", "Eklenti Chrome dilinizi izler: İngilizce, İspanyolca, Portekizce (Brezilya), Vietnamca, Endonezce ve Hintçe; diğer dillerde (Türkçe dahil) İngilizce görünür. Flow hangi dilde açılırsa açılsın çalışır."],
       ["Google tarafından mı yapıldı?", "Hayır. Flow Bulk Downloader, Web Whizz'in bağımsız bir aracıdır ve Google ile bağlantılı değildir."]
     ]
   },
   changelog: {
     title: "Değişiklik günlüğü",
     entries: {
+      "2.6.1": [
+        "Flow kredisi harcamadan önce sorar: 4K ve diğer ücretli kaliteler için tahmin gösterir, Flow daha fazlasını isterse durur.",
+        "Yeni “Select all except downloaded” düğmesi: yalnızca son ziyaretinizden beri gelen yenileri alın.",
+        "Flow bir büyütmenin başarısız olduğunu söylediğinde öğe bir kez daha denenir, sonra zaman aşımını beklemeden hemen atlanır.",
+        "Flow hangi dilde olursa olsun çalışır.",
+        "Eklentinin arayüzü artık İngilizce, İspanyolca, Portekizce (Brezilya), Vietnamca, Endonezce ve Hintçe.",
+        "Artık Flow'un sayfasını değiştirmez, bu yüzden Flow'un “sayfayı değiştiren eklentiler” uyarısı çıkmaz.",
+        "İşlemden sonra “Clear” artık tüm işaretleri ve onay kutularını kaldırır."
+      ],
       "2.6.0": [
         "Diğer indirmelerinize asla dokunulmaz — yalnızca Flow projenizin dosyaları işlenir.",
         "Zaman aşımına uğrayan öğeler sonunda adlarıyla listelenir ve tek tıkla “Tekrar dene” sunulur.",
@@ -260,7 +284,7 @@ export default {
   },
   privacy: {
     title: "Gizlilik",
-    text: "Flow Bulk Downloader hiçbir şey toplamaz: sunucu yok, hesap yok, analiz yok, izleme yok. Ayarlarınız Chrome'da kalır ve dosyalarınız doğrudan Google Flow'dan bilgisayarınıza gider. [Gizlilik politikasının tamamını okuyun]($privacy) (İngilizce)."
+    text: "Flow Bulk Downloader hiçbir şey toplamaz: sunucu yok, hesap yok, analiz yok, izleme yok. Ayarlarınız ve indirdiğiniz öğelerin listesi bilgisayarınızda, Chrome'da kalır ve dosyalarınız doğrudan Google Flow'dan bilgisayarınıza gider. [Gizlilik politikasının tamamını okuyun]($privacy) (İngilizce)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro geliyor",

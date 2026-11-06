@@ -23,7 +23,7 @@ Edit `src/site.js`:
 
 All text on the Flow page (and the header/footer around it) lives in `src/i18n/flow/<lang>.js`. `en.js` is the original; the other files are translations with the same keys. When you change the English text, change the other languages too. To add a language, copy `en.js`, translate it, and add one line to `LOCALES` in `src/i18n/flow/index.js`. The build creates `/<code>/e/flow-downloader/` and the `hreflang` links automatically.
 
-Button names inside the extension (**Download**, **Choose folder…**) stay in English in every language, because the extension itself is English-only.
+Button names inside the extension (**Download**, **Choose folder…**) are written the way the extension shows them in that language. The extension speaks English, Spanish, Portuguese (Brazil), Vietnamese, Indonesian and Hindi (its `_locales/` folder), so the es, pt, vi and id pages use its translated names, and the Turkish page uses the English ones, because the extension falls back to English there.
 
 ### Pro waitlist
 
