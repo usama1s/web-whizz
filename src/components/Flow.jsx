@@ -4,10 +4,12 @@ import { FLOW } from "../site.js";
 import { LOCALES, fill } from "../i18n/flow/index.js";
 
 // "Add to Chrome" once the store listing exists; until then a quiet "coming soon" badge.
-export function StoreButton({ t }) {
+// The utm_ tags let the Chrome Web Store dashboard show how many installs came from this button.
+export function StoreButton({ t, lang }) {
   if (FLOW.chromeStoreUrl) {
+    const href = `${FLOW.chromeStoreUrl}?utm_source=web-whizz.com&utm_medium=website&utm_campaign=flow-page-${lang}`;
     return (
-      <a className="btn btn-primary" href={FLOW.chromeStoreUrl} target="_blank" rel="noopener noreferrer">
+      <a className="btn btn-primary" href={href} target="_blank" rel="noopener noreferrer" data-umami-event="add-to-chrome" data-umami-event-lang={lang}>
         <Icon name="download" size={18} /> {t.store}
       </a>
     );
@@ -28,7 +30,7 @@ export function Trust({ t, lang }) {
     <ul className="trust">
       {ratingCount >= min.ratingCount && rating >= min.rating && (
         <li>
-          <a href={FLOW.chromeStoreUrl + "/reviews"} target="_blank" rel="noopener noreferrer">
+          <a href={FLOW.chromeStoreUrl + "/reviews"} target="_blank" rel="noopener noreferrer" data-umami-event="reviews-click" data-umami-event-lang={lang}>
             <span className="stars" aria-hidden="true">
               ★★★★★
             </span>{" "}
@@ -48,7 +50,8 @@ export function LangSwitch({ lang, label }) {
     <nav className="langs" aria-label={label}>
       <Icon name="globe" size={16} />
       {LOCALES.map((l) => (
-        <a key={l.code} href={l.path} hrefLang={l.hreflang} lang={l.hreflang} aria-current={l.hreflang === lang ? "page" : undefined}>
+        <a key={l.code} href={l.path} hrefLang={l.hreflang} lang={l.hreflang} aria-current={l.hreflang === lang ? "page" : undefined}
+          data-umami-event="language-switch" data-umami-event-from={lang} data-umami-event-to={l.hreflang}>
           {l.label}
         </a>
       ))}
@@ -159,6 +162,8 @@ export function Waitlist({ t, lang }) {
       const res = await fetch(FLOW.waitlistUrl, { method: "POST", body, headers: { Accept: "application/json" } });
       const data = await res.json();
       setStatus(data.ok ? "ok" : "error");
+      // Counted in Umami (if it's on). Bots also get ok:true, so this can count a few more than the real CSV.
+      if (data.ok) window.umami?.track("waitlist-signup", { lang });
     } catch {
       setStatus("error");
     }

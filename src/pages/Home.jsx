@@ -38,7 +38,7 @@ export default function Home() {
           <h2 className="section-title">Products</h2>
           <p className="section-lead">Built carefully, tested against real-world use, and documented properly.</p>
           <div className="cards">
-            <a className="card ext-card" href={FLOW.path}>
+            <a className="card ext-card" href={FLOW.path} data-umami-event="home-flow-card">
               <img src={FLOW.img("logo.png")} alt="" width="72" height="72" />
               <div>
                 <h3>{FLOW.name}</h3>
@@ -87,7 +87,7 @@ export default function Home() {
             <h2 className="section-title">Questions, bugs or ideas?</h2>
             <p className="section-lead">We read every message. Tell us which tool you're using and what happened.</p>
           </div>
-          <a className="btn btn-primary" href={`mailto:${SITE.email}`}>
+          <a className="btn btn-primary" href={`mailto:${SITE.email}`} data-umami-event="email-click" data-umami-event-where="home-contact">
             <Icon name="mail" size={18} /> Email us
           </a>
         </div>

@@ -45,6 +45,13 @@ export default function FlowPrivacy() {
           Published by Web Whizz. Questions: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </p>
 
+        {/* This section is about the website only, so it is NOT part of PRIVACY.md in the extension project. */}
+        <h2>This website</h2>
+        <p>
+          web-whizz.com counts visits with Umami, a privacy-friendly analytics tool: which pages are viewed, which buttons are clicked, and roughly where visitors come from (country, browser, the site that linked here). It
+          sets no cookies, stores no personal data, and doesn't follow you to other sites. The extension itself sends nothing.
+        </p>
+
         <p className="fine">Google Flow is a trademark of Google LLC. {FLOW.name} is an independent tool and is not affiliated with Google.</p>
       </div>
     </section>

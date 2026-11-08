@@ -30,6 +30,10 @@ function head(route) {
   if (route.image) {
     tags.push(`<meta property="og:image" content="${esc(SITE.url + route.image)}" />`, `<meta name="twitter:card" content="summary_large_image" />`);
   }
+  // Visitor analytics (Umami, cookieless). data-domains: only the live site counts, not local previews.
+  if (SITE.umamiId) {
+    tags.push(`<script defer src="https://cloud.umami.is/script.js" data-website-id="${esc(SITE.umamiId)}" data-domains="${esc(new URL(SITE.url).hostname)}"></script>`);
+  }
   return tags.join("\n    ");
 }
 
