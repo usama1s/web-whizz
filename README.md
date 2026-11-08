@@ -36,6 +36,12 @@ Spam protection works without a captcha. Bots are told "you're on the list", but
 
 Addresses that can't receive mail get the normal error, so a person can fix a typo: test domains like `example.com`, common throwaway inboxes like Mailinator, and domains with no mail server. The list of throwaway domains is in `waitlist.php`.
 
+### Analytics
+
+Visits and clicks are counted with [Umami Cloud](https://cloud.umami.is) (free Hobby plan, EU data region, no cookies, so no consent banner). The script is added to every page when `SITE.umamiId` in `src/site.js` is set; empty it to turn analytics off. Only visits on web-whizz.com count, so local previews don't.
+
+Tracked clicks (Umami → **Events**): `add-to-chrome`, `waitlist-signup`, `language-switch`, `email-click`, `reviews-click`, `home-flow-card`. To track another link, give it `data-umami-event="name"`. The Add to Chrome links carry `utm_` tags, so the Chrome Web Store dashboard shows installs that came from the site. The privacy page has a short "This website" section about this.
+
 ## Commands
 
 ```bash

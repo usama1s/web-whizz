@@ -18,7 +18,7 @@ export default function Footer({ ui, flowPath }) {
             <h2>{ui.footerHelp}</h2>
             <a href={flowPath + "#guide"}>{ui.footerGuide}</a>
             <a href={FLOW.privacyPath}>{ui.footerPrivacy}</a>
-            <a href={`mailto:${SITE.email}`}>{ui.footerContact}</a>
+            <a href={`mailto:${SITE.email}`} data-umami-event="email-click" data-umami-event-where="footer">{ui.footerContact}</a>
           </div>
         </div>
       </div>

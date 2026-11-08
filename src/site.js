@@ -3,7 +3,10 @@
 export const SITE = {
   name: "Web Whizz",
   url: "https://web-whizz.com",
-  email: "support@web-whizz.com"
+  email: "support@web-whizz.com",
+  // Umami Cloud website ID (umami.is → Settings → Websites → Edit). Empty = no analytics script on the site.
+  // Umami sets no cookies and stores no personal data, so no consent banner is needed.
+  umamiId: "b1aa899a-ee55-4da0-a183-00b8826b3e40"
 };
 
 export const FLOW = {
