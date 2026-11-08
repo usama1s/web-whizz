@@ -50,7 +50,7 @@ function Blocks({ blocks, links }) {
 export default function FlowDownloader({ route }) {
   const lang = route.lang;
   const { t } = locale(lang);
-  const links = { store: FLOW.chromeStoreUrl, email: `mailto:${SITE.email}`, privacy: FLOW.privacyPath };
+  const links = { store: `${FLOW.chromeStoreUrl}?utm_source=web-whizz.com&utm_medium=website&utm_campaign=flow-page-${lang}`, email: `mailto:${SITE.email}`, privacy: FLOW.privacyPath };
   const date = new Intl.DateTimeFormat(lang, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
   const toc = [
     ...t.guide.sections.map((s) => [s.id, s.title]),
@@ -74,7 +74,7 @@ export default function FlowDownloader({ route }) {
             <h1>{t.hero.title}</h1>
             <p className="lead">{t.hero.lead}</p>
             <div className="actions">
-              <StoreButton t={t.hero} />
+              <StoreButton t={t.hero} lang={lang} />
               <a className="btn btn-ghost" href="#guide">
                 {t.hero.guide}
               </a>
@@ -216,7 +216,7 @@ export default function FlowDownloader({ route }) {
               </div>
               <div className="callout-contact">
                 <p>{t.waitlist.contact}</p>
-                <a className="btn btn-ghost" href={`mailto:${SITE.email}`}>
+                <a className="btn btn-ghost" href={`mailto:${SITE.email}`} data-umami-event="email-click" data-umami-event-where="flow-pro">
                   <Icon name="mail" size={18} /> {t.waitlist.email}
                 </a>
               </div>
