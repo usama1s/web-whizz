@@ -380,7 +380,8 @@ kbd {
   background: var(--line);
 }
 
-.frame a {
+.frame a,
+.frame picture {
   display: block;
 }
 

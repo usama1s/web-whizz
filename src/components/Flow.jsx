@@ -198,6 +198,8 @@ export function Waitlist({ t, lang }) {
 }
 
 // A screenshot in a simple browser window frame.
+// Each shot-*.png has a shot-*.webp next to it (about 6x smaller); browsers that can't show WebP get the PNG.
+// After replacing a PNG, recreate its WebP: cwebp -q 82 shot-x.png -o shot-x.webp
 export function Shot({ file, alt, caption, eager }) {
   const src = FLOW.img(file);
   return (
@@ -209,7 +211,10 @@ export function Shot({ file, alt, caption, eager }) {
           <i />
         </div>
         <a href={src} target="_blank" rel="noopener">
-          <img src={src} alt={alt} width="1280" height="800" loading={eager ? "eager" : "lazy"} decoding="async" />
+          <picture>
+            <source srcSet={src.replace(/\.png$/, ".webp")} type="image/webp" />
+            <img src={src} alt={alt} width="1280" height="800" loading={eager ? "eager" : "lazy"} decoding="async" {...(eager ? { fetchPriority: "high" } : {})} />
+          </picture>
         </a>
       </div>
       {caption && <figcaption>{caption}</figcaption>}

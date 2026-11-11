@@ -21,8 +21,22 @@ for (const route of pages) {
   console.log("page", path.relative(dist, file));
 }
 
-const urls = pages.filter((r) => !r.noindex).map((r) => `  <url><loc>${SITE.url}${r.path}</loc></url>`);
-fs.writeFileSync(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`);
+// <lastmod> tells Google when a page last changed (route.updated); <xhtml:link> lists each page's translations.
+const urls = pages
+  .filter((r) => !r.noindex)
+  .map((r) => {
+    const lines = [`    <loc>${SITE.url}${r.path}</loc>`];
+    if (r.updated) lines.push(`    <lastmod>${r.updated}</lastmod>`);
+    if (r.alternates) {
+      for (const a of r.alternates) lines.push(`    <xhtml:link rel="alternate" hreflang="${a.hreflang}" href="${SITE.url}${a.path}" />`);
+      lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE.url}${r.alternates[0].path}" />`);
+    }
+    return `  <url>\n${lines.join("\n")}\n  </url>`;
+  });
+fs.writeFileSync(
+  path.join(dist, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join("\n")}\n</urlset>\n`
+);
 fs.writeFileSync(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 fs.rmSync(serverDir, { recursive: true, force: true });
 console.log("sitemap.xml, robots.txt");
