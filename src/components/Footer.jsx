@@ -17,6 +17,8 @@ export default function Footer({ ui, flowPath }) {
           <div>
             <h2>{ui.footerHelp}</h2>
             <a href={flowPath + "#guide"}>{ui.footerGuide}</a>
+            {/* The how-to article is English only, so it's linked from English pages. */}
+            {flowPath === FLOW.path && <a href={FLOW.path + "download-all-google-flow-videos/"}>How to download all Flow videos</a>}
             <a href={FLOW.privacyPath}>{ui.footerPrivacy}</a>
             <a href={`mailto:${SITE.email}`} data-umami-event="email-click" data-umami-event-where="footer">{ui.footerContact}</a>
           </div>

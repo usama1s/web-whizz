@@ -21,7 +21,7 @@ export default {
   },
   hero: {
     eyebrow: "Google Flow için Chrome eklentisi",
-    title: "Hiçbir dosyayı kaybetmeyen indirici",
+    title: "Google Flow videolarını ve görsellerini toplu indirin — tek bir dosya kaybetmeden",
     lead: "Google Flow projelerinizdeki tüm Veo videolarını ve Nano Banana görsellerini 4K, 1080p, GIF veya 2K olarak, seçtiğiniz klasöre toplu indirin. Kaydedemediği her öğeyi adıyla bildirir; hiçbir şeyi sessizce atlamaz.",
     store: "Chrome'a ekle — ücretsiz",
     soon: "Yakında Chrome Web Mağazası'nda",
