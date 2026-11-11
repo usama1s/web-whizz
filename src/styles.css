@@ -387,8 +387,25 @@ kbd {
 
 /* ---------- YouTube demo ---------- */
 .video {
-  margin: 0 auto 32px;
+  margin: 0 auto;
   max-width: 880px;
+}
+
+.after-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.after-video .actions,
+.after-video .trust {
+  justify-content: center;
+}
+
+/* A screenshot inside the guide text, under the step it shows. */
+.prose .shot {
+  margin: 20px 0 28px;
 }
 
 .video-frame {

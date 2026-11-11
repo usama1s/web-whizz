@@ -5,7 +5,16 @@ import { FLOW, RELEASES, SITE } from "../site.js";
 import { locale } from "../i18n/flow/index.js";
 
 // One layout for every language; all text comes from src/i18n/flow/<lang>.js.
-const SHOTS = ["shot-downloading.png", "shot-several-projects.png", "shot-credits.png", "shot-retry.png"];
+// Each screenshot sits in the guide under the step it shows (guide section id → file), so the page
+// doesn't stack the video and four screenshots in a row. Without a YouTube video they go back to "See it in action".
+const SHOT_IN_SECTION = {
+  "download-project": "shot-downloading.png",
+  "several-projects": "shot-several-projects.png",
+  credits: "shot-credits.png",
+  timeouts: "shot-retry.png"
+};
+const SHOTS = Object.values(SHOT_IN_SECTION);
+const hasVideo = Boolean(FLOW.youtube?.id);
 
 function Blocks({ blocks, links }) {
   return blocks.map((b, i) => {
@@ -144,12 +153,27 @@ export default function FlowDownloader({ route }) {
       <section className="section section-alt">
         <div className="wrap">
           <h2 className="section-title">{t.gallery.title}</h2>
-          <YouTube />
-          <div className="gallery">
-            {SHOTS.map((file) => (
-              <Shot key={file} file={file} alt={t.gallery.shots[file][0]} caption={t.gallery.shots[file][1]} />
-            ))}
-          </div>
+          {hasVideo ? (
+            <>
+              <YouTube />
+              {/* Right after the demo is when people are most ready to install. */}
+              <div className="after-video">
+                <div className="actions">
+                  <StoreButton t={t.hero} lang={lang} />
+                  <a className="btn btn-ghost" href="#guide">
+                    {t.hero.guide}
+                  </a>
+                </div>
+                <Trust t={t.hero} lang={lang} />
+              </div>
+            </>
+          ) : (
+            <div className="gallery">
+              {SHOTS.map((file) => (
+                <Shot key={file} file={file} alt={t.gallery.shots[file][0]} caption={t.gallery.shots[file][1]} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -175,6 +199,9 @@ export default function FlowDownloader({ route }) {
               <div key={s.id}>
                 <h3 id={s.id}>{s.title}</h3>
                 <Blocks blocks={s.blocks} links={links} />
+                {hasVideo && SHOT_IN_SECTION[s.id] && (
+                  <Shot file={SHOT_IN_SECTION[s.id]} alt={t.gallery.shots[SHOT_IN_SECTION[s.id]][0]} caption={t.gallery.shots[SHOT_IN_SECTION[s.id]][1]} />
+                )}
               </div>
             ))}
 
