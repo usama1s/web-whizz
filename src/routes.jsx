@@ -5,7 +5,7 @@ import FlowPrivacy from "./pages/FlowPrivacy.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { FLOW, RELEASES, SITE } from "./site.js";
 import { LOCALES } from "./i18n/flow/index.js";
-import { breadcrumbs, faqPage, organization, softwareApp, webPage, website, APP, ORG } from "./seo.js";
+import { breadcrumbs, faqPage, organization, softwareApp, video, webPage, website, APP, ORG } from "./seo.js";
 
 // Every page of the site. Each one is pre-rendered to <path>/index.html at build time.
 // title/description → <title> and meta description. updated → <lastmod> in sitemap.xml (change it when the page's text changes).
@@ -37,7 +37,8 @@ export const ROUTES = [
       webPage(r, { about: { "@id": APP }, mainEntity: { "@id": APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
       softwareApp(r, l.t),
       breadcrumbs(r, [["Web Whizz", "/"], [FLOW.name, r.path]]),
-      faqPage(r, l.t.faq.items)
+      faqPage(r, l.t.faq.items),
+      ...(FLOW.youtube?.id ? [video()] : [])
     ]
   })),
   {
@@ -69,7 +70,8 @@ export const ROUTES = [
       },
       webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
       breadcrumbs(r, [["Web Whizz", "/"], [FLOW.name, FLOW.path], [GUIDE.crumb, r.path]]),
-      faqPage(r, GUIDE.faq)
+      faqPage(r, GUIDE.faq),
+      ...(FLOW.youtube?.id ? [video()] : [])
     ]
   },
   {
@@ -77,7 +79,7 @@ export const ROUTES = [
     Page: FlowPrivacy,
     title: "Privacy Policy — Flow Bulk Downloader | Web Whizz",
     description: "Flow Bulk Downloader collects no data. No servers, no accounts, no analytics, no tracking.",
-    updated: "2026-11-06"
+    updated: "2026-11-11"
   }
 ].map((r) => ({ ...r, url: SITE.url + r.path }));
 

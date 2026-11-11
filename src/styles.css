@@ -385,6 +385,29 @@ kbd {
   display: block;
 }
 
+/* ---------- YouTube demo ---------- */
+.video {
+  margin: 0 auto 32px;
+  max-width: 880px;
+}
+
+.video-frame {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  background: #000;
+}
+
+.video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video figcaption,
 .shot figcaption {
   color: var(--muted);
   font-size: 0.92rem;

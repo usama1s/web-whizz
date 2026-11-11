@@ -1,6 +1,6 @@
 import Icon from "../components/Icon.jsx";
 import Rich from "../components/Rich.jsx";
-import { Demo, LangSwitch, Shot, StoreButton, Trust, Waitlist } from "../components/Flow.jsx";
+import { Demo, LangSwitch, Shot, StoreButton, Trust, Waitlist, YouTube } from "../components/Flow.jsx";
 import { FLOW, RELEASES, SITE } from "../site.js";
 import { locale } from "../i18n/flow/index.js";
 
@@ -144,6 +144,7 @@ export default function FlowDownloader({ route }) {
       <section className="section section-alt">
         <div className="wrap">
           <h2 className="section-title">{t.gallery.title}</h2>
+          <YouTube />
           <div className="gallery">
             {SHOTS.map((file) => (
               <Shot key={file} file={file} alt={t.gallery.shots[file][0]} caption={t.gallery.shots[file][1]} />

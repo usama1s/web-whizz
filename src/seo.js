@@ -95,4 +95,23 @@ export function softwareApp(route, t) {
   };
 }
 
+// The YouTube demo, on every page that embeds it (Google only uses VideoObject for a video that is on the page).
+export function video() {
+  const v = FLOW.youtube;
+  return {
+    "@type": "VideoObject",
+    "@id": `https://www.youtube.com/watch?v=${v.id}`,
+    name: v.title,
+    description: v.description,
+    thumbnailUrl: ["maxresdefault", "sddefault", "hqdefault"].map((q) => `https://i.ytimg.com/vi/${v.id}/${q}.jpg`),
+    uploadDate: v.uploadDate,
+    duration: v.duration,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`,
+    url: `https://www.youtube.com/watch?v=${v.id}`,
+    inLanguage: "en",
+    publisher: { "@id": ORG },
+    about: { "@id": APP }
+  };
+}
+
 export { APP, ORG };

@@ -1,5 +1,5 @@
 import Icon from "../components/Icon.jsx";
-import { Shot } from "../components/Flow.jsx";
+import { Shot, YouTube } from "../components/Flow.jsx";
 import { FLOW } from "../site.js";
 
 // An English how-to article for people searching "how to download all videos from Google Flow" and similar.
@@ -118,6 +118,7 @@ export default function FlowGuide({ route }) {
             Choose a folder (or just use Downloads). Files are saved as <code>01 - Title.mp4</code>, <code>02 - Title.png</code>… and nothing is ever overwritten.
           </li>
         </ol>
+        <YouTube caption="The whole process in 90 seconds" />
         <Shot file="shot-downloading.png" alt="Flow Bulk Downloader downloading a Google Flow project: tiles marked downloaded, downloading, skipped and queued" caption="Every tile shows its status while the project downloads." />
 
         <h3 id="selected">Download only selected items</h3>
