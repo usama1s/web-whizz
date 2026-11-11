@@ -380,10 +380,51 @@ kbd {
   background: var(--line);
 }
 
-.frame a {
+.frame a,
+.frame picture {
   display: block;
 }
 
+/* ---------- YouTube demo ---------- */
+.video {
+  margin: 0 auto;
+  max-width: 880px;
+}
+
+.after-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.after-video .actions,
+.after-video .trust {
+  justify-content: center;
+}
+
+/* A screenshot inside the guide text, under the step it shows. */
+.prose .shot {
+  margin: 20px 0 28px;
+}
+
+.video-frame {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  background: #000;
+}
+
+.video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video figcaption,
 .shot figcaption {
   color: var(--muted);
   font-size: 0.92rem;

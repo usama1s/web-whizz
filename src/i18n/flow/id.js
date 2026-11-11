@@ -22,7 +22,7 @@ export default {
   },
   hero: {
     eyebrow: "Ekstensi Chrome untuk Google Flow",
-    title: "Pengunduh yang tidak pernah kehilangan file",
+    title: "Unduh massal video & gambar Google Flow — tanpa kehilangan satu file pun",
     lead: "Unduh massal semua video Veo dan gambar Nano Banana dari proyek Google Flow Anda — dalam 4K, 1080p, GIF, atau 2K — ke folder mana pun yang Anda pilih. Apa pun yang tidak bisa disimpan dilaporkan dengan namanya, tidak pernah dilewati diam-diam.",
     store: "Tambahkan ke Chrome — gratis",
     soon: "Segera hadir di Chrome Web Store",

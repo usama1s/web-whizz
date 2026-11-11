@@ -9,7 +9,7 @@ export default function FlowPrivacy() {
           <a href={FLOW.path}>{FLOW.name}</a>
         </p>
         <h1>Privacy Policy</h1>
-        <p className="meta">Last updated: November 6, 2026</p>
+        <p className="meta">Last updated: November 11, 2026</p>
 
         <p>
           {FLOW.name} (“{FLOW.storeName}”) is a browser extension that downloads videos and images from your own Google Flow projects to your computer.
@@ -50,6 +50,10 @@ export default function FlowPrivacy() {
         <p>
           web-whizz.com counts visits with Umami, a privacy-friendly analytics tool: which pages are viewed, which buttons are clicked, and roughly where visitors come from (country, browser, the site that linked here). It
           sets no cookies, stores no personal data, and doesn't follow you to other sites. The extension itself sends nothing.
+        </p>
+        <p>
+          The {FLOW.name} page and guide show our demo video from YouTube in privacy-enhanced mode (youtube-nocookie.com). When it scrolls into view, your browser loads YouTube's player, so YouTube sees your IP address; YouTube stores
+          nothing in your browser until you press play. Playing it is covered by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.
         </p>
 
         <p className="fine">Google Flow is a trademark of Google LLC. {FLOW.name} is an independent tool and is not affiliated with Google.</p>

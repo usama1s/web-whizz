@@ -22,7 +22,7 @@ export default {
   },
   hero: {
     eyebrow: "Extensão do Chrome para o Google Flow",
-    title: "O downloader que nunca perde um arquivo",
+    title: "Baixe em massa vídeos e imagens do Google Flow — sem perder nenhum arquivo",
     lead: "Baixe em massa todos os vídeos Veo e imagens Nano Banana dos seus projetos do Google Flow — em 4K, 1080p, GIF ou 2K — na pasta que você escolher. Tudo o que não puder ser salvo é informado pelo nome, nunca ignorado em silêncio.",
     store: "Usar no Chrome — é grátis",
     soon: "Em breve na Chrome Web Store",

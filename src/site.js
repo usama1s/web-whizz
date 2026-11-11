@@ -21,6 +21,15 @@ export const FLOW = {
   // Small numbers look worse than none, so each one stays hidden until it reaches its minimum.
   stats: { users: 5, rating: 5.0, ratingCount: 1 },
   statsMin: { users: 100, ratingCount: 5, rating: 4.0 },
+  // The YouTube demo, embedded in "See it in action" and the guide, with VideoObject structured data (src/seo.js).
+  // uploadDate and duration are copied from YouTube; id "" hides it.
+  youtube: {
+    id: "ChquNogUMZ0",
+    title: "Download ALL Your Google Flow Videos & Images in One Click | Free Chrome Extension",
+    description: "Made 50 clips in Google Flow? Stop downloading them one by one. Flow Bulk Downloader saves your whole project, every video and every image, in one go — in GIF, 720p, 1080p or 4K, into any folder.",
+    uploadDate: "2026-11-11T11:16:42-08:00",
+    duration: "PT1M30S"
+  },
   // A real screen recording of a run (e.g. "demo.mp4" in public/e/flow-downloader/). Empty = the animated demo is shown.
   demoVideo: "",
   // The "Pro coming soon" form posts here (public/api/waitlist.php, PHP on the cPanel host).

@@ -4,7 +4,7 @@
 // The other languages are translations of this file; keep their keys in the same shape.
 export default {
   meta: {
-    title: "Bulk Download Google Flow Videos & Images — Veo, Nano Banana, 4K | Flow Bulk Downloader",
+    title: "Bulk Download Google Flow Videos & Images — Veo, Nano Banana, 4K | Free Chrome Extension",
     description:
       "Free Chrome extension to bulk download every Veo video and Nano Banana image from Google Flow in 4K, 1080p, GIF or 2K — into any folder. No account, never overwrites, never loses a file."
   },
@@ -24,7 +24,7 @@ export default {
   },
   hero: {
     eyebrow: "Chrome extension for Google Flow",
-    title: "The downloader that never loses a file",
+    title: "Bulk download Google Flow videos & images — without losing a file",
     lead: "Bulk download every Veo video and Nano Banana image from your Google Flow projects — in 4K, 1080p, GIF or 2K — into any folder you choose. Anything it can't save is reported by name, never skipped quietly.",
     store: "Add to Chrome — it's free",
     soon: "Coming soon to the Chrome Web Store",
@@ -95,7 +95,8 @@ export default {
               "Open [Flow Bulk Downloader on the Chrome Web Store]($store) and click **Add to Chrome**.",
               "Click the puzzle-piece icon in Chrome's toolbar and **pin** Flow Bulk Downloader, so it's one click away."
             ]
-          }
+          },
+          { p: "Comparing your options first? See [how to download all your Google Flow videos and images at once](/e/flow-downloader/download-all-google-flow-videos/) — Flow's built-in downloads vs. bulk." }
         ]
       },
       {
