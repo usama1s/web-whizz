@@ -198,6 +198,8 @@ export function Waitlist({ t, lang }) {
 }
 
 // A screenshot in a simple browser window frame.
+// Each shot-*.png has a shot-*.webp next to it (about 6x smaller); browsers that can't show WebP get the PNG.
+// After replacing a PNG, recreate its WebP: cwebp -q 82 shot-x.png -o shot-x.webp
 export function Shot({ file, alt, caption, eager }) {
   const src = FLOW.img(file);
   return (
@@ -209,10 +211,43 @@ export function Shot({ file, alt, caption, eager }) {
           <i />
         </div>
         <a href={src} target="_blank" rel="noopener">
-          <img src={src} alt={alt} width="1280" height="800" loading={eager ? "eager" : "lazy"} decoding="async" />
+          <picture>
+            <source srcSet={src.replace(/\.png$/, ".webp")} type="image/webp" />
+            <img src={src} alt={alt} width="1280" height="800" loading={eager ? "eager" : "lazy"} decoding="async" {...(eager ? { fetchPriority: "high" } : {})} />
+          </picture>
         </a>
       </div>
       {caption && <figcaption>{caption}</figcaption>}
+    </figure>
+  );
+}
+
+// The YouTube demo. youtube-nocookie.com: YouTube stores nothing in the visitor's browser until they press play.
+// A real iframe (not a click-to-load picture) so Google can see the video on the page; loading="lazy" keeps it
+// from loading until it's scrolled near.
+export function YouTube({ caption }) {
+  const v = FLOW.youtube;
+  if (!v?.id) return null;
+  return (
+    <figure className="video">
+      <div className="video-frame">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0`}
+          title={v.title}
+          loading="lazy"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </div>
+      {caption && (
+        <figcaption>
+          {caption} ·{" "}
+          <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer" data-umami-event="youtube-click">
+            Watch on YouTube
+          </a>
+        </figcaption>
+      )}
     </figure>
   );
 }

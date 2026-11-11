@@ -22,7 +22,7 @@ export default {
   },
   hero: {
     eyebrow: "Tiện ích Chrome cho Google Flow",
-    title: "Trình tải xuống không bao giờ làm mất tệp",
+    title: "Tải hàng loạt video & ảnh Google Flow — không sót một tệp nào",
     lead: "Tải hàng loạt mọi video Veo và ảnh Nano Banana từ các dự án Google Flow của bạn — ở 4K, 1080p, GIF hoặc 2K — vào bất kỳ thư mục nào bạn chọn. Mục nào không lưu được đều được báo rõ tên, không bao giờ bị bỏ qua âm thầm.",
     store: "Thêm vào Chrome — miễn phí",
     soon: "Sắp có trên Cửa hàng Chrome trực tuyến",
