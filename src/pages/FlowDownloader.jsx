@@ -6,11 +6,12 @@ import { locale } from "../i18n/flow/index.js";
 
 // One layout for every language; all text comes from src/i18n/flow/<lang>.js.
 // Each screenshot sits in the guide under the step it shows (guide section id → file), so the page
-// doesn't stack the video and four screenshots in a row. Without a YouTube video they go back to "See it in action".
+// doesn't stack the video and five screenshots in a row. Without a YouTube video they go back to "See it in action".
 const SHOT_IN_SECTION = {
-  "download-project": "shot-downloading.png",
+  "download-project": "shot-credits.png",
+  pick: "shot-pick.png",
+  "while-running": "shot-downloading.png",
   "several-projects": "shot-several-projects.png",
-  credits: "shot-credits.png",
   timeouts: "shot-retry.png"
 };
 const SHOTS = Object.values(SHOT_IN_SECTION);

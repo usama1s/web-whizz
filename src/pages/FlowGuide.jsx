@@ -13,7 +13,7 @@ export const GUIDE = {
   description:
     "Three ways to download Veo videos and Nano Banana images from Google Flow — one by one, a whole project, or in bulk with a free Chrome extension — in 720p, 1080p, 4K, GIF or 2K.",
   published: "2026-11-09",
-  updated: "2026-11-09",
+  updated: "2026-11-16",
   faq: [
     [
       "Can you download all videos from Google Flow at once?",
@@ -119,12 +119,17 @@ export default function FlowGuide({ route }) {
           </li>
         </ol>
         <YouTube caption="The whole process in 90 seconds" />
-        <Shot file="shot-downloading.png" alt="Flow Bulk Downloader downloading a Google Flow project: tiles marked downloaded, downloading, skipped and queued" caption="Every tile shows its status while the project downloads." />
+        <Shot file="shot-downloading.png" alt="Flow Bulk Downloader downloading a Google Flow project: tiles marked downloaded, downloading, skipped and queued" caption="Every tile shows its status while the project downloads, including items still being generated." />
 
         <h3 id="selected">Download only selected items</h3>
         <p>
           Tick <b>Pick videos &amp; images</b> in the popup and a checkbox appears on every finished tile. Tick the ones you want and press Download. <b>Select all except downloaded</b> picks only what's new since your last run.
         </p>
+        <p>
+          No need to wait for Flow to finish, either. Turn on <b>Also select items being generated</b> and tick items that are still being made: finished ones download right away, and each of the others downloads the moment Flow
+          finishes it. Files are still numbered in project order.
+        </p>
+        <Shot file="shot-pick.png" alt="Flow Bulk Downloader popup with tick boxes on finished Google Flow tiles and on two tiles still generating" caption="Tick exactly what you want, even items Flow is still generating." />
 
         <h3 id="several-projects">Download several projects at once</h3>
         <p>
@@ -188,7 +193,8 @@ export default function FlowGuide({ route }) {
         <h2 id="tips">Tips so you don't lose a file</h2>
         <ul>
           <li>
-            <b>Keep the Flow tab in front.</b> Chrome slows down background tabs; the extension pauses when you switch away and continues when you come back.
+            <b>Keep the Flow tab visible.</b> Chrome pauses tabs you can't see, so the extension pauses when you switch away and continues when you come back. To use Chrome meanwhile, click <b>Keep going in a separate window</b>: the
+            Flow tab moves into a small window of its own, and you can work in your other tabs and apps.
           </li>
           <li>
             <b>Give 4K more time.</b> Upscales can take several minutes each. Raise <b>Max wait per item</b> in the extension's settings if they time out.

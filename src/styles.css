@@ -739,6 +739,12 @@ tr:last-child td {
   border-color: transparent;
 }
 
+.pill-b {
+  background: #8ab4f8;
+  color: #1b1340;
+  border-color: transparent;
+}
+
 .faq details {
   background: var(--surface);
   border: 1px solid var(--line);
