@@ -11,6 +11,7 @@ export default {
     navProducts: "Productos",
     navFlow: "Flow Downloader",
     navContact: "Contacto",
+    menu: "Menú",
     footerTagline: "Herramientas online que te ahorran horas.",
     footerProducts: "Productos",
     footerHelp: "Ayuda",
@@ -52,6 +53,7 @@ export default {
       ["Cuenta o inicio de sesión", "Ninguno: instalar y listo", "A menudo obligatorio"],
       ["Archivos existentes", "Nunca se sobrescriben: una segunda copia recibe (2), (3)…", "Los archivos con el mismo nombre pueden chocar"],
       ["Elementos fallidos o lentos", "Se listan por nombre, con “Reintentar” en un clic", "Normalmente en silencio, o solo un número"],
+      ["Elementos aún generándose", "Márcalos ya: cada uno se descarga cuando está listo", "Esperar a que Flow termine y luego empezar"],
       ["Dónde van los archivos", "Cualquier carpeta, una subcarpeta por proyecto", "A menudo solo la carpeta Descargas"],
       ["Límites diarios", "Ninguno", "Las versiones gratuitas suelen tener límite"],
       ["Tus datos", "No se recoge nada: sin servidores", "Algunas recogen datos personales o de inicio de sesión"]
@@ -66,17 +68,18 @@ export default {
       { icon: "pick", title: "Elige o llévatelo todo", text: "Marca exactamente los elementos que quieras, no marques nada para llevarte el proyecto entero, o selecciona todo menos lo que ya descargaste." },
       { icon: "layers", title: "Varios proyectos a la vez", text: "Empieza desde la página principal de Flow; cada proyecto va a su propia subcarpeta." },
       { icon: "folder", title: "Cualquier carpeta, nombres limpios", text: "Guarda donde quieras, incluso en una carpeta nueva, como “01 - Título.mp4”, “02 - …”. Nunca se sobrescribe nada." },
-      { icon: "inbox", title: "No toca tus otras descargas", text: "Solo se gestionan los archivos de tu proyecto. Todo lo demás que descargues conserva su nombre y su carpeta." },
-      { icon: "grid", title: "Estado en cada mosaico", text: "Amarillo = descargando, verde = listo, rojo = omitido. Progreso en directo de cada proyecto." },
-      { icon: "retry", title: "Nada se pierde en silencio", text: "Todo lo que Flow marcó con error o que tardó demasiado aparece al final con un “Intentar de nuevo” de un clic." }
+      { icon: "clock", title: "No esperes a Flow", text: "Marca elementos que aún se están generando. Cada uno se descarga en cuanto Flow lo termina, y los archivos siguen numerados en el orden del proyecto." },
+      { icon: "window", title: "Sigue trabajando mientras descarga", text: "Con un clic, la descarga pasa a una pequeña ventana propia y puedes seguir usando tus otras pestañas y aplicaciones." },
+      { icon: "grid", title: "Estado en cada mosaico", text: "Amarillo = descargando, verde = listo, rojo = omitido, azul = esperando a Flow. Todo lo que falló o tardó demasiado aparece al final con un “Intentar de nuevo” de un clic." }
     ]
   },
   gallery: {
     title: "Míralo en acción",
     shots: {
-      "shot-downloading.png": ["Un proyecto descargándose, con mosaicos verdes, amarillos, rojos y en cola", "Cada mosaico muestra en qué punto está: descargado, descargando, omitido o en cola."],
+      "shot-pick.png": ["Ventana emergente con Elegir videos e imágenes activado: casillas en los mosaicos terminados y en dos que aún se generan al 68 % y al 31 %", "Marca exactamente lo que quieras, incluso lo que Flow aún está generando."],
+      "shot-downloading.png": ["Un proyecto descargándose: mosaicos descargados, descargando, en espera, omitidos y en cola, con un botón Seguir en otra ventana", "Cada mosaico muestra dónde está. Lo que aún se genera espera en azul y se descarga cuando está listo."],
       "shot-several-projects.png": ["Pantalla de bloqueo con 2 de 5 proyectos terminados y una lista por proyecto", "Varios proyectos en una sola ejecución, cada uno en su subcarpeta."],
-      "shot-credits.png": ["Diálogo de calidad con 4K elegido, el cálculo de créditos y una casilla de aprobación", "El 4K cuesta créditos: ves el cálculo y lo apruebas antes de empezar."],
+      "shot-credits.png": ["Diálogo de calidad con videos en 4K e imágenes en 2K, un cálculo de créditos con casilla de aprobación y la elección de carpeta", "Elige la calidad y la carpeta. Si cuesta créditos, ves el cálculo y lo apruebas antes."],
       "shot-retry.png": ["Diálogo con un elemento fallido y otro que agotó el tiempo, y el botón Intentar de nuevo", "Todo lo que falló o agotó el tiempo aparece en la lista, con reintento en un clic."]
     }
   },
@@ -116,7 +119,7 @@ export default {
         title: "Elegir elementos concretos",
         blocks: [
           {
-            p: "Marca **Elegir videos e imágenes** en la ventana emergente. Aparece una casilla en cada mosaico terminado: marca los que quieras y pulsa Descargar. **Seleccionar todo** y **Quitar** están en la ventana emergente. Si no marcas nada, se descarga todo. Las generaciones fallidas nunca tienen casilla. **Seleccionar todo menos lo descargado** marca todo lo que aún no has descargado de este proyecto, para que solo te lleves lo nuevo."
+            p: "Marca **Elegir videos e imágenes** en la ventana emergente. Aparece una casilla en cada mosaico terminado: marca los que quieras y pulsa Descargar. **Seleccionar todo** y **Quitar** están en la ventana emergente. Si no marcas nada, se descarga todo. Las generaciones fallidas nunca tienen casilla. **Seleccionar todo menos lo descargado** marca todo lo que aún no has descargado de este proyecto, para que solo te lleves lo nuevo. Para marcar también lo que Flow aún está creando, activa **Seleccionar también lo que se está generando**, justo debajo. Lo terminado se descarga primero, y cada uno de los demás en cuanto Flow lo termina. Los archivos siguen numerados en el orden del proyecto, y lo que Flow no consiga generar aparece por nombre en el resumen."
           }
         ]
       },
@@ -185,10 +188,10 @@ export default {
         blocks: [
           {
             ul: [
-              "Cada mosaico muestra su estado: {y|amarillo} descargando (con un temporizador), {g|verde} descargado, {r|rojo} omitido y una pequeña etiqueta {q|EN COLA} para los que esperan.",
+              "Cada mosaico muestra su estado: {y|amarillo} descargando (con un temporizador), {g|verde} descargado, {r|rojo} omitido, {b|⏳ EN ESPERA} mientras Flow aún lo genera y una pequeña etiqueta {q|EN COLA} para el resto.",
               "Un panel cubre la página con el progreso y un botón **Detener descarga**. Los clics y la escritura en la página se bloquean para que nada interrumpa la ejecución.",
               "El título de la pestaña muestra el progreso, y cerrar o recargar la pestaña pide confirmación.",
-              "Si cambias a otra pestaña, se pausa; al volver, continúa. Un elemento interrumpido se reintenta, no se omite.",
+              "Chrome pausa una pestaña de Flow que no se ve, así que al cambiar de pestaña la descarga se pausa y al volver continúa. Para seguir usando Chrome mientras tanto, haz clic en **Seguir en otra ventana**: la pestaña de Flow pasa a una pequeña ventana propia y solo se pausa si esa ventana se minimiza o queda totalmente tapada. Un elemento interrumpido se reintenta, no se omite.",
               "Si el proyecto se cambia a mano, se detiene limpiamente en lugar de descargar los elementos equivocados.",
               "Al terminar, un cuadro de resumen muestra lo descargado y lo omitido. **Limpiar** quita los marcos de color y las casillas."
             ]
@@ -257,12 +260,20 @@ export default {
       ["¿Funciona junto con otras extensiones de Flow?", "Sí. Ignora las descargas iniciadas por otras extensiones y solo ajusta los nombres de archivo cuando una de sus propias ejecuciones necesita subcarpetas."],
       ["¿Qué navegadores son compatibles?", "Google Chrome en ordenador (Windows, Mac, Linux, ChromeOS). Otros navegadores Chromium pueden funcionar, pero no se han probado."],
       ["¿En qué idiomas está?", "La extensión sigue el idioma de tu Chrome: español, inglés, portugués (Brasil), vietnamita, indonesio e hindi; en cualquier otro idioma, inglés. Funciona con Flow en cualquier idioma."],
+      ["¿Tengo que esperar a que Flow termine de generar?", "No. Activa “Seleccionar también lo que se está generando” y márcalos. Lo terminado se descarga enseguida, y el resto uno a uno según Flow lo termina. Si nada termina en 30 minutos, deja de esperar y te dice cuáles quedaron."],
+      ["¿Puedo usar el ordenador mientras descarga?", "Sí. Haz clic en “Seguir en otra ventana” en el panel de progreso. La pestaña de Flow pasa a una pequeña ventana propia y puedes usar tus otras pestañas, ventanas y aplicaciones. Solo no minimices esa ventana ni la tapes por completo, porque Chrome pausa las páginas que no se ven."],
       ["¿Lo ha hecho Google?", "No. Flow Bulk Downloader es una herramienta independiente de Web Whizz y no está afiliada a Google."]
     ]
   },
   changelog: {
     title: "Registro de cambios",
     entries: {
+      "2.6.2": [
+        "Selecciona elementos que aún se están generando: cada uno se descarga en cuanto Flow lo termina, y los números de archivo siguen el orden del proyecto.",
+        "Nuevo estado ⏳ EN ESPERA en los mosaicos que aún se generan. Lo que Flow no consigue generar aparece por nombre al final.",
+        "Nuevo botón “Seguir en otra ventana”: la descarga pasa a una pequeña ventana propia y puedes seguir usando tus otras pestañas y aplicaciones.",
+        "El botón Detener salió de la ventana emergente: detén la descarga desde el panel de progreso o con Alt+Shift+D."
+      ],
       "2.6.1": [
         "Pregunta antes de gastar créditos de Flow: muestra un cálculo para el 4K y otras calidades de pago, y se pausa si Flow pide más.",
         "Nuevo botón “Seleccionar todo menos lo descargado”: llévate solo lo nuevo desde tu última visita.",

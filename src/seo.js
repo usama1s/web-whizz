@@ -84,7 +84,7 @@ export function softwareApp(route, t) {
     softwareVersion: FLOW.version,
     dateModified: RELEASES[0].date,
     image: abs(FLOW.img("logo.png")),
-    screenshot: ["shot-downloading.png", "shot-several-projects.png", "shot-credits.png", "shot-retry.png"].map((f) => abs(FLOW.img(f))),
+    screenshot: ["shot-pick.png", "shot-credits.png", "shot-downloading.png", "shot-several-projects.png", "shot-retry.png"].map((f) => abs(FLOW.img(f))),
     featureList: t.features.items.map((f) => f.title),
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: FLOW.chromeStoreUrl || abs(route.path) },

@@ -9,7 +9,7 @@ export default function FlowPrivacy() {
           <a href={FLOW.path}>{FLOW.name}</a>
         </p>
         <h1>Privacy Policy</h1>
-        <p className="meta">Last updated: November 11, 2026</p>
+        <p className="meta">Last updated: November 14, 2026</p>
 
         <p>
           {FLOW.name} (“{FLOW.storeName}”) is a browser extension that downloads videos and images from your own Google Flow projects to your computer.
@@ -20,8 +20,9 @@ export default function FlowPrivacy() {
 
         <h2>What stays on your device</h2>
         <ul>
-          <li>Your settings (preferred quality, wait time), stored in Chrome's extension storage.</li>
+          <li>Your settings (preferred quality, wait times), stored in Chrome's extension storage. If you use Chrome Sync, Chrome copies these settings to your other computers through your own Google account.</li>
           <li>A list of the items you've already downloaded from each Flow project (their titles), so “Select all except downloaded” can leave them out next time. It is kept only in Chrome's extension storage on your computer and removed when you uninstall the extension.</li>
+          <li>While a download is running: which tab is downloading and where the files go. This is kept in memory and cleared when you close the browser.</li>
           <li>The videos and images you download, saved directly to the folder you choose.</li>
         </ul>
 
@@ -33,6 +34,9 @@ export default function FlowPrivacy() {
 
         <h2>What it changes in Chrome</h2>
         <p>It allows “automatic downloads” for flow.google.com and labs.google, so Chrome doesn't ask “Download multiple files?” during a batch. No other site or setting is changed.</p>
+
+        <h2>Tabs and windows</h2>
+        <p>If you click “Keep going in a separate window”, the extension moves the Flow tab into a window of its own. During a download it checks only how many tabs share that window. It never reads the addresses or contents of your other tabs.</p>
 
         <h2>Where it runs</h2>
         <p>Only on Google Flow pages. It downloads only when you press Download or use its keyboard shortcut. When you turn on “Pick” mode, it shows checkboxes on your Flow items and projects.</p>
