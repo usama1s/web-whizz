@@ -11,6 +11,7 @@ export default {
     navProducts: "Produtos",
     navFlow: "Flow Downloader",
     navContact: "Contato",
+    menu: "Menu",
     footerTagline: "Ferramentas online que economizam horas.",
     footerProducts: "Produtos",
     footerHelp: "Ajuda",
@@ -52,6 +53,7 @@ export default {
       ["Conta ou login", "Nenhum — instale e use", "Muitas vezes obrigatório"],
       ["Arquivos existentes", "Nunca sobrescritos — uma segunda cópia ganha (2), (3)…", "Arquivos com o mesmo nome podem se sobrepor"],
       ["Itens com falha ou lentos", "Listados pelo nome, com “Tentar de novo” em um clique", "Geralmente em silêncio, ou só um número"],
+      ["Itens ainda em geração", "Marque agora — cada um baixa quando ficar pronto", "Esperar o Flow terminar e depois começar"],
       ["Onde os arquivos vão", "Qualquer pasta, uma subpasta por projeto", "Muitas vezes só a pasta Downloads"],
       ["Limites diários", "Nenhum", "Versões grátis costumam ter limite"],
       ["Seus dados", "Nada é coletado — sem servidores", "Algumas coletam dados pessoais ou de login"]
@@ -66,17 +68,18 @@ export default {
       { icon: "pick", title: "Escolha ou leve tudo", text: "Marque exatamente os itens que quiser, não marque nada para levar o projeto inteiro, ou selecione tudo exceto o que você já baixou." },
       { icon: "layers", title: "Vários projetos de uma vez", text: "Comece pela página inicial do Flow; cada projeto vai para a sua própria subpasta." },
       { icon: "folder", title: "Qualquer pasta, nomes limpos", text: "Salve em qualquer lugar — até numa pasta nova — como “01 - Título.mp4”, “02 - …”. Nada é sobrescrito." },
-      { icon: "inbox", title: "Não mexe nos outros downloads", text: "Só os arquivos do seu projeto são tratados. Todo o resto que você baixa mantém o próprio nome e pasta." },
-      { icon: "grid", title: "Status em cada bloco", text: "Amarelo = baixando, verde = pronto, vermelho = pulado. Progresso ao vivo de cada projeto." },
-      { icon: "retry", title: "Nada se perde em silêncio", text: "Tudo o que o Flow marcou com erro ou que demorou demais é listado no fim, com “Tentar de novo” em um clique." }
+      { icon: "clock", title: "Não espere o Flow", text: "Marque itens que ainda estão em geração. Cada um é baixado assim que o Flow termina, e os arquivos continuam numerados na ordem do projeto." },
+      { icon: "window", title: "Continue trabalhando enquanto baixa", text: "Com um clique, o download vai para uma pequena janela própria e você continua usando suas outras abas e aplicativos." },
+      { icon: "grid", title: "Status em cada bloco", text: "Amarelo = baixando, verde = pronto, vermelho = pulado, azul = aguardando o Flow. Tudo o que falhou ou demorou demais é listado no fim, com “Tentar de novo” em um clique." }
     ]
   },
   gallery: {
     title: "Veja em ação",
     shots: {
-      "shot-downloading.png": ["Um projeto sendo baixado, com blocos verdes, amarelos, vermelhos e na fila", "Cada bloco mostra onde está: baixado, baixando, pulado ou na fila."],
+      "shot-pick.png": ["Pop-up com Escolher vídeos e imagens ativado: caixas de seleção nos blocos prontos e em dois ainda em geração, a 68% e 31%", "Marque exatamente o que quiser, até itens que o Flow ainda está gerando."],
+      "shot-downloading.png": ["Um projeto baixando: blocos baixados, baixando, aguardando, pulados e na fila, com o botão Continuar em outra janela", "Cada bloco mostra onde está. Itens ainda em geração aguardam em azul e são baixados quando ficam prontos."],
       "shot-several-projects.png": ["Tela de bloqueio mostrando 2 de 5 projetos concluídos e uma lista por projeto", "Vários projetos numa só execução, cada um na sua subpasta."],
-      "shot-credits.png": ["Janela de qualidade com 4K escolhido, a estimativa de créditos e uma caixa de aprovação", "4K custa créditos: você vê a estimativa e aprova antes de começar."],
+      "shot-credits.png": ["Janela de qualidade com vídeos em 4K e imagens em 2K, estimativa de créditos com caixa de aprovação e a escolha da pasta", "Escolha a qualidade e a pasta. Se custar créditos, você vê a estimativa e aprova antes."],
       "shot-retry.png": ["Janela listando um item com falha e outro que expirou, com o botão Tentar de novo", "Tudo o que falhou ou expirou é listado, com nova tentativa em um clique."]
     }
   },
@@ -116,7 +119,7 @@ export default {
         title: "Escolher itens específicos",
         blocks: [
           {
-            p: "Marque **Escolher vídeos e imagens** no pop-up. Uma caixa de seleção aparece em cada bloco concluído — marque os que quiser e pressione Baixar. **Selecionar tudo** e **Limpar** ficam no pop-up. Sem nada marcado, tudo é baixado. Gerações com falha nunca recebem caixa de seleção. **Selecionar tudo exceto os baixados** marca tudo o que você ainda não baixou deste projeto, para você levar só o que é novo."
+            p: "Marque **Escolher vídeos e imagens** no pop-up. Uma caixa de seleção aparece em cada bloco concluído — marque os que quiser e pressione Baixar. **Selecionar tudo** e **Limpar** ficam no pop-up. Sem nada marcado, tudo é baixado. Gerações com falha nunca recebem caixa de seleção. **Selecionar tudo exceto os baixados** marca tudo o que você ainda não baixou deste projeto, para você levar só o que é novo. Para marcar também o que o Flow ainda está criando, ative **Selecionar também itens em geração**, logo abaixo. Os prontos são baixados primeiro, e cada um dos outros assim que o Flow termina. Os arquivos continuam numerados na ordem do projeto, e o que o Flow não conseguir gerar aparece pelo nome no resumo."
           }
         ]
       },
@@ -185,10 +188,10 @@ export default {
         blocks: [
           {
             ul: [
-              "Cada bloco mostra o seu status: {y|amarelo} baixando (com um cronômetro), {g|verde} baixado, {r|vermelho} pulado e uma pequena etiqueta {q|NA FILA} para os que estão esperando.",
+              "Cada bloco mostra o seu status: {y|amarelo} baixando (com um cronômetro), {g|verde} baixado, {r|vermelho} pulado, {b|⏳ AGUARDANDO} enquanto o Flow ainda o gera e uma pequena etiqueta {q|NA FILA} para o resto.",
               "Um painel cobre a página com o progresso e um botão **Parar download**. Cliques e digitação na página ficam bloqueados para nada interromper a execução.",
               "O título da aba mostra o progresso, e fechar ou recarregar a aba pede confirmação.",
-              "Mude para outra aba e ele pausa; volte e ele continua. Um item interrompido é tentado de novo, não pulado.",
+              "O Chrome pausa uma aba do Flow que não está visível, então ao trocar de aba o download pausa e ao voltar continua. Para continuar usando o Chrome enquanto isso, clique em **Continuar em outra janela**: a aba do Flow vai para uma pequena janela própria e só pausa se essa janela for minimizada ou ficar totalmente coberta. Um item interrompido é tentado de novo, não pulado.",
               "Se o projeto for alterado manualmente, ele para de forma limpa em vez de baixar os itens errados.",
               "Ao terminar, uma caixa de resumo mostra o que foi baixado e o que foi pulado. **Limpar** remove as molduras coloridas e as caixas de seleção."
             ]
@@ -257,12 +260,20 @@ export default {
       ["Funciona junto com outras extensões do Flow?", "Sim. Ele ignora downloads iniciados por outras extensões e só ajusta nomes de arquivo quando uma execução dele precisa de subpastas."],
       ["Quais navegadores são compatíveis?", "Google Chrome no computador (Windows, Mac, Linux, ChromeOS). Outros navegadores Chromium podem funcionar, mas não foram testados."],
       ["Em quais idiomas ele está?", "A extensão segue o idioma do seu Chrome: português (Brasil), inglês, espanhol, vietnamita, indonésio e hindi; em qualquer outro idioma, inglês. Funciona com o Flow em qualquer idioma."],
+      ["Preciso esperar o Flow terminar de gerar?", "Não. Ative “Selecionar também itens em geração” e marque-os. Os prontos são baixados na hora, e o resto um a um conforme o Flow termina. Se nada terminar em 30 minutos, ele para de esperar e diz quais ficaram."],
+      ["Posso usar o computador enquanto baixa?", "Sim. Clique em “Continuar em outra janela” no painel de progresso. A aba do Flow vai para uma pequena janela própria, e você pode usar suas outras abas, janelas e aplicativos. Só não minimize essa janela nem a cubra totalmente, porque o Chrome pausa páginas que não estão visíveis."],
       ["É feito pelo Google?", "Não. O Flow Bulk Downloader é uma ferramenta independente da Web Whizz e não tem afiliação com o Google."]
     ]
   },
   changelog: {
     title: "Histórico de versões",
     entries: {
+      "2.6.2": [
+        "Selecione itens que ainda estão em geração: cada um é baixado assim que o Flow termina, e os números dos arquivos seguem a ordem do projeto.",
+        "Novo status ⏳ AGUARDANDO nos blocos ainda em geração. O que o Flow não consegue gerar aparece pelo nome no fim.",
+        "Novo botão “Continuar em outra janela”: o download vai para uma pequena janela própria e você continua usando suas outras abas e aplicativos.",
+        "O botão Parar saiu do pop-up: pare o download pelo painel de progresso ou com Alt+Shift+D."
+      ],
       "2.6.1": [
         "Pergunta antes de gastar créditos do Flow: mostra uma estimativa para 4K e outras qualidades pagas, e pausa se o Flow pedir mais.",
         "Novo botão “Selecionar tudo exceto os baixados”: leve só o que é novo desde a última visita.",

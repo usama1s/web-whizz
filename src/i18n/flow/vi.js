@@ -11,6 +11,7 @@ export default {
     navProducts: "Sản phẩm",
     navFlow: "Flow Downloader",
     navContact: "Liên hệ",
+    menu: "Menu",
     footerTagline: "Công cụ trực tuyến giúp bạn tiết kiệm hàng giờ.",
     footerProducts: "Sản phẩm",
     footerHelp: "Trợ giúp",
@@ -52,6 +53,7 @@ export default {
       ["Tài khoản hoặc đăng nhập", "Không cần — cài là dùng", "Thường bắt buộc"],
       ["Tệp đã có", "Không bao giờ bị ghi đè — bản thứ hai thành (2), (3)…", "Tệp trùng tên có thể đè nhau"],
       ["Mục lỗi hoặc chậm", "Liệt kê theo tên, “Thử lại” bằng một cú nhấp", "Thường im lặng, hoặc chỉ báo một con số"],
+      ["Mục đang được tạo", "Đánh dấu ngay — mỗi mục tải khi xong", "Chờ Flow tạo xong rồi mới bắt đầu"],
       ["Nơi lưu tệp", "Bất kỳ thư mục nào, mỗi dự án một thư mục con", "Thường chỉ thư mục Tải xuống"],
       ["Giới hạn mỗi ngày", "Không có", "Bản miễn phí thường bị giới hạn"],
       ["Dữ liệu của bạn", "Không thu thập gì — không có máy chủ", "Một số thu thập dữ liệu cá nhân hoặc đăng nhập"]
@@ -66,17 +68,18 @@ export default {
       { icon: "pick", title: "Chọn lọc hoặc lấy tất cả", text: "Đánh dấu đúng những mục bạn muốn, không đánh dấu gì để lấy cả dự án, hoặc chọn tất cả trừ những mục bạn đã tải." },
       { icon: "layers", title: "Nhiều dự án cùng lúc", text: "Bắt đầu từ trang chủ Flow; mỗi dự án được lưu vào thư mục con riêng." },
       { icon: "folder", title: "Thư mục tùy ý, tên gọn gàng", text: "Lưu ở bất kỳ đâu — kể cả thư mục mới — với tên “01 - Tiêu đề.mp4”, “02 - …”. Không bao giờ ghi đè." },
-      { icon: "inbox", title: "Không đụng tới tệp tải khác", text: "Chỉ xử lý tệp của dự án bạn. Mọi thứ khác bạn tải về vẫn giữ nguyên tên và thư mục." },
-      { icon: "grid", title: "Trạng thái trên từng ô", text: "Vàng = đang tải, xanh lá = xong, đỏ = bỏ qua. Tiến độ trực tiếp cho mọi dự án." },
-      { icon: "retry", title: "Không gì bị sót âm thầm", text: "Mục nào Flow báo lỗi hoặc chờ quá lâu đều được liệt kê ở cuối, kèm nút “Thử lại” một cú nhấp." }
+      { icon: "clock", title: "Không cần chờ Flow", text: "Đánh dấu cả những mục đang được tạo. Mỗi mục được tải ngay khi Flow tạo xong, và tệp vẫn được đánh số theo thứ tự trong dự án." },
+      { icon: "window", title: "Vừa tải vừa làm việc khác", text: "Một cú nhấp chuyển việc tải sang một cửa sổ nhỏ riêng, để bạn tiếp tục dùng các thẻ và ứng dụng khác." },
+      { icon: "grid", title: "Trạng thái trên từng ô", text: "Vàng = đang tải, xanh lá = xong, đỏ = bỏ qua, xanh dương = đang chờ Flow. Mục nào lỗi hoặc chờ quá lâu đều được liệt kê ở cuối, kèm nút “Thử lại” một cú nhấp." }
     ]
   },
   gallery: {
     title: "Xem cách hoạt động",
     shots: {
-      "shot-downloading.png": ["Một dự án đang tải, với các ô xanh lá, vàng, đỏ và đang chờ", "Mỗi ô cho biết trạng thái: đã tải, đang tải, bỏ qua hoặc đang chờ."],
+      "shot-pick.png": ["Cửa sổ bật lên bật Chọn video & hình ảnh: hộp kiểm trên các ô đã xong và trên hai ô đang tạo ở 68% và 31%", "Đánh dấu đúng thứ bạn muốn, kể cả những mục Flow đang tạo."],
+      "shot-downloading.png": ["Một dự án đang tải: các ô đã tải, đang tải, đang chờ, bỏ qua và xếp hàng, cùng nút Tiếp tục trong cửa sổ riêng", "Mỗi ô cho biết đang ở bước nào. Mục đang được tạo chờ ở màu xanh dương và tải khi xong."],
       "shot-several-projects.png": ["Màn hình khóa cho thấy 2/5 dự án đã xong và danh sách từng dự án", "Nhiều dự án trong một lần chạy, mỗi dự án vào thư mục con riêng."],
-      "shot-credits.png": ["Hộp thoại chất lượng với 4K được chọn, ước tính tín dụng và ô đồng ý", "4K tốn tín dụng: bạn thấy ước tính và đồng ý trước khi bắt đầu."],
+      "shot-credits.png": ["Hộp thoại chất lượng chọn video 4K và ảnh 2K, ước tính tín dụng có ô xác nhận, và lựa chọn thư mục", "Chọn chất lượng và thư mục. Nếu tốn tín dụng, bạn thấy ước tính và xác nhận trước."],
       "shot-retry.png": ["Hộp thoại liệt kê một mục bị lỗi và một mục quá thời gian, với nút Thử lại", "Mọi mục bị lỗi hoặc quá thời gian đều được liệt kê, thử lại bằng một cú nhấp."]
     }
   },
@@ -116,7 +119,7 @@ export default {
         title: "Chọn từng mục cụ thể",
         blocks: [
           {
-            p: "Đánh dấu **Chọn video & hình ảnh** trong cửa sổ bật lên. Mỗi ô đã hoàn tất sẽ có một hộp kiểm — đánh dấu những mục bạn muốn rồi nhấn Tải xuống. **Chọn tất cả** và **Bỏ chọn** nằm trong cửa sổ bật lên. Không đánh dấu gì thì tải tất cả. Các lượt tạo bị lỗi không bao giờ có hộp kiểm. **Chọn tất cả trừ mục đã tải** đánh dấu mọi mục bạn chưa tải từ dự án này, để bạn chỉ lấy những gì mới."
+            p: "Đánh dấu **Chọn video & hình ảnh** trong cửa sổ bật lên. Mỗi ô đã hoàn tất sẽ có một hộp kiểm — đánh dấu những mục bạn muốn rồi nhấn Tải xuống. **Chọn tất cả** và **Bỏ chọn** nằm trong cửa sổ bật lên. Không đánh dấu gì thì tải tất cả. Các lượt tạo bị lỗi không bao giờ có hộp kiểm. **Chọn tất cả trừ mục đã tải** đánh dấu mọi mục bạn chưa tải từ dự án này, để bạn chỉ lấy những gì mới. Để đánh dấu cả những mục Flow đang tạo, bật **Chọn cả các mục đang được tạo** ngay bên dưới. Mục đã xong được tải trước, mỗi mục còn lại được tải ngay khi Flow tạo xong. Tệp vẫn được đánh số theo thứ tự trong dự án, và mục nào Flow không tạo được sẽ được nêu tên trong phần tóm tắt."
           }
         ]
       },
@@ -185,10 +188,10 @@ export default {
         blocks: [
           {
             ul: [
-              "Mỗi ô hiển thị trạng thái: {y|vàng} đang tải (có đồng hồ), {g|xanh lá} đã tải, {r|đỏ} bỏ qua, và nhãn nhỏ {q|ĐANG XẾP HÀNG} cho mục đang chờ.",
+              "Mỗi ô hiển thị trạng thái: {y|vàng} đang tải (có đồng hồ), {g|xanh lá} đã tải, {r|đỏ} bỏ qua, {b|⏳ ĐANG CHỜ} khi Flow vẫn đang tạo, và nhãn nhỏ {q|ĐANG XẾP HÀNG} cho các mục còn lại.",
               "Một bảng phủ lên trang với tiến độ và nút **Dừng tải**. Thao tác nhấp và gõ trên trang bị chặn để không gì làm gián đoạn.",
               "Tiêu đề tab hiển thị tiến độ, và việc đóng hoặc tải lại tab sẽ hỏi trước.",
-              "Chuyển sang tab khác thì tạm dừng; quay lại thì tiếp tục. Mục bị gián đoạn sẽ được thử lại chứ không bị bỏ qua.",
+              "Chrome tạm dừng thẻ Flow khi bạn không nhìn thấy nó, nên chuyển thẻ thì việc tải tạm dừng, quay lại thì tiếp tục. Để vẫn dùng Chrome trong lúc đó, nhấp **Tiếp tục trong cửa sổ riêng**: thẻ Flow được chuyển sang một cửa sổ nhỏ riêng và chỉ tạm dừng nếu cửa sổ đó bị thu nhỏ hoặc bị che hoàn toàn. Mục bị gián đoạn sẽ được thử lại chứ không bị bỏ qua.",
               "Nếu dự án bị thay đổi bằng tay, tiện ích dừng gọn gàng thay vì tải nhầm mục.",
               "Khi xong, một hộp tóm tắt cho biết những gì đã tải và đã bỏ qua. **Xóa** gỡ các khung màu và ô chọn."
             ]
@@ -257,12 +260,20 @@ export default {
       ["Có dùng chung được với tiện ích Flow khác không?", "Có. Tiện ích bỏ qua các lượt tải do tiện ích khác bắt đầu và chỉ chỉnh tên tệp khi một lượt chạy của chính nó cần thư mục con."],
       ["Hỗ trợ trình duyệt nào?", "Google Chrome trên máy tính (Windows, Mac, Linux, ChromeOS). Các trình duyệt Chromium khác có thể chạy được nhưng chưa được kiểm thử."],
       ["Tiện ích có những ngôn ngữ nào?", "Tiện ích theo ngôn ngữ Chrome của bạn: tiếng Việt, tiếng Anh, tiếng Tây Ban Nha, tiếng Bồ Đào Nha (Brazil), tiếng Indonesia và tiếng Hindi; các ngôn ngữ khác dùng tiếng Anh. Tiện ích hoạt động với Flow ở bất kỳ ngôn ngữ nào."],
+      ["Tôi có phải chờ Flow tạo xong không?", "Không. Bật “Chọn cả các mục đang được tạo” rồi đánh dấu chúng. Mục đã xong được tải ngay, các mục còn lại được tải lần lượt khi Flow tạo xong. Nếu 30 phút không có mục nào xong, tiện ích ngừng chờ và cho bạn biết mục nào còn lại."],
+      ["Tôi có dùng máy tính được trong lúc tải không?", "Được. Nhấp “Tiếp tục trong cửa sổ riêng” trên bảng tiến độ. Thẻ Flow chuyển sang một cửa sổ nhỏ riêng, và bạn có thể dùng các thẻ, cửa sổ và ứng dụng khác. Chỉ đừng thu nhỏ hay che kín cửa sổ đó, vì Chrome tạm dừng các trang không nhìn thấy."],
       ["Có phải do Google làm không?", "Không. Flow Bulk Downloader là công cụ độc lập của Web Whizz và không liên kết với Google."]
     ]
   },
   changelog: {
     title: "Nhật ký thay đổi",
     entries: {
+      "2.6.2": [
+        "Chọn cả các mục đang được tạo: mỗi mục được tải ngay khi Flow tạo xong, và số thứ tự tệp vẫn theo thứ tự dự án.",
+        "Trạng thái mới ⏳ ĐANG CHỜ trên các ô đang được tạo. Mục nào Flow không tạo được sẽ được nêu tên ở cuối.",
+        "Nút mới “Tiếp tục trong cửa sổ riêng”: việc tải chuyển sang một cửa sổ nhỏ riêng, để bạn tiếp tục dùng các thẻ và ứng dụng khác.",
+        "Nút Dừng đã được bỏ khỏi cửa sổ bật lên: dừng từ bảng tiến độ hoặc bằng Alt+Shift+D."
+      ],
       "2.6.1": [
         "Hỏi trước khi tiêu tín dụng Flow: hiện ước tính cho 4K và các chất lượng trả phí khác, và tạm dừng nếu Flow đòi nhiều hơn.",
         "Nút mới “Chọn tất cả trừ mục đã tải”: chỉ lấy những gì mới kể từ lần trước.",

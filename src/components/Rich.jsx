@@ -1,8 +1,8 @@
 // Turns the inline marks used in src/i18n text into elements:
-// **bold**, `code`, [[key]], [link](href), {y|pill} (y yellow, g green, r red, q grey).
+// **bold**, `code`, [[key]], [link](href), {y|pill} (y yellow, g green, r red, b blue, q grey).
 // An href starting with $ is looked up in `links` (e.g. $store → the Chrome Web Store URL).
-const MARKS = /\*\*(.+?)\*\*|`(.+?)`|\[\[(.+?)\]\]|\[([^\]]+)\]\(([^)]+)\)|\{([ygrq])\|(.+?)\}/g;
-const PILL = { y: "pill pill-y", g: "pill pill-g", r: "pill pill-r", q: "pill" };
+const MARKS = /\*\*(.+?)\*\*|`(.+?)`|\[\[(.+?)\]\]|\[([^\]]+)\]\(([^)]+)\)|\{([ygrbq])\|(.+?)\}/g;
+const PILL = { y: "pill pill-y", g: "pill pill-g", r: "pill pill-r", b: "pill pill-b", q: "pill" };
 
 export default function Rich({ text, links = {} }) {
   const out = [];

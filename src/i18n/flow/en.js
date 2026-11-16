@@ -1,5 +1,5 @@
 // English text for the Flow Bulk Downloader page (and the header/footer around it).
-// Inline marks: **bold**, `code`, [[key]], [link](href), {y|yellow pill} ({g|…} green, {r|…} red, {q|…} grey).
+// Inline marks: **bold**, `code`, [[key]], [link](href), {y|yellow pill} ({g|…} green, {r|…} red, {b|…} blue, {q|…} grey).
 // Link targets starting with $ are filled in by the page: $store, $email, $privacy.
 // The other languages are translations of this file; keep their keys in the same shape.
 export default {
@@ -13,6 +13,7 @@ export default {
     navProducts: "Products",
     navFlow: "Flow Downloader",
     navContact: "Contact",
+    menu: "Menu",
     footerTagline: "Online tools that save you hours.",
     footerProducts: "Products",
     footerHelp: "Help",
@@ -54,6 +55,7 @@ export default {
       ["Account or sign-in", "None — install and go", "Often required"],
       ["Existing files", "Never overwritten — a second copy gets (2), (3)…", "Same-name files can clash"],
       ["Failed or slow items", "Listed by name, with one-click “Try again”", "Usually silent, or just a count"],
+      ["Items still generating", "Tick them now — each downloads when it's ready", "Wait until Flow finishes, then start"],
       ["Where files go", "Any folder, one subfolder per project", "Often the Downloads folder only"],
       ["Daily limits", "None", "Free tiers are often capped"],
       ["Your data", "Nothing collected — no servers", "Some collect personal or sign-in data"]
@@ -68,17 +70,18 @@ export default {
       { icon: "pick", title: "Pick or take it all", text: "Tick exactly the items you want, tick nothing to take the whole project, or select everything except what you already downloaded." },
       { icon: "layers", title: "Several projects at once", text: "Start from Flow's home page; each project lands in its own subfolder." },
       { icon: "folder", title: "Any folder, clean names", text: "Save anywhere — even a new folder — as “01 - Title.mp4”, “02 - …”. Nothing is ever overwritten." },
-      { icon: "inbox", title: "Leaves other downloads alone", text: "Only the files from your project are handled. Everything else you download keeps its own name and folder." },
-      { icon: "grid", title: "Status on every tile", text: "Yellow = downloading, green = done, red = skipped. Live progress for every project." },
-      { icon: "retry", title: "Nothing missed quietly", text: "Anything Flow reported an error for, or that took too long, is listed at the end with a one-click “Try again”." }
+      { icon: "clock", title: "Don't wait for Flow", text: "Tick items that are still being generated. Each one downloads the moment Flow finishes it, and files stay numbered in project order." },
+      { icon: "window", title: "Keep working while it runs", text: "One click moves the download into a small window of its own, so you can keep using your other tabs and apps." },
+      { icon: "grid", title: "Status on every tile", text: "Yellow = downloading, green = done, red = skipped, blue = waiting for Flow. Anything that failed or took too long is listed at the end with a one-click “Try again”." }
     ]
   },
   gallery: {
     title: "See it in action",
     shots: {
-      "shot-downloading.png": ["A project downloading, with green, yellow, red and queued tiles", "Every tile shows where it is: downloaded, downloading, skipped or queued."],
+      "shot-pick.png": ["Popup with Pick videos & images on: tick boxes on finished tiles and on two tiles still generating at 68% and 31%", "Tick exactly what you want, even items Flow is still generating."],
+      "shot-downloading.png": ["A project downloading: tiles marked downloaded, downloading, waiting, skipped and queued, with a Keep going in a separate window button", "Every tile shows where it is. Items still being generated wait in blue and download when ready."],
       "shot-several-projects.png": ["Lock screen showing 2 of 5 projects finished and a per-project list", "Several projects in one run, each into its own subfolder."],
-      "shot-credits.png": ["Quality dialog with 4K selected, showing a credit estimate and an approval checkbox", "4K costs credits: you see the estimate and approve it before anything starts."],
+      "shot-credits.png": ["Quality dialog with 4K videos and 2K images selected, a credit estimate with an approval checkbox, and the folder choice", "Pick the quality and the folder. If it costs credits, you see the estimate and approve it first."],
       "shot-retry.png": ["Dialog listing one failed and one timed-out item, with a Try again button", "Anything that failed or timed out is listed, with one-click retry."]
     }
   },
@@ -119,7 +122,7 @@ export default {
         title: "Pick specific items",
         blocks: [
           {
-            p: "Tick **Pick videos & images** in the popup. A checkbox appears on every finished tile — tick the ones you want, then press Download. **Select all** and **Clear** are in the popup. With nothing ticked, everything is downloaded. Failed generations never get a checkbox. **Select all except downloaded** ticks everything you haven't downloaded from this project yet, so you only get what's new."
+            p: "Tick **Pick videos & images** in the popup. A checkbox appears on every finished tile — tick the ones you want, then press Download. **Select all** and **Clear** are in the popup. With nothing ticked, everything is downloaded. Failed generations never get a checkbox. **Select all except downloaded** ticks everything you haven't downloaded from this project yet, so you only get what's new. To tick items Flow is still making too, turn on **Also select items being generated** just below it. Finished items download first, and each of the others downloads the moment Flow finishes it. Files are still numbered in project order, and anything Flow fails to make is named in the summary."
           }
         ]
       },
@@ -188,10 +191,10 @@ export default {
         blocks: [
           {
             ul: [
-              "Every tile shows its status: {y|yellow} downloading (with a timer), {g|green} downloaded, {r|red} skipped, and a small {q|QUEUED} tag for waiting.",
+              "Every tile shows its status: {y|yellow} downloading (with a timer), {g|green} downloaded, {r|red} skipped, {b|⏳ WAITING} while Flow is still generating it, and a small {q|QUEUED} tag for the rest.",
               "A panel covers the page with progress and a **Stop downloading** button. Clicks and typing on the page are blocked so nothing interrupts the run.",
               "The tab title shows progress, and closing or reloading the tab asks first.",
-              "Switch to another tab and it pauses; come back and it continues. An interrupted item is retried, not skipped.",
+              "Chrome pauses a Flow tab you can't see, so switching tabs pauses the run and coming back continues it. To keep using Chrome meanwhile, click **Keep going in a separate window**: the Flow tab moves into a small window of its own and only pauses if that window is minimized or completely covered. An interrupted item is retried, not skipped.",
               "If the project is changed by hand, it stops cleanly instead of downloading the wrong items.",
               "When it's done, a summary box shows what was downloaded and skipped. **Clear** removes the colored frames and tick boxes."
             ]
@@ -260,12 +263,20 @@ export default {
       ["Does it work alongside other Flow extensions?", "Yes. It ignores downloads started by other extensions and only adjusts file names while one of its own runs needs subfolders."],
       ["Which browsers are supported?", "Google Chrome on desktop (Windows, Mac, Linux, ChromeOS). Other Chromium browsers may work but aren't tested."],
       ["Which languages does it speak?", "The extension follows your Chrome language: English, Spanish, Portuguese (Brazil), Vietnamese, Indonesian and Hindi, with English for any other language. It works whatever language Flow itself is shown in."],
+      ["Do I have to wait for Flow to finish generating?", "No. Turn on “Also select items being generated” and tick them. Finished items download right away, and the rest download one by one as Flow finishes them. If nothing finishes for 30 minutes, it stops waiting and tells you which ones were left."],
+      ["Can I use my computer while it downloads?", "Yes. Click “Keep going in a separate window” on the progress panel. The Flow tab moves into a small window of its own, and you can use your other tabs, windows and apps. Just don't minimize that window or cover it completely, because Chrome pauses pages you can't see."],
       ["Is it made by Google?", "No. Flow Bulk Downloader is an independent tool by Web Whizz and isn't affiliated with Google."]
     ]
   },
   changelog: {
     title: "Changelog",
     entries: {
+      "2.6.2": [
+        "Select items that are still being generated: each one downloads the moment Flow finishes it, and file numbers stay in project order.",
+        "New ⏳ WAITING status on tiles still being generated. Items Flow fails to make are named at the end.",
+        "New “Keep going in a separate window” button: the download moves into a small window of its own, so you can keep using your other tabs and apps.",
+        "The Stop button left the popup: stop a run from the progress panel or with Alt+Shift+D."
+      ],
       "2.6.1": [
         "Asks before spending Flow credits: shows an estimate for 4K and other paid qualities, and pauses if Flow asks for more.",
         "New “Select all except downloaded” button: grab only what's new since your last visit.",

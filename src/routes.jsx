@@ -79,7 +79,7 @@ export const ROUTES = [
     Page: FlowPrivacy,
     title: "Privacy Policy — Flow Bulk Downloader | Web Whizz",
     description: "Flow Bulk Downloader collects no data. No servers, no accounts, no analytics, no tracking.",
-    updated: "2026-11-11"
+    updated: "2026-11-16"
   }
 ].map((r) => ({ ...r, url: SITE.url + r.path }));
 
