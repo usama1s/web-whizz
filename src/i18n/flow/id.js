@@ -11,6 +11,7 @@ export default {
     navProducts: "Produk",
     navFlow: "Flow Downloader",
     navContact: "Kontak",
+    menu: "Menu",
     footerTagline: "Alat online yang menghemat waktu Anda berjam-jam.",
     footerProducts: "Produk",
     footerHelp: "Bantuan",

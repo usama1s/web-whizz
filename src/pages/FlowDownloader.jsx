@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Icon from "../components/Icon.jsx";
 import Rich from "../components/Rich.jsx";
 import { Demo, LangSwitch, Shot, StoreButton, Trust, Waitlist, YouTube } from "../components/Flow.jsx";
@@ -113,13 +114,14 @@ export default function FlowDownloader({ route }) {
                 {t.compare.rows.map(([label, us, them]) => (
                   <tr key={label}>
                     <th scope="row">{label}</th>
-                    <td className="compare-us">
+                    {/* data-label: the column name, shown above each answer on phones, where the header row is hidden */}
+                    <td className="compare-us" data-label={t.compare.us}>
                       <span className="yes">
                         <Icon name="check" size={18} />
                       </span>
                       {us}
                     </td>
-                    <td>
+                    <td data-label={t.compare.them}>
                       <span className="no">
                         <Icon name="x" size={16} />
                       </span>
@@ -180,18 +182,7 @@ export default function FlowDownloader({ route }) {
 
       <section id="guide" className="section">
         <div className="wrap docs">
-          <aside className="toc">
-            <details open>
-              <summary>{t.guide.toc}</summary>
-              <nav aria-label={t.guide.title}>
-                {toc.map(([id, label]) => (
-                  <a key={id} href={`#${id}`}>
-                    {label}
-                  </a>
-                ))}
-              </nav>
-            </details>
-          </aside>
+          <Toc items={toc} label={t.guide.toc} title={t.guide.title} />
 
           <article className="prose">
             <h2 className="section-title">{t.guide.title}</h2>
@@ -254,6 +245,58 @@ export default function FlowDownloader({ route }) {
         </div>
       </section>
     </>
+  );
+}
+
+// "On this page". Wide screens: a sticky sidebar list, always open. Phones and tablets (≤980px, NARROW): a bar that
+// sticks under the header while the guide is on screen, names the section being read, and opens into the full list.
+// Both highlight the section being read: the last heading that has scrolled up past the sticky header (and bar).
+const NARROW = "(max-width: 980px)";
+
+function Toc({ items, label, title }) {
+  const [open, setOpen] = useState(true); // the pre-rendered page has it open, for wide screens
+  const [current, setCurrent] = useState(null);
+
+  useEffect(() => {
+    if (matchMedia(NARROW).matches) setOpen(false);
+    const headings = items.map(([id]) => document.getElementById(id)).filter(Boolean);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const line = matchMedia(NARROW).matches ? 150 : 110;
+      let id = null;
+      for (const h of headings) if (h.getBoundingClientRect().top <= line) id = h.id;
+      setCurrent(id);
+    };
+    const onScroll = () => frame || (frame = requestAnimationFrame(update));
+    update();
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    return () => {
+      removeEventListener("scroll", onScroll);
+      removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [items]);
+
+  const currentLabel = items.find(([id]) => id === current)?.[1];
+
+  return (
+    <aside className="toc">
+      <details open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
+        <summary>
+          <span className="toc-label">{label}</span>
+          {currentLabel && <span className="toc-current">{currentLabel}</span>}
+        </summary>
+        <nav aria-label={title} onClick={(e) => e.target.closest("a") && matchMedia(NARROW).matches && setOpen(false)}>
+          {items.map(([id, text]) => (
+            <a key={id} href={`#${id}`} className={id === current ? "active" : undefined} aria-current={id === current ? "location" : undefined}>
+              {text}
+            </a>
+          ))}
+        </nav>
+      </details>
+    </aside>
   );
 }
 

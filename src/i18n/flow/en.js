@@ -13,6 +13,7 @@ export default {
     navProducts: "Products",
     navFlow: "Flow Downloader",
     navContact: "Contact",
+    menu: "Menu",
     footerTagline: "Online tools that save you hours.",
     footerProducts: "Products",
     footerHelp: "Help",

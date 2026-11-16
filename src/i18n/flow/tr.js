@@ -10,6 +10,7 @@ export default {
     navProducts: "Ürünler",
     navFlow: "Flow Downloader",
     navContact: "İletişim",
+    menu: "Menü",
     footerTagline: "Size saatler kazandıran çevrimiçi araçlar.",
     footerProducts: "Ürünler",
     footerHelp: "Yardım",

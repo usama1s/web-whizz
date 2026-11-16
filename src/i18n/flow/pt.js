@@ -11,6 +11,7 @@ export default {
     navProducts: "Produtos",
     navFlow: "Flow Downloader",
     navContact: "Contato",
+    menu: "Menu",
     footerTagline: "Ferramentas online que economizam horas.",
     footerProducts: "Produtos",
     footerHelp: "Ajuda",
