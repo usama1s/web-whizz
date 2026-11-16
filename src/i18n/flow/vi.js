@@ -11,6 +11,7 @@ export default {
     navProducts: "Sản phẩm",
     navFlow: "Flow Downloader",
     navContact: "Liên hệ",
+    menu: "Menu",
     footerTagline: "Công cụ trực tuyến giúp bạn tiết kiệm hàng giờ.",
     footerProducts: "Sản phẩm",
     footerHelp: "Trợ giúp",
