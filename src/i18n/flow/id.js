@@ -52,6 +52,7 @@ export default {
       ["Akun atau login", "Tidak perlu — pasang dan pakai", "Sering diwajibkan"],
       ["File yang sudah ada", "Tidak pernah ditimpa — salinan kedua mendapat (2), (3)…", "File bernama sama bisa bentrok"],
       ["Item gagal atau lambat", "Dicantumkan dengan namanya, “Coba lagi” sekali klik", "Biasanya diam saja, atau hanya angka"],
+      ["Item yang masih dibuat", "Centang sekarang — masing-masing diunduh begitu siap", "Tunggu Flow selesai, baru mulai"],
       ["Tempat file disimpan", "Folder mana pun, satu subfolder per proyek", "Sering hanya folder Unduhan"],
       ["Batas harian", "Tidak ada", "Versi gratis sering dibatasi"],
       ["Data Anda", "Tidak ada yang dikumpulkan — tanpa server", "Sebagian mengumpulkan data pribadi atau login"]
@@ -66,17 +67,18 @@ export default {
       { icon: "pick", title: "Pilih atau ambil semua", text: "Centang item yang Anda inginkan, jangan centang apa pun untuk mengambil seluruh proyek, atau pilih semua kecuali yang sudah Anda unduh." },
       { icon: "layers", title: "Beberapa proyek sekaligus", text: "Mulai dari halaman utama Flow; setiap proyek masuk ke subfoldernya sendiri." },
       { icon: "folder", title: "Folder mana pun, nama rapi", text: "Simpan di mana saja — bahkan folder baru — sebagai “01 - Judul.mp4”, “02 - …”. Tidak ada yang pernah ditimpa." },
-      { icon: "inbox", title: "Unduhan lain tidak disentuh", text: "Hanya file dari proyek Anda yang ditangani. Semua unduhan lain tetap dengan nama dan foldernya sendiri." },
-      { icon: "grid", title: "Status di setiap ubin", text: "Kuning = mengunduh, hijau = selesai, merah = dilewati. Progres langsung untuk setiap proyek." },
-      { icon: "retry", title: "Tidak ada yang terlewat diam-diam", text: "Apa pun yang dilaporkan error oleh Flow atau terlalu lama dicantumkan di akhir dengan tombol “Coba lagi” sekali klik." }
+      { icon: "clock", title: "Tak perlu menunggu Flow", text: "Centang item yang masih dibuat. Masing-masing diunduh begitu Flow selesai membuatnya, dan file tetap bernomor sesuai urutan proyek." },
+      { icon: "window", title: "Tetap bekerja selama mengunduh", text: "Sekali klik memindahkan unduhan ke jendela kecil tersendiri, jadi Anda bisa terus memakai tab dan aplikasi lain." },
+      { icon: "grid", title: "Status di setiap ubin", text: "Kuning = mengunduh, hijau = selesai, merah = dilewati, biru = menunggu Flow. Apa pun yang gagal atau terlalu lama dicantumkan di akhir dengan tombol “Coba lagi” sekali klik." }
     ]
   },
   gallery: {
     title: "Lihat cara kerjanya",
     shots: {
-      "shot-downloading.png": ["Proyek yang sedang diunduh, dengan ubin hijau, kuning, merah, dan antre", "Setiap ubin menunjukkan statusnya: terunduh, mengunduh, dilewati, atau antre."],
+      "shot-pick.png": ["Popup dengan Pilih video & gambar aktif: kotak centang di ubin yang selesai dan di dua ubin yang masih dibuat, 68% dan 31%", "Centang persis yang Anda mau, bahkan item yang masih dibuat Flow."],
+      "shot-downloading.png": ["Proyek yang sedang diunduh: ubin terunduh, mengunduh, menunggu, dilewati dan antre, dengan tombol Lanjutkan di jendela terpisah", "Setiap ubin menunjukkan posisinya. Item yang masih dibuat menunggu dengan warna biru dan diunduh begitu siap."],
       "shot-several-projects.png": ["Layar kunci yang menunjukkan 2 dari 5 proyek selesai dan daftar per proyek", "Beberapa proyek dalam satu kali jalan, masing-masing ke subfoldernya sendiri."],
-      "shot-credits.png": ["Dialog kualitas dengan 4K dipilih, perkiraan kredit, dan kotak persetujuan", "4K memakai kredit: Anda melihat perkiraannya dan menyetujuinya sebelum mulai."],
+      "shot-credits.png": ["Dialog kualitas dengan video 4K dan gambar 2K dipilih, perkiraan kredit dengan kotak persetujuan, dan pilihan folder", "Pilih kualitas dan folder. Jika memakai kredit, Anda melihat perkiraannya dan menyetujuinya dulu."],
       "shot-retry.png": ["Dialog yang mencantumkan satu item gagal dan satu item yang kehabisan waktu, dengan tombol Coba lagi", "Apa pun yang gagal atau kehabisan waktu dicantumkan, dengan coba lagi sekali klik."]
     }
   },
@@ -116,7 +118,7 @@ export default {
         title: "Pilih item tertentu",
         blocks: [
           {
-            p: "Centang **Pilih video & gambar** di popup. Kotak centang muncul di setiap ubin yang sudah selesai — centang yang Anda inginkan, lalu tekan Unduh. **Pilih semua** dan **Hapus pilihan** ada di popup. Jika tidak ada yang dicentang, semuanya diunduh. Hasil generate yang gagal tidak pernah mendapat kotak centang. **Pilih semua kecuali yang sudah diunduh** mencentang semua yang belum Anda unduh dari proyek ini, jadi Anda hanya mengambil yang baru."
+            p: "Centang **Pilih video & gambar** di popup. Kotak centang muncul di setiap ubin yang sudah selesai — centang yang Anda inginkan, lalu tekan Unduh. **Pilih semua** dan **Hapus pilihan** ada di popup. Jika tidak ada yang dicentang, semuanya diunduh. Hasil generate yang gagal tidak pernah mendapat kotak centang. **Pilih semua kecuali yang sudah diunduh** mencentang semua yang belum Anda unduh dari proyek ini, jadi Anda hanya mengambil yang baru. Untuk ikut mencentang item yang masih dibuat Flow, aktifkan **Pilih juga item yang sedang dibuat** tepat di bawahnya. Item yang selesai diunduh lebih dulu, dan masing-masing item lainnya diunduh begitu Flow selesai membuatnya. File tetap bernomor sesuai urutan proyek, dan apa pun yang gagal dibuat Flow disebutkan namanya di ringkasan."
           }
         ]
       },
@@ -185,10 +187,10 @@ export default {
         blocks: [
           {
             ul: [
-              "Setiap ubin menunjukkan statusnya: {y|kuning} mengunduh (dengan pengatur waktu), {g|hijau} terunduh, {r|merah} dilewati, dan label kecil {q|ANTRE} untuk yang menunggu.",
+              "Setiap ubin menunjukkan statusnya: {y|kuning} mengunduh (dengan pengatur waktu), {g|hijau} terunduh, {r|merah} dilewati, {b|⏳ MENUNGGU} selama Flow masih membuatnya, dan label kecil {q|ANTRE} untuk sisanya.",
               "Sebuah panel menutupi halaman dengan progres dan tombol **Hentikan unduhan**. Klik dan ketikan di halaman diblokir agar tidak ada yang mengganggu proses.",
               "Judul tab menampilkan progres, dan menutup atau memuat ulang tab akan meminta konfirmasi dulu.",
-              "Pindah ke tab lain dan proses berhenti sejenak; kembali dan proses berlanjut. Item yang terputus dicoba lagi, tidak dilewati.",
+              "Chrome menjeda tab Flow yang tidak terlihat, jadi berpindah tab akan menjeda proses dan kembali akan melanjutkannya. Agar tetap bisa memakai Chrome sementara itu, klik **Lanjutkan di jendela terpisah**: tab Flow pindah ke jendela kecil tersendiri dan hanya dijeda jika jendela itu diminimalkan atau tertutup sepenuhnya. Item yang terputus dicoba lagi, tidak dilewati.",
               "Jika proyek diubah secara manual, proses berhenti dengan rapi alih-alih mengunduh item yang salah.",
               "Setelah selesai, kotak ringkasan menunjukkan apa yang diunduh dan dilewati. **Bersihkan** menghapus bingkai berwarna dan kotak centang."
             ]
@@ -257,12 +259,20 @@ export default {
       ["Apakah bisa dipakai bersama ekstensi Flow lain?", "Ya. Ekstensi mengabaikan unduhan yang dimulai ekstensi lain dan hanya menyesuaikan nama file saat salah satu prosesnya sendiri membutuhkan subfolder."],
       ["Browser apa saja yang didukung?", "Google Chrome di desktop (Windows, Mac, Linux, ChromeOS). Browser Chromium lain mungkin berfungsi tetapi belum diuji."],
       ["Tersedia dalam bahasa apa saja?", "Ekstensi mengikuti bahasa Chrome Anda: Bahasa Indonesia, Inggris, Spanyol, Portugis (Brasil), Vietnam, dan Hindi; bahasa lain memakai bahasa Inggris. Ekstensi berfungsi dengan Flow dalam bahasa apa pun."],
+      ["Apakah saya harus menunggu Flow selesai membuat?", "Tidak. Aktifkan “Pilih juga item yang sedang dibuat” lalu centang item-itemnya. Item yang selesai langsung diunduh, sisanya diunduh satu per satu begitu Flow menyelesaikannya. Jika tidak ada yang selesai selama 30 menit, ekstensi berhenti menunggu dan memberi tahu item mana yang tersisa."],
+      ["Bisakah saya memakai komputer selama mengunduh?", "Bisa. Klik “Lanjutkan di jendela terpisah” di panel progres. Tab Flow pindah ke jendela kecil tersendiri, dan Anda bisa memakai tab, jendela, dan aplikasi lain. Jangan minimalkan jendela itu atau menutupinya sepenuhnya, karena Chrome menjeda halaman yang tidak terlihat."],
       ["Apakah dibuat oleh Google?", "Tidak. Flow Bulk Downloader adalah alat independen dari Web Whizz dan tidak berafiliasi dengan Google."]
     ]
   },
   changelog: {
     title: "Catatan perubahan",
     entries: {
+      "2.6.2": [
+        "Pilih item yang masih dibuat: masing-masing diunduh begitu Flow selesai membuatnya, dan nomor file tetap sesuai urutan proyek.",
+        "Status baru ⏳ MENUNGGU di ubin yang masih dibuat. Item yang gagal dibuat Flow disebutkan namanya di akhir.",
+        "Tombol baru “Lanjutkan di jendela terpisah”: unduhan pindah ke jendela kecil tersendiri, jadi Anda bisa terus memakai tab dan aplikasi lain.",
+        "Tombol Hentikan dihapus dari popup: hentikan proses dari panel progres atau dengan Alt+Shift+D."
+      ],
       "2.6.1": [
         "Bertanya sebelum memakai kredit Flow: menampilkan perkiraan untuk 4K dan kualitas berbayar lainnya, dan dijeda jika Flow meminta lebih.",
         "Tombol baru “Pilih semua kecuali yang sudah diunduh”: ambil hanya yang baru sejak kunjungan terakhir.",

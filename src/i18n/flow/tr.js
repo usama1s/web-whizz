@@ -51,6 +51,7 @@ export default {
       ["Hesap veya giriş", "Yok — kur ve kullan", "Çoğu zaman gerekli"],
       ["Mevcut dosyalar", "Asla üzerine yazılmaz — ikinci kopya (2), (3)… alır", "Aynı adlı dosyalar çakışabilir"],
       ["Başarısız veya yavaş öğeler", "Adıyla listelenir, tek tıkla “Tekrar dene”", "Genellikle sessiz ya da yalnızca bir sayı"],
+      ["Hâlâ üretilen öğeler", "Şimdi işaretleyin — her biri hazır olunca iner", "Flow bitirene kadar bekleyip sonra başlatın"],
       ["Dosyaların gittiği yer", "Herhangi bir klasör, her proje için ayrı alt klasör", "Çoğu zaman yalnızca İndirilenler klasörü"],
       ["Günlük sınır", "Yok", "Ücretsiz sürümler çoğu zaman sınırlı"],
       ["Verileriniz", "Hiçbir şey toplanmaz — sunucu yok", "Bazıları kişisel veya giriş verisi toplar"]
@@ -65,17 +66,18 @@ export default {
       { icon: "pick", title: "Seçin ya da hepsini alın", text: "Tam olarak istediğiniz öğeleri işaretleyin, hiçbirini işaretlemeden tüm projeyi alın ya da zaten indirdikleriniz dışındaki her şeyi seçin." },
       { icon: "layers", title: "Aynı anda birden çok proje", text: "Flow'un ana sayfasından başlayın; her proje kendi alt klasörüne kaydedilir." },
       { icon: "folder", title: "Her klasör, temiz adlar", text: "İstediğiniz yere — yeni bir klasöre bile — “01 - Başlık.mp4”, “02 - …” olarak kaydedin. Hiçbir şeyin üzerine yazılmaz." },
-      { icon: "inbox", title: "Diğer indirmelere dokunmaz", text: "Yalnızca projenizin dosyaları işlenir. İndirdiğiniz diğer her şey kendi adını ve klasörünü korur." },
-      { icon: "grid", title: "Her kutucukta durum", text: "Sarı = indiriliyor, yeşil = tamam, kırmızı = atlandı. Her proje için canlı ilerleme." },
-      { icon: "retry", title: "Hiçbir şey sessizce kaçmaz", text: "Flow'un hata bildirdiği ya da çok uzun süren her öğe sonunda listelenir ve tek tıkla “Tekrar dene” sunulur." }
+      { icon: "clock", title: "Flow'u beklemeyin", text: "Hâlâ üretilen öğeleri işaretleyin. Her biri Flow onu bitirdiği anda indirilir; dosyalar yine proje sırasına göre numaralanır." },
+      { icon: "window", title: "İndirirken çalışmaya devam edin", text: "Tek tıkla indirme kendi küçük penceresine taşınır; diğer sekmelerinizi ve uygulamalarınızı kullanmaya devam edersiniz." },
+      { icon: "grid", title: "Her kutucukta durum", text: "Sarı = indiriliyor, yeşil = tamam, kırmızı = atlandı, mavi = Flow bekleniyor. Başarısız olan ya da çok uzun süren her şey sonunda tek tıkla “Tekrar dene” ile listelenir." }
     ]
   },
   gallery: {
     title: "Nasıl çalıştığını görün",
     shots: {
-      "shot-downloading.png": ["Yeşil, sarı, kırmızı ve sıradaki kutucuklarla indirilen bir proje", "Her kutucuk durumunu gösterir: indirildi, indiriliyor, atlandı veya sırada."],
+      "shot-pick.png": ["Pick videos & images açık açılır pencere: biten kutucuklarda ve hâlâ %68 ve %31'de üretilen iki kutucukta onay kutuları", "Tam olarak istediğinizi işaretleyin, Flow'un hâlâ ürettiği öğeleri bile."],
+      "shot-downloading.png": ["İndirilen bir proje: indirildi, indiriliyor, bekliyor, atlandı ve sırada olarak işaretli kutucuklar ve Keep going in a separate window düğmesi", "Her kutucuk nerede olduğunu gösterir. Hâlâ üretilen öğeler mavi bekler ve hazır olunca iner."],
       "shot-several-projects.png": ["5 projeden 2'sinin bittiğini ve proje listesini gösteren kilit ekranı", "Tek seferde birden çok proje, her biri kendi alt klasörüne."],
-      "shot-credits.png": ["4K seçili kalite penceresi, kredi tahmini ve onay kutusu", "4K kredi harcar: başlamadan önce tahmini görür ve onaylarsınız."],
+      "shot-credits.png": ["4K videolar ve 2K görseller seçili kalite penceresi, onay kutulu kredi tahmini ve klasör seçimi", "Kaliteyi ve klasörü seçin. Kredi gerekiyorsa tahmini görür ve önce onaylarsınız."],
       "shot-retry.png": ["Başarısız bir öğeyi ve zaman aşımına uğrayan bir öğeyi Tekrar dene düğmesiyle gösteren pencere", "Başarısız olan ya da zaman aşımına uğrayan her şey listelenir, tek tıkla yeniden denenir."]
     }
   },
@@ -115,7 +117,7 @@ export default {
         title: "Belirli öğeleri seçin",
         blocks: [
           {
-            p: "Açılır pencerede **Pick videos & images** seçeneğini işaretleyin. Tamamlanmış her kutucukta bir onay kutusu belirir — istediklerinizi işaretleyin ve Download'a basın. **Select all** ve **Clear** açılır penceredededir. Hiçbir şey işaretli değilse her şey indirilir. Başarısız üretimlerde onay kutusu olmaz. **Select all except downloaded**, bu projeden henüz indirmediğiniz her şeyi işaretler; böylece yalnızca yenileri alırsınız."
+            p: "Açılır pencerede **Pick videos & images** seçeneğini işaretleyin. Tamamlanmış her kutucukta bir onay kutusu belirir — istediklerinizi işaretleyin ve Download'a basın. **Select all** ve **Clear** açılır penceredededir. Hiçbir şey işaretli değilse her şey indirilir. Başarısız üretimlerde onay kutusu olmaz. **Select all except downloaded**, bu projeden henüz indirmediğiniz her şeyi işaretler; böylece yalnızca yenileri alırsınız. Flow'un hâlâ ürettiği öğeleri de işaretlemek için hemen altındaki **Also select items being generated** seçeneğini açın. Biten öğeler önce iner, diğerlerinin her biri Flow onu bitirdiği anda iner. Dosyalar yine proje sırasına göre numaralanır ve Flow'un üretemediği her şey özette adıyla belirtilir."
           }
         ]
       },
@@ -184,10 +186,10 @@ export default {
         blocks: [
           {
             ul: [
-              "Her kutucuk durumunu gösterir: {y|sarı} indiriliyor (sayaçla), {g|yeşil} indirildi, {r|kırmızı} atlandı ve bekleyenler için küçük bir {q|SIRADA} etiketi.",
+              "Her kutucuk durumunu gösterir: {y|sarı} indiriliyor (sayaçla), {g|yeşil} indirildi, {r|kırmızı} atlandı, Flow hâlâ üretirken {b|⏳ WAITING} ve geri kalanlar için küçük bir {q|SIRADA} etiketi.",
               "Sayfayı ilerleme bilgisi ve **Stop downloading** düğmesi olan bir panel kaplar. Hiçbir şey işlemi bölmesin diye sayfadaki tıklamalar ve yazma engellenir.",
               "Sekme başlığı ilerlemeyi gösterir; sekmeyi kapatmak veya yenilemek önce onay ister.",
-              "Başka bir sekmeye geçerseniz duraklar; geri döndüğünüzde devam eder. Yarıda kalan öğe atlanmaz, yeniden denenir.",
+              "Chrome görünmeyen bir Flow sekmesini duraklatır; bu yüzden sekme değiştirirseniz indirme durur, geri dönünce devam eder. Bu sırada Chrome'u kullanmak için **Keep going in a separate window** düğmesine tıklayın: Flow sekmesi kendi küçük penceresine taşınır ve yalnızca o pencere simge durumuna küçültülürse ya da tamamen kapanırsa durur. Yarıda kalan öğe atlanmaz, yeniden denenir.",
               "Proje elle değiştirilirse yanlış öğeleri indirmek yerine düzgünce durur.",
               "Bittiğinde bir özet kutusu neyin indirildiğini ve atlandığını gösterir. **Clear** renkli çerçeveleri ve onay kutularını kaldırır."
             ]
@@ -256,12 +258,20 @@ export default {
       ["Diğer Flow eklentileriyle birlikte çalışır mı?", "Evet. Diğer eklentilerin başlattığı indirmeleri yok sayar ve dosya adlarını yalnızca kendi işlemlerinden biri alt klasöre ihtiyaç duyduğunda düzenler."],
       ["Hangi tarayıcılar destekleniyor?", "Masaüstünde Google Chrome (Windows, Mac, Linux, ChromeOS). Diğer Chromium tarayıcılarında çalışabilir ancak test edilmemiştir."],
       ["Hangi dillerde kullanılabilir?", "Eklenti Chrome dilinizi izler: İngilizce, İspanyolca, Portekizce (Brezilya), Vietnamca, Endonezce ve Hintçe; diğer dillerde (Türkçe dahil) İngilizce görünür. Flow hangi dilde açılırsa açılsın çalışır."],
+      ["Flow'un üretmeyi bitirmesini beklemem gerekiyor mu?", "Hayır. “Also select items being generated” seçeneğini açıp öğeleri işaretleyin. Biten öğeler hemen iner, geri kalanlar Flow bitirdikçe tek tek iner. 30 dakika boyunca hiçbir şey bitmezse beklemeyi bırakır ve hangilerinin kaldığını söyler."],
+      ["İndirirken bilgisayarımı kullanabilir miyim?", "Evet. İlerleme panelindeki “Keep going in a separate window” düğmesine tıklayın. Flow sekmesi kendi küçük penceresine taşınır; diğer sekmelerinizi, pencerelerinizi ve uygulamalarınızı kullanabilirsiniz. Yalnızca o pencereyi simge durumuna küçültmeyin ya da tamamen kapatmayın, çünkü Chrome görünmeyen sayfaları duraklatır."],
       ["Google tarafından mı yapıldı?", "Hayır. Flow Bulk Downloader, Web Whizz'in bağımsız bir aracıdır ve Google ile bağlantılı değildir."]
     ]
   },
   changelog: {
     title: "Değişiklik günlüğü",
     entries: {
+      "2.6.2": [
+        "Hâlâ üretilen öğeleri seçin: her biri Flow onu bitirdiği anda iner, dosya numaraları proje sırasında kalır.",
+        "Hâlâ üretilen kutucuklarda yeni ⏳ WAITING durumu. Flow'un üretemediği öğeler sonunda adıyla belirtilir.",
+        "Yeni “Keep going in a separate window” düğmesi: indirme kendi küçük penceresine taşınır, diğer sekmelerinizi ve uygulamalarınızı kullanmaya devam edersiniz.",
+        "Stop düğmesi açılır pencereden kaldırıldı: indirmeyi ilerleme panelinden ya da Alt+Shift+D ile durdurun."
+      ],
       "2.6.1": [
         "Flow kredisi harcamadan önce sorar: 4K ve diğer ücretli kaliteler için tahmin gösterir, Flow daha fazlasını isterse durur.",
         "Yeni “Select all except downloaded” düğmesi: yalnızca son ziyaretinizden beri gelen yenileri alın.",
