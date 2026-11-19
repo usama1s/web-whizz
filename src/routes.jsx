@@ -2,6 +2,7 @@ import Home from "./pages/Home.jsx";
 import FlowDownloader from "./pages/FlowDownloader.jsx";
 import FlowGuide, { GUIDE } from "./pages/FlowGuide.jsx";
 import FlowPrivacy from "./pages/FlowPrivacy.jsx";
+import FlowSurvey, { SURVEY_PAGES } from "./pages/FlowSurvey.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { FLOW, RELEASES, SITE } from "./site.js";
 import { LOCALES } from "./i18n/flow/index.js";
@@ -78,9 +79,18 @@ export const ROUTES = [
     path: FLOW.privacyPath,
     Page: FlowPrivacy,
     title: "Privacy Policy — Flow Bulk Downloader | Web Whizz",
-    description: "Flow Bulk Downloader collects no data. No servers, no accounts, no analytics, no tracking.",
-    updated: "2026-11-16"
-  }
+    description: "Flow Bulk Downloader sends nothing while you use it: no accounts, no analytics, no tracking. What our optional surveys collect, and why.",
+    updated: "2026-11-18"
+  },
+  // The extension's welcome, goodbye (uninstall) and feedback pages. Not for search engines, not in the sitemap.
+  ...SURVEY_PAGES.map((survey) => ({
+    path: `${FLOW.path}${survey}/`,
+    Page: FlowSurvey,
+    survey,
+    title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${FLOW.name} | Web Whizz`,
+    description: `${FLOW.name}: a short ${survey === "welcome" ? "welcome" : survey} survey.`,
+    noindex: true
+  }))
 ].map((r) => ({ ...r, url: SITE.url + r.path }));
 
 export const NOT_FOUND = {

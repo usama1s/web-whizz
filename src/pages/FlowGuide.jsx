@@ -24,7 +24,7 @@ export const GUIDE = {
       "4K is an upscale, and Flow may charge credits for it (about 50 per video at Google's published price). 720p originals and GIFs don't need an upscale. Flow Bulk Downloader shows an estimate and waits for your approval before spending any credits."
     ],
     ["Where do Google Flow downloads go?", "Normally to Chrome's Downloads folder. With Flow Bulk Downloader you can pick any folder; each project gets its own subfolder and files are numbered 01, 02, 03…"],
-    ["Do I need to give a bulk downloader my Google password?", "No. Flow Bulk Downloader works inside the Flow tab you're already signed in to. It has no account, no servers and collects no data."],
+    ["Do I need to give a bulk downloader my Google password?", "No. Flow Bulk Downloader works inside the Flow tab you're already signed in to. It has no account and never asks for or sees your password."],
     ["Does it work on Mac?", "Yes. It works in Google Chrome on Windows, macOS, Linux and ChromeOS."]
   ]
 };
