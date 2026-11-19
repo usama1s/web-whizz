@@ -50,8 +50,9 @@ function head(route) {
     tags.push(`<script type="application/ld+json">${json}</script>`);
   }
   // Visitor analytics (Umami, cookieless). data-domains: only the live site counts, not local previews.
+  // Survey pages: the address carries the extension's usage counts, which stay out of Umami (data-exclude-search).
   if (SITE.umamiId) {
-    tags.push(`<script defer src="https://cloud.umami.is/script.js" data-website-id="${esc(SITE.umamiId)}" data-domains="${esc(new URL(SITE.url).hostname)}"></script>`);
+    tags.push(`<script defer src="https://cloud.umami.is/script.js" data-website-id="${esc(SITE.umamiId)}" data-domains="${esc(new URL(SITE.url).hostname)}"${route.survey ? ' data-exclude-search="true"' : ""}></script>`);
   }
   return tags.join("\n    ");
 }
