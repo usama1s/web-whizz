@@ -34,6 +34,8 @@ export const FLOW = {
   demoVideo: "",
   // The "Pro coming soon" form posts here (public/api/waitlist.php, PHP on the cPanel host).
   waitlistUrl: "/api/waitlist.php",
+  // The extension's welcome / goodbye / feedback surveys post here (public/api/feedback.php).
+  feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/flow-downloader/${file}`
 };
 

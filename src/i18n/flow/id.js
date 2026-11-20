@@ -296,7 +296,7 @@ export default {
   },
   privacy: {
     title: "Privasi",
-    text: "Flow Bulk Downloader tidak mengumpulkan apa pun: tanpa server, tanpa akun, tanpa analitik, tanpa pelacakan. Pengaturan Anda dan daftar item yang sudah diunduh tetap di Chrome di komputer Anda, dan file Anda langsung dari Google Flow ke komputer Anda. [Baca kebijakan privasi lengkap]($privacy) (dalam bahasa Inggris)."
+    text: "Flow Bulk Downloader tidak mengumpulkan apa pun saat Anda menggunakannya: tanpa akun, tanpa analitik, tanpa pelacakan. Hanya jika Anda menjawab salah satu survei singkat dan opsional kami (setelah memasang, setelah mencopot, atau lewat “Masukan”), jawaban Anda dan beberapa hitungan penggunaan anonim disimpan di web-whizz.com. Pengaturan Anda dan daftar item yang sudah diunduh tetap di Chrome di komputer Anda, dan file Anda langsung dari Google Flow ke komputer Anda. [Baca kebijakan privasi lengkap]($privacy) (dalam bahasa Inggris)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro segera hadir",

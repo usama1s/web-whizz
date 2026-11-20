@@ -1,7 +1,7 @@
 node_modules/
 dist/
 dist-server/
-web-whizz-site.zip
 .DS_Store
 .claude/
 web-whizz-data/
+deploy/

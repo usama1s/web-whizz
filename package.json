@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-server && node prerender.mjs",
     "preview": "vite preview",
-    "zip": "npm run build && rm -f web-whizz-site.zip && cd dist && zip -r -X ../web-whizz-site.zip . -x '*.DS_Store'"
+    "zip": "npm run build && d=deploy/$(date +%F) && mkdir -p $d && rm -f $d/web-whizz-site.zip && cd dist && zip -r -X -q ../$d/web-whizz-site.zip . -x '*.DS_Store' && echo $d/web-whizz-site.zip"
   },
   "dependencies": {
     "react": "19.2.0",
