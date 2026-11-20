@@ -3,14 +3,22 @@ import FlowDownloader from "./pages/FlowDownloader.jsx";
 import FlowGuide, { GUIDE } from "./pages/FlowGuide.jsx";
 import FlowPrivacy from "./pages/FlowPrivacy.jsx";
 import FlowSurvey, { SURVEY_PAGES } from "./pages/FlowSurvey.jsx";
+import SmartSentinel, { FAQ as SENTINEL_FAQ, FEATURES as SENTINEL_FEATURES, META as SENTINEL_META } from "./pages/SmartSentinel.jsx";
+import SentinelPrivacy, { UPDATED as SENTINEL_PRIVACY_UPDATED } from "./pages/SentinelPrivacy.jsx";
+import SentinelSurvey, { SURVEY_PAGES as SENTINEL_SURVEY_PAGES } from "./pages/SentinelSurvey.jsx";
+import Extensions, { META as EXTENSIONS_META } from "./pages/Extensions.jsx";
+import { EXTENSIONS, EXTENSIONS_PATH } from "./components/Extensions.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { FLOW, RELEASES, SITE } from "./site.js";
+import { FLOW, RELEASES, SENTINEL, SITE } from "./site.js";
 import { LOCALES } from "./i18n/flow/index.js";
-import { breadcrumbs, faqPage, organization, softwareApp, video, webPage, website, APP, ORG } from "./seo.js";
+import { breadcrumbs, faqPage, organization, sentinelApp, softwareApp, video, webPage, website, APP, ORG, SENTINEL_APP } from "./seo.js";
 
 // Every page of the site. Each one is pre-rendered to <path>/index.html at build time.
 // title/description → <title> and meta description. updated → <lastmod> in sitemap.xml (change it when the page's text changes).
 // schema(route) → the page's structured data (see src/seo.js).
+// Every product page sits under "Chrome extensions" (/e/) in its breadcrumb trail.
+const EXT_CRUMB = ["Chrome extensions", EXTENSIONS_PATH];
+
 export const ROUTES = [
   {
     path: "/",
@@ -19,6 +27,25 @@ export const ROUTES = [
     description: "Web Whizz builds focused online tools — point-of-sale systems, browser extensions and more — that take the busywork out of your day.",
     updated: RELEASES[0].date,
     schema: (r) => [organization(), website(), webPage(r, { about: { "@id": ORG } })]
+  },
+  // /e/: the list of every Chrome extension (the header's "Chrome extensions" link).
+  {
+    path: EXTENSIONS_PATH,
+    Page: Extensions,
+    title: EXTENSIONS_META.title,
+    description: EXTENSIONS_META.description,
+    updated: SENTINEL.released,
+    schema: (r) => [
+      organization(),
+      website(),
+      webPage(r, { "@type": "CollectionPage", breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      {
+        "@type": "ItemList",
+        "@id": `${r.url}#list`,
+        itemListElement: EXTENSIONS.map(({ product }, i) => ({ "@type": "ListItem", position: i + 1, name: product.name, url: SITE.url + product.path }))
+      },
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB])
+    ]
   },
   // The Flow page in every language (see src/i18n/flow/).
   ...LOCALES.map((l) => ({
@@ -37,7 +64,7 @@ export const ROUTES = [
       website(),
       webPage(r, { about: { "@id": APP }, mainEntity: { "@id": APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
       softwareApp(r, l.t),
-      breadcrumbs(r, [["Web Whizz", "/"], [FLOW.name, r.path]]),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [FLOW.name, r.path]]),
       faqPage(r, l.t.faq.items),
       ...(FLOW.youtube?.id ? [video()] : [])
     ]
@@ -70,7 +97,7 @@ export const ROUTES = [
         about: { "@id": APP }
       },
       webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
-      breadcrumbs(r, [["Web Whizz", "/"], [FLOW.name, FLOW.path], [GUIDE.crumb, r.path]]),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [FLOW.name, FLOW.path], [GUIDE.crumb, r.path]]),
       faqPage(r, GUIDE.faq),
       ...(FLOW.youtube?.id ? [video()] : [])
     ]
@@ -89,6 +116,43 @@ export const ROUTES = [
     survey,
     title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${FLOW.name} | Web Whizz`,
     description: `${FLOW.name}: a short ${survey === "welcome" ? "welcome" : survey} survey.`,
+    noindex: true
+  })),
+  // Smart Sentinel (English only). product: "sentinel" switches the footer's help links to this extension.
+  {
+    path: SENTINEL.path,
+    Page: SmartSentinel,
+    product: "sentinel",
+    title: SENTINEL_META.title,
+    description: SENTINEL_META.description,
+    image: SENTINEL.img("og.png"),
+    imageAlt: `${SENTINEL.name} — auto refresh that never silently stops`,
+    updated: SENTINEL.released,
+    schema: (r) => [
+      organization(),
+      website(),
+      webPage(r, { about: { "@id": SENTINEL_APP }, mainEntity: { "@id": SENTINEL_APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      sentinelApp(r, SENTINEL_FEATURES),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SENTINEL.name, r.path]]),
+      faqPage(r, SENTINEL_FAQ)
+    ]
+  },
+  {
+    path: SENTINEL.privacyPath,
+    Page: SentinelPrivacy,
+    product: "sentinel",
+    title: "Privacy Policy — Smart Sentinel | Web Whizz",
+    description: "Smart Sentinel sends nothing while you use it: no accounts, no analytics, no tracking. The pages you refresh stay on your computer. What it stores, why it asks for site access, and what our optional surveys collect.",
+    updated: SENTINEL_PRIVACY_UPDATED
+  },
+  // The extension's welcome, goodbye (uninstall) and feedback pages. Not for search engines, not in the sitemap.
+  ...SENTINEL_SURVEY_PAGES.map((survey) => ({
+    path: `${SENTINEL.path}${survey}/`,
+    Page: SentinelSurvey,
+    product: "sentinel",
+    survey,
+    title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${SENTINEL.name} | Web Whizz`,
+    description: `${SENTINEL.name}: a short ${survey} survey.`,
     noindex: true
   }))
 ].map((r) => ({ ...r, url: SITE.url + r.path }));

@@ -1,5 +1,6 @@
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import Lightbox from "./components/Lightbox.jsx";
 import { locale } from "./i18n/flow/index.js";
 
 export default function App({ route }) {
@@ -11,11 +12,12 @@ export default function App({ route }) {
       <a className="skip" href="#main">
         {l.t.ui.skip}
       </a>
-      <Header path={route.path} ui={l.t.ui} flowPath={l.path} />
+      <Header path={route.path} ui={l.t.ui} />
       <main id="main">
         <Page route={route} />
       </main>
-      <Footer ui={l.t.ui} flowPath={l.path} />
+      <Lightbox />
+      <Footer ui={l.t.ui} flowPath={l.path} product={route.product} />
     </>
   );
 }

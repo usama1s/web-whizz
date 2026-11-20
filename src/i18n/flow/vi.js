@@ -9,7 +9,7 @@ export default {
   ui: {
     skip: "Bỏ qua để đến nội dung",
     navProducts: "Sản phẩm",
-    navFlow: "Flow Downloader",
+    navExtensions: "Tiện ích Chrome",
     navContact: "Liên hệ",
     menu: "Menu",
     footerTagline: "Công cụ trực tuyến giúp bạn tiết kiệm hàng giờ.",
@@ -309,6 +309,7 @@ export default {
     error: "Chưa được. Vui lòng thử lại, hoặc gửi email cho chúng tôi.",
     fine: "Một email duy nhất khi Pro ra mắt. Không spam, không bao giờ chia sẻ.",
     contact: "Câu hỏi, lỗi hay ý tưởng?",
-    email: "Gửi email cho chúng tôi"
+    feedbackText: "Cho chúng tôi biết điều gì ổn, điều gì chưa và bạn muốn thêm gì. Chỉ mất một phút.",
+    feedback: "Gửi góp ý"
   }
 };

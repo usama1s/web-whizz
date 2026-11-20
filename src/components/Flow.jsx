@@ -200,8 +200,9 @@ export function Waitlist({ t, lang }) {
 // A screenshot in a simple browser window frame.
 // Each shot-*.png has a shot-*.webp next to it (about 6x smaller); browsers that can't show WebP get the PNG.
 // After replacing a PNG, recreate its WebP: cwebp -q 82 shot-x.png -o shot-x.webp
-export function Shot({ file, alt, caption, eager }) {
-  const src = FLOW.img(file);
+// img: the product's image folder (FLOW.img by default, SENTINEL.img for Smart Sentinel).
+export function Shot({ file, alt, caption, eager, img = FLOW.img }) {
+  const src = img(file);
   return (
     <figure className="shot">
       <div className="frame">
@@ -210,7 +211,8 @@ export function Shot({ file, alt, caption, eager }) {
           <i />
           <i />
         </div>
-        <a href={src} target="_blank" rel="noopener">
+        {/* data-lightbox: opens full screen over the page (components/Lightbox.jsx) instead of in a new tab. */}
+        <a href={src} data-lightbox data-caption={caption || alt}>
           <picture>
             <source srcSet={src.replace(/\.png$/, ".webp")} type="image/webp" />
             <img src={src} alt={alt} width="1280" height="800" loading={eager ? "eager" : "lazy"} decoding="async" {...(eager ? { fetchPriority: "high" } : {})} />
