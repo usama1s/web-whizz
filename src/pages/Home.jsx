@@ -1,6 +1,7 @@
 import Icon from "../components/Icon.jsx";
 import { Shot } from "../components/Flow.jsx";
-import { FLOW, SITE } from "../site.js";
+import { ExtensionCards } from "../components/Extensions.jsx";
+import { SITE } from "../site.js";
 
 const PRINCIPLES = [
   { icon: "shield", title: "Private by default", text: "Our tools collect only what they need to work — never to sell, profile or track you." },
@@ -38,21 +39,7 @@ export default function Home() {
           <h2 className="section-title">Products</h2>
           <p className="section-lead">Built carefully, tested against real-world use, and documented properly.</p>
           <div className="cards">
-            <a className="card ext-card" href={FLOW.path} data-umami-event="home-flow-card">
-              <img src={FLOW.img("logo.png")} alt="" width="72" height="72" />
-              <div>
-                <h3>{FLOW.name}</h3>
-                <p>Download all or selected Google Flow videos &amp; images in one go — 1080p, 4K, GIF or 2K — into any folder you choose.</p>
-                <ul className="tags">
-                  <li>Chrome</li>
-                  <li>Free</li>
-                  <li>Videos &amp; images</li>
-                </ul>
-                <span className="link-more">
-                  Learn more <Icon name="arrow" size={16} />
-                </span>
-              </div>
-            </a>
+            <ExtensionCards where="home" />
             <div className="card card-dashed">
               <div className="soon-icon">
                 <Icon name="grid" size={26} />

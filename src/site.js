@@ -10,6 +10,7 @@ export const SITE = {
 };
 
 export const FLOW = {
+  key: "flow",
   path: "/e/flow-downloader/",
   privacyPath: "/e/flow-downloader/privacy/",
   name: "Flow Bulk Downloader",
@@ -37,6 +38,23 @@ export const FLOW = {
   // The extension's welcome / goodbye / feedback surveys post here (public/api/feedback.php).
   feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/flow-downloader/${file}`
+};
+
+// Smart Sentinel (Chrome extension: auto refresh & tab reloader). English only.
+// The extension (src/lib/usage.ts in ~/Desktop/P Projects/Smart Sentinel) opens SENTINEL.path + "welcome/",
+// "goodbye/" and "feedback/", and its manifest's homepage_url is SENTINEL.path: keep these addresses.
+export const SENTINEL = {
+  key: "sentinel",
+  path: "/e/smart-sentinel/",
+  privacyPath: "/e/smart-sentinel/privacy/",
+  name: "Smart Sentinel",
+  storeName: "Smart Sentinel – Auto Refresh & Tab Reloader",
+  version: "1.0.0",
+  released: "2026-11-21",
+  // Chrome Web Store listing. Empty = "Coming soon" instead of Add to Chrome, and no Rate / Reinstall links.
+  chromeStoreUrl: "",
+  feedbackUrl: "/api/feedback.php",
+  img: (file) => `/e/smart-sentinel/${file}`
 };
 
 // Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).

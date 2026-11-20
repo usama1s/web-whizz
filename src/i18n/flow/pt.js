@@ -9,7 +9,7 @@ export default {
   ui: {
     skip: "Pular para o conteúdo",
     navProducts: "Produtos",
-    navFlow: "Flow Downloader",
+    navExtensions: "Extensões do Chrome",
     navContact: "Contato",
     menu: "Menu",
     footerTagline: "Ferramentas online que economizam horas.",
@@ -309,6 +309,7 @@ export default {
     error: "Não deu certo. Tente de novo ou mande um e-mail para nós.",
     fine: "Um único e-mail quando o Pro for lançado. Sem spam, nunca compartilhado.",
     contact: "Dúvidas, bugs ou ideias?",
-    email: "Mande um e-mail"
+    feedbackText: "Conte o que funciona, o que não funciona e o que você adicionaria. Leva um minuto.",
+    feedback: "Enviar feedback"
   }
 };

@@ -1,7 +1,7 @@
 // Structured data (schema.org JSON-LD) for each page. It tells Google and AI search what the page is about:
 // who publishes the site, what the extension is, what it costs, what it runs on and its FAQ.
 // Test any page at https://search.google.com/test/rich-results after deploying.
-import { FLOW, RELEASES, SITE } from "./site.js";
+import { FLOW, RELEASES, SENTINEL, SITE } from "./site.js";
 
 const abs = (path) => SITE.url + path;
 const ORG = `${SITE.url}/#org`;
@@ -114,4 +114,31 @@ export function video() {
   };
 }
 
-export { APP, ORG };
+// Smart Sentinel. No rating or user counts yet; add aggregateRating here (and show it on the page) once it has reviews.
+const SENTINEL_APP = `${abs(SENTINEL.path)}#app`;
+export function sentinelApp(route, features) {
+  return {
+    "@type": "SoftwareApplication",
+    "@id": SENTINEL_APP,
+    name: SENTINEL.name,
+    alternateName: SENTINEL.storeName,
+    description: route.description,
+    url: abs(route.path),
+    applicationCategory: "BrowserApplication",
+    applicationSubCategory: "Chrome extension",
+    operatingSystem: "Google Chrome (Windows, macOS, Linux, ChromeOS)",
+    browserRequirements: "Requires Google Chrome 120 or later",
+    softwareVersion: SENTINEL.version,
+    dateModified: SENTINEL.released,
+    image: abs(SENTINEL.img("logo.png")),
+    screenshot: ["shot-running.png", "shot-pick-interval.png", "shot-exact-time.png", "shot-random-stop.png", "shot-retrying.png"].map((f) => abs(SENTINEL.img(f))),
+    featureList: features.map((f) => f.title),
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: SENTINEL.chromeStoreUrl || abs(route.path) },
+    ...(SENTINEL.chromeStoreUrl ? { installUrl: SENTINEL.chromeStoreUrl, downloadUrl: SENTINEL.chromeStoreUrl, sameAs: [SENTINEL.chromeStoreUrl] } : {}),
+    publisher: { "@id": ORG },
+    author: { "@id": ORG }
+  };
+}
+
+export { APP, ORG, SENTINEL_APP };

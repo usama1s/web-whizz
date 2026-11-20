@@ -9,7 +9,7 @@ export default {
   ui: {
     skip: "Ir al contenido",
     navProducts: "Productos",
-    navFlow: "Flow Downloader",
+    navExtensions: "Extensiones de Chrome",
     navContact: "Contacto",
     menu: "Menú",
     footerTagline: "Herramientas online que te ahorran horas.",
@@ -309,6 +309,7 @@ export default {
     error: "No ha funcionado. Inténtalo de nuevo o escríbenos.",
     fine: "Un solo correo cuando se lance Pro. Sin spam, nunca compartido.",
     contact: "¿Preguntas, errores o ideas?",
-    email: "Escríbenos"
+    feedbackText: "Cuéntanos qué funciona, qué no y qué añadirías. Te lleva un minuto.",
+    feedback: "Enviar comentarios"
   }
 };
