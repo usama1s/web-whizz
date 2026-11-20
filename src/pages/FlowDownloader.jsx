@@ -234,12 +234,17 @@ export default function FlowDownloader({ route }) {
                 <p>{t.waitlist.text}</p>
                 <Waitlist t={t.waitlist} lang={lang} />
               </div>
-              <div className="callout-contact">
-                <p>{t.waitlist.contact}</p>
-                <a className="btn btn-ghost" href={`mailto:${SITE.email}`} data-umami-event="email-click" data-umami-event-where="flow-pro">
-                  <Icon name="mail" size={18} /> {t.waitlist.email}
-                </a>
+            </div>
+
+            {/* The same feedback form the extension opens (FlowSurvey); from=site marks answers sent from the website. */}
+            <div className="callout callout-feedback">
+              <div>
+                <h3>{t.waitlist.contact}</h3>
+                <p>{t.waitlist.feedbackText}</p>
               </div>
+              <a className="btn btn-ghost" href={`${FLOW.path}feedback/?from=site`} data-umami-event="feedback-click" data-umami-event-product="flow">
+                <Icon name="chat" size={18} /> {t.waitlist.feedback}
+              </a>
             </div>
           </article>
         </div>

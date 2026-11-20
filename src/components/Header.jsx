@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Brand } from "./Brand.jsx";
 import Icon from "./Icon.jsx";
+import { EXTENSIONS_PATH } from "./Extensions.jsx";
 
 // On phones (≤640px, see styles.css) the nav folds into a menu behind the button at the top right.
 // On wider screens the button is hidden and the nav is always shown.
-export default function Header({ path, ui, flowPath }) {
-  const here = (p) => (path === p ? "page" : undefined);
+export default function Header({ path, ui }) {
+  // "Chrome extensions" is highlighted on /e/ itself and on every extension's pages (/e/…, /tr/e/…).
+  const inExtensions = path === EXTENSIONS_PATH ? "page" : /^\/([a-z]{2}\/)?e\//.test(path) ? "true" : undefined;
   const [open, setOpen] = useState(false);
   const header = useRef(null);
 
@@ -34,8 +36,8 @@ export default function Header({ path, ui, flowPath }) {
           <a href="/#products">
             {ui.navProducts}
           </a>
-          <a href={flowPath} aria-current={here(flowPath)}>
-            {ui.navFlow}
+          <a href={EXTENSIONS_PATH} aria-current={inExtensions}>
+            {ui.navExtensions}
           </a>
           <a href="/#contact">{ui.navContact}</a>
         </nav>

@@ -8,7 +8,7 @@ export default {
   ui: {
     skip: "İçeriğe geç",
     navProducts: "Ürünler",
-    navFlow: "Flow Downloader",
+    navExtensions: "Chrome uzantıları",
     navContact: "İletişim",
     menu: "Menü",
     footerTagline: "Size saatler kazandıran çevrimiçi araçlar.",
@@ -308,6 +308,7 @@ export default {
     error: "Olmadı. Lütfen tekrar deneyin ya da bize e-posta gönderin.",
     fine: "Pro çıktığında tek bir e-posta. Spam yok, asla paylaşılmaz.",
     contact: "Sorular, hatalar veya fikirler?",
-    email: "Bize e-posta gönderin"
+    feedbackText: "Neyin işe yaradığını, neyin yaramadığını ve ne eklemek istediğinizi anlatın. Bir dakika sürer.",
+    feedback: "Geri bildirim gönder"
   }
 };

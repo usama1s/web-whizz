@@ -1,7 +1,9 @@
 import { Brand } from "./Brand.jsx";
-import { FLOW, SITE } from "../site.js";
+import { FLOW, SENTINEL, SITE } from "../site.js";
 
-export default function Footer({ ui, flowPath }) {
+// product: "sentinel" on Smart Sentinel's pages (src/routes.jsx), so Help links to its own guide and privacy policy.
+export default function Footer({ ui, flowPath, product }) {
+  const sentinel = product === "sentinel";
   return (
     <footer className="footer">
       <div className="wrap footer-inner">
@@ -13,20 +15,31 @@ export default function Footer({ ui, flowPath }) {
           <div>
             <h2>{ui.footerProducts}</h2>
             <a href={flowPath}>{FLOW.name}</a>
+            <a href={SENTINEL.path}>{SENTINEL.name}</a>
+            <a href="/e/">{ui.navExtensions}</a>
           </div>
           <div>
             <h2>{ui.footerHelp}</h2>
-            <a href={flowPath + "#guide"}>{ui.footerGuide}</a>
-            {/* The how-to article is English only, so it's linked from English pages. */}
-            {flowPath === FLOW.path && <a href={FLOW.path + "download-all-google-flow-videos/"}>How to download all Flow videos</a>}
-            <a href={FLOW.privacyPath}>{ui.footerPrivacy}</a>
+            {sentinel ? (
+              <>
+                <a href={SENTINEL.path + "#how"}>How Smart Sentinel works</a>
+                <a href={SENTINEL.privacyPath}>{ui.footerPrivacy}</a>
+              </>
+            ) : (
+              <>
+                <a href={flowPath + "#guide"}>{ui.footerGuide}</a>
+                {/* The how-to article is English only, so it's linked from English pages. */}
+                {flowPath === FLOW.path && <a href={FLOW.path + "download-all-google-flow-videos/"}>How to download all Flow videos</a>}
+                <a href={FLOW.privacyPath}>{ui.footerPrivacy}</a>
+              </>
+            )}
             <a href={`mailto:${SITE.email}`} data-umami-event="email-click" data-umami-event-where="footer">{ui.footerContact}</a>
           </div>
         </div>
       </div>
       <div className="wrap legal">
         <span suppressHydrationWarning>© {new Date().getFullYear()} Web Whizz</span>
-        <span>{ui.legal}</span>
+        <span>{sentinel ? "Chrome is a trademark of Google LLC. Web Whizz is independent and not affiliated with Google." : ui.legal}</span>
       </div>
     </footer>
   );
