@@ -1126,6 +1126,189 @@ tr:last-child td {
   white-space: nowrap;
 }
 
+/* ---------- extension surveys: welcome / goodbye / feedback (src/pages/FlowSurvey.jsx) ---------- */
+.survey h1 {
+  margin-bottom: 10px;
+}
+
+.survey .card {
+  margin-top: 22px;
+}
+
+.survey-reinstall {
+  margin: -14px 0 0;
+  color: var(--muted);
+}
+
+.quickstart ol {
+  margin: 10px 0 14px;
+  padding-left: 1.3em;
+}
+
+.quickstart li {
+  margin: 8px 0;
+}
+
+.survey-form h2,
+.quickstart h2 {
+  font-size: 1.25rem;
+  margin: 0 0 6px;
+}
+
+.question {
+  border: 0;
+  margin: 22px 0 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.question legend,
+.question > label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.question .req {
+  color: var(--primary);
+}
+
+.q-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: -4px 0 8px;
+}
+
+.choices {
+  display: grid;
+  gap: 8px;
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--surface);
+}
+
+.choice:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.choice input {
+  margin-top: 3px;
+  accent-color: var(--primary);
+  flex: none;
+}
+
+.question textarea,
+.question input[type="text"],
+.question input[type="email"] {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 46px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.question textarea:focus-visible,
+.question input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.stars-input {
+  display: flex;
+  gap: 4px;
+}
+
+.stars-input label {
+  position: relative;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--line);
+  cursor: pointer;
+}
+
+.stars-input label.on {
+  color: var(--accent);
+}
+
+.stars-input input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.stars-input label:has(input:focus-visible) {
+  outline: 2px solid var(--primary);
+  border-radius: 6px;
+}
+
+.survey-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.survey-actions .q-hint {
+  margin: 0;
+}
+
+.survey-error {
+  color: #c5221f;
+  margin-top: 12px;
+}
+
+.survey-ok {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0 0 12px;
+}
+
+.survey-done .btn {
+  margin-top: 10px;
+}
+
+.share {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.share-title {
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.share-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.share-btn {
+  min-height: 40px;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+}
+
 /* ---------- smaller screens ---------- */
 /* The contact card is its own .wrap, so below the max width it would touch the screen edges. */
 @media (max-width: 1200px) {

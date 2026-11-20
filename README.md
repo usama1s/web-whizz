@@ -8,6 +8,8 @@ The Web Whizz website: a static site made with plain React + Vite (no router, no
 | `/e/flow-downloader/` | `src/pages/FlowDownloader.jsx`: Flow Bulk Downloader page, guide, FAQ, changelog and Pro waitlist |
 | `/tr/`, `/vi/`, `/pt/`, `/es/`, `/id/` + `e/flow-downloader/` | The same page in Turkish, Vietnamese, Portuguese (Brazil), Spanish and Indonesian |
 | `/api/waitlist.php` | `public/api/waitlist.php`: saves "Pro coming soon" signups (PHP, runs on the cPanel host) |
+| `/e/flow-downloader/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/FlowSurvey.jsx`: the extension's surveys (not indexed, not in the sitemap). See **Extension surveys** below |
+| `/api/feedback.php` | `public/api/feedback.php`: saves the survey answers |
 | `/e/flow-downloader/privacy/` | `src/pages/FlowPrivacy.jsx`: privacy policy (keep in sync with `flow-bulk-downloader-store/PRIVACY.md` in the extension project, `~/Desktop/google flow extension/`) |
 | any other URL | `src/pages/NotFound.jsx`, built as `404.html` |
 
@@ -36,6 +38,16 @@ Spam protection works without a captcha. Bots are told "you're on the list", but
 
 Addresses that can't receive mail get the normal error, so a person can fix a typo: test domains like `example.com`, common throwaway inboxes like Mailinator, and domains with no mail server. The list of throwaway domains is in `waitlist.php`.
 
+### Extension surveys
+
+The extension (2.6.3+) opens three pages: **welcome** once after install, **goodbye** when it's uninstalled (Chrome's uninstall page), and **feedback** from the popup's Feedback link or the "Not really" answer on its on-page badge. Their address carries the extension's version, UI language and a few anonymous usage counts (runs, files, which options were used, most-used quality); the page sends those along with the answers.
+
+Answers go to `/api/feedback.php`, which appends one row per answer to `/home2/codifyp1/web-whizz-data/flow-feedback.csv` (outside the web root; open it in cPanel → File Manager, or download it and open in Google Sheets/Excel) and emails a summary to `support@web-whizz.com`. Same spam protection as the waitlist (honeypot, time check), and 5 answers per IP per hour. Only known answer values are kept, so when you change a question's choices in `FlowSurvey.jsx`, change the lists at the top of `feedback.php` too. Umami counts visits to these pages but is told to ignore their address (`data-exclude-search`), so the usage counts never reach it; it does record the events `survey-welcome`, `survey-goodbye`, `survey-feedback`, `share`, `reinstall-click`.
+
+CSV columns: `date, type, v, lang, from, days, runs, okRuns, files, skipped, errRuns, stopped, pick, wait, home, newOnly, folder, qv, qi, reason, tool, rating, plan, use, source, volume, want, chain, stay, bad, good, email`.
+
+**Publish the site before the extension version that opens these pages,** or uninstalling users land on the 404 page.
+
 ### Analytics
 
 Visits and clicks are counted with [Umami Cloud](https://cloud.umami.is) (free Hobby plan, EU data region, no cookies, so no consent banner). The script is added to every page when `SITE.umamiId` in `src/site.js` is set; empty it to turn analytics off. Only visits on web-whizz.com count, so local previews don't.
@@ -59,7 +71,7 @@ npm run preview    # serves dist/ locally to check the build
    ```bash
    npm run zip
    ```
-   This builds the site and creates `web-whizz-site.zip`, with all files at the top level, including the hidden `.htaccess`.
+   This builds the site and creates `deploy/<date>/web-whizz-site.zip` (one dated folder per release; `deploy/` is not kept in git), with all files at the top level, including the hidden `.htaccess`.
 2. **Log in to cPanel → File Manager →** open the **`web-whizz.com`** folder in your home folder (`/home2/codifyp1/web-whizz.com`). That's the site's Document Root; it is **not** inside `public_html`, which belongs to codify.pk.
    - Turn on **Settings → Show Hidden Files**, so you can see `.htaccess`.
    - Leave the host's `cgi-bin`, `.user.ini` and `php.ini` there. The host's original `.htaccess` was kept as `.htaccess.host-backup`.
@@ -72,6 +84,7 @@ npm run preview    # serves dist/ locally to check the build
    - `https://web-whizz.com/tr/e/flow-downloader/` (and the other languages)
    - `https://web-whizz.com/e/flow-downloader/privacy/`
    - The **Join the waitlist** form on the Flow page, then check that the CSV appeared
+   - `https://web-whizz.com/e/flow-downloader/feedback/?v=test`: send a test answer, check `flow-feedback.csv` and the email, then delete the test row
    - `https://web-whizz.com/anything-else` (should show the 404 page)
 
 **Updating later** (e.g. after changing `FLOW.stats` in `src/site.js`): repeat steps 1, 3 and 4.
