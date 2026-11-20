@@ -11,7 +11,7 @@ export default {
   ui: {
     skip: "Skip to content",
     navProducts: "Products",
-    navFlow: "Flow Downloader",
+    navExtensions: "Chrome extensions",
     navContact: "Contact",
     menu: "Menu",
     footerTagline: "Online tools that save you hours.",
@@ -312,6 +312,7 @@ export default {
     error: "That didn't work. Please try again, or email us.",
     fine: "One email when Pro launches. No spam, never shared.",
     contact: "Questions, bugs or ideas?",
-    email: "Email us"
+    feedbackText: "Tell us what works, what doesn't and what you'd add. It takes a minute.",
+    feedback: "Send feedback"
   }
 };

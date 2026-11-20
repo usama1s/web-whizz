@@ -5,12 +5,16 @@ The Web Whizz website: a static site made with plain React + Vite (no router, no
 | URL | File |
 |---|---|
 | `/` | `src/pages/Home.jsx`: Web Whizz landing page |
+| `/e/` | `src/pages/Extensions.jsx`: every Chrome extension (the header's **Chrome extensions** link). The list itself, also used on the home page, is `EXTENSIONS` in `src/components/Extensions.jsx` |
 | `/e/flow-downloader/` | `src/pages/FlowDownloader.jsx`: Flow Bulk Downloader page, guide, FAQ, changelog and Pro waitlist |
 | `/tr/`, `/vi/`, `/pt/`, `/es/`, `/id/` + `e/flow-downloader/` | The same page in Turkish, Vietnamese, Portuguese (Brazil), Spanish and Indonesian |
 | `/api/waitlist.php` | `public/api/waitlist.php`: saves "Pro coming soon" signups (PHP, runs on the cPanel host) |
 | `/e/flow-downloader/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/FlowSurvey.jsx`: the extension's surveys (not indexed, not in the sitemap). See **Extension surveys** below |
 | `/api/feedback.php` | `public/api/feedback.php`: saves the survey answers |
 | `/e/flow-downloader/privacy/` | `src/pages/FlowPrivacy.jsx`: privacy policy (keep in sync with `flow-bulk-downloader-store/PRIVACY.md` in the extension project, `~/Desktop/google flow extension/`) |
+| `/e/smart-sentinel/` | `src/pages/SmartSentinel.jsx`: Smart Sentinel page (English only): features, screenshots, how it works, FAQ |
+| `/e/smart-sentinel/privacy/` | `src/pages/SentinelPrivacy.jsx`: Smart Sentinel privacy policy (keep in sync with `store/PRIVACY.md` in the extension project, `~/Desktop/P Projects/Smart Sentinel/`) |
+| `/e/smart-sentinel/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/SentinelSurvey.jsx`: Smart Sentinel's surveys (not indexed). See **Extension surveys** |
 | any other URL | `src/pages/NotFound.jsx`, built as `404.html` |
 
 ## Things you'll change most
@@ -20,6 +24,7 @@ Edit `src/site.js`:
 - `FLOW.version` and `RELEASES`: add a line to `RELEASES` for every new version, and its notes under `changelog.entries` in each language file.
 - `FLOW.demoVideo`: put a screen recording (e.g. `demo.mp4`) in `public/e/flow-downloader/` and name it here to replace the animated demo.
 - `FLOW.chromeStoreUrl`, `SITE.email`.
+- `SENTINEL.chromeStoreUrl`: paste Smart Sentinel's store link here once it's published. Until then its page says "Coming soon" and the surveys hide the Rate and Reinstall links. Also `SENTINEL.version` / `released` for each new version.
 
 ### Translations
 
@@ -40,19 +45,27 @@ Addresses that can't receive mail get the normal error, so a person can fix a ty
 
 ### Extension surveys
 
-The extension (2.6.3+) opens three pages: **welcome** once after install, **goodbye** when it's uninstalled (Chrome's uninstall page), and **feedback** from the popup's Feedback link or the "Not really" answer on its on-page badge. Their address carries the extension's version, UI language and a few anonymous usage counts (runs, files, which options were used, most-used quality); the page sends those along with the answers.
+Both extensions have the same three surveys. The form is `src/components/Survey.jsx`; each product's questions are in `src/pages/FlowSurvey.jsx` and `src/pages/SentinelSurvey.jsx`, and its allowed answers, address counts and CSV columns are in the `PRODUCTS` list at the top of `public/api/feedback.php`. The form sends a hidden `product` field (`flow` or `sentinel`; missing means `flow`).
+
+**Smart Sentinel** (1.0.0+) opens them from `src/lib/usage.ts` in the extension: welcome after install, goodbye on uninstall, and feedback from the popup's Feedback link or "Not really" on its "Is it working well?" prompt. Answers go to `/home2/codifyp1/web-whizz-data/smart-sentinel-feedback.csv`, with the email subject starting "Smart Sentinel:". CSV columns: `date, type, v, lang, from, days, starts, reloads, errors, finished, site, random, custom, stop, hard, sched, daily, iv, reason, tool, rating, use, source, before, want, monitor, stay, bad, good, email` (`site` … `daily`: how many started refreshes used that option; `iv`: most used interval).
+
+**Flow Bulk Downloader:** the extension (2.6.3+) opens three pages: **welcome** once after install, **goodbye** when it's uninstalled (Chrome's uninstall page), and **feedback** from the popup's Feedback link or the "Not really" answer on its on-page badge. Their address carries the extension's version, UI language and a few anonymous usage counts (runs, files, which options were used, most-used quality); the page sends those along with the answers.
 
 Answers go to `/api/feedback.php`, which appends one row per answer to `/home2/codifyp1/web-whizz-data/flow-feedback.csv` (outside the web root; open it in cPanel → File Manager, or download it and open in Google Sheets/Excel) and emails a summary to `support@web-whizz.com`. Same spam protection as the waitlist (honeypot, time check), and 5 answers per IP per hour. Only known answer values are kept, so when you change a question's choices in `FlowSurvey.jsx`, change the lists at the top of `feedback.php` too. Umami counts visits to these pages but is told to ignore their address (`data-exclude-search`), so the usage counts never reach it; it does record the events `survey-welcome`, `survey-goodbye`, `survey-feedback`, `share`, `reinstall-click`.
 
-CSV columns: `date, type, v, lang, from, days, runs, okRuns, files, skipped, errRuns, stopped, pick, wait, home, newOnly, folder, qv, qi, reason, tool, rating, plan, use, source, volume, want, chain, stay, bad, good, email`.
+Flow CSV columns: `date, type, v, lang, from, days, runs, okRuns, files, skipped, errRuns, stopped, pick, wait, home, newOnly, folder, qv, qi, reason, tool, rating, plan, use, source, volume, want, chain, stay, bad, good, email`.
 
-**Publish the site before the extension version that opens these pages,** or uninstalling users land on the 404 page.
+**Publish the site before any extension version that opens these pages** (for Smart Sentinel: before 1.0.0 goes live on the store), or uninstalling users land on the 404 page.
 
 ### Analytics
 
 Visits and clicks are counted with [Umami Cloud](https://cloud.umami.is) (free Hobby plan, EU data region, no cookies, so no consent banner). The script is added to every page when `SITE.umamiId` in `src/site.js` is set; empty it to turn analytics off. Only visits on web-whizz.com count, so local previews don't.
 
-Tracked clicks (Umami → **Events**): `add-to-chrome`, `waitlist-signup`, `language-switch`, `email-click`, `reviews-click`, `home-flow-card`. To track another link, give it `data-umami-event="name"`. The Add to Chrome links carry `utm_` tags, so the Chrome Web Store dashboard shows installs that came from the site. The privacy page has a short "This website" section about this.
+Tracked clicks (Umami → **Events**): `add-to-chrome`, `waitlist-signup`, `language-switch`, `email-click`, `reviews-click`, `home-flow-card`, `home-sentinel-card`. Events from Smart Sentinel's pages carry `product: sentinel`. To track another link, give it `data-umami-event="name"`. The Add to Chrome links carry `utm_` tags, so the Chrome Web Store dashboard shows installs that came from the site. The privacy page has a short "This website" section about this.
+
+### Screenshots
+
+Every screenshot (`Shot` in `src/components/Flow.jsx`) opens full screen over the page when clicked (`src/components/Lightbox.jsx`): ← → move between the page's screenshots, Esc or a click outside closes it. Ctrl/Cmd-click still opens the image in a new tab.
 
 ## Commands
 
@@ -85,6 +98,7 @@ npm run preview    # serves dist/ locally to check the build
    - `https://web-whizz.com/e/flow-downloader/privacy/`
    - The **Join the waitlist** form on the Flow page, then check that the CSV appeared
    - `https://web-whizz.com/e/flow-downloader/feedback/?v=test`: send a test answer, check `flow-feedback.csv` and the email, then delete the test row
+   - `https://web-whizz.com/e/smart-sentinel/`, `.../privacy/`, and `.../feedback/?v=test`: send a test answer, check `smart-sentinel-feedback.csv` and the email, then delete the test row
    - `https://web-whizz.com/anything-else` (should show the 404 page)
 
 **Updating later** (e.g. after changing `FLOW.stats` in `src/site.js`): repeat steps 1, 3 and 4.
@@ -95,6 +109,8 @@ Other hosts work too: upload the contents of `dist/` to the web root. On Cloudfl
 
 ## Adding another extension
 
-1. Add its settings to `src/site.js`, and its images to `public/e/<slug>/`.
-2. Create `src/pages/<Name>.jsx` (copy `FlowDownloader.jsx` as a starting point).
-3. Add it to `ROUTES` in `src/routes.jsx`, and add a card in `src/pages/Home.jsx`.
+1. Add its settings to `src/site.js` (like `SENTINEL`), and its images to `public/e/<slug>/`.
+2. Add it to `EXTENSIONS` in `src/components/Extensions.jsx`: it then shows on `/e/` and the home page.
+3. Create `src/pages/<Name>.jsx` (copy `FlowDownloader.jsx` as a starting point).
+4. Add it to `ROUTES` in `src/routes.jsx` (breadcrumb: `["Web Whizz", "/"], EXT_CRUMB, [name, path]`), and a link in `Footer.jsx`.
+5. Surveys: copy `SentinelSurvey.jsx`, and add the product to `PRODUCTS` in `public/api/feedback.php`.

@@ -9,7 +9,7 @@ export default {
   ui: {
     skip: "Langsung ke konten",
     navProducts: "Produk",
-    navFlow: "Flow Downloader",
+    navExtensions: "Ekstensi Chrome",
     navContact: "Kontak",
     menu: "Menu",
     footerTagline: "Alat online yang menghemat waktu Anda berjam-jam.",
@@ -309,6 +309,7 @@ export default {
     error: "Gagal. Silakan coba lagi, atau kirim email kepada kami.",
     fine: "Satu email saat Pro diluncurkan. Tanpa spam, tidak pernah dibagikan.",
     contact: "Pertanyaan, bug, atau ide?",
-    email: "Kirim email"
+    feedbackText: "Ceritakan apa yang berjalan baik, apa yang tidak, dan apa yang ingin ditambahkan. Hanya semenit.",
+    feedback: "Kirim masukan"
   }
 };
