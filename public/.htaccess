@@ -3,8 +3,8 @@
 # Unknown pages show the site's own 404 page.
 ErrorDocument 404 /404.html
 
-# /e/flow-downloader opens /e/flow-downloader/index.html
-DirectoryIndex index.html
+# /e/flow-downloader opens /e/flow-downloader/index.html (and /admin/ opens the private dashboard, admin/index.php)
+DirectoryIndex index.html index.php
 
 # Send everyone to https (the SSL certificate is set up by cPanel's AutoSSL).
 RewriteEngine On
