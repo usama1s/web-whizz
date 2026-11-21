@@ -12,7 +12,12 @@ const LANGS = ['en', 'tr', 'vi', 'pt-BR', 'es', 'id'];
 $dataDir = dirname(__DIR__, 2) . '/web-whizz-data';
 $file = $dataDir . '/flow-pro-waitlist.csv';
 
+// Anything PHP prints by itself (a warning or notice) is thrown away in reply(), so the page always gets clean JSON
+// (see feedback.php).
+ob_start();
+
 function reply(bool $ok, string $lang): void {
+  while (ob_get_level()) ob_end_clean();
   $wantsJson = strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false;
   if ($wantsJson) {
     header('Content-Type: application/json');
@@ -94,8 +99,11 @@ if (!$known) {
 flock($fh, LOCK_UN);
 fclose($fh);
 
-if (!$known) {
-  @mail(NOTIFY, 'Flow Pro waitlist: new signup', "$email ($lang) joined the Flow Bulk Downloader Pro waitlist.", 'From: Web Whizz <' . NOTIFY . '>');
+// The email is only a heads-up: if mail() is turned off or fails, skip it rather than break the reply (see feedback.php).
+if (!$known && function_exists('mail')) {
+  try {
+    @mail(NOTIFY, 'Flow Pro waitlist: new signup', "$email ($lang) joined the Flow Bulk Downloader Pro waitlist.", 'From: Web Whizz <' . NOTIFY . '>');
+  } catch (\Throwable $e) {}
 }
 
 reply(true, $lang);

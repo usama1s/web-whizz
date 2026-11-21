@@ -69,11 +69,24 @@ const REQUIRED = ['goodbye' => 'reason', 'feedback' => 'rating'];
 
 $dataDir = dirname(__DIR__, 2) . '/web-whizz-data';
 
+// Anything PHP prints by itself (a warning or notice, if the host shows them) is held back and thrown away in reply(),
+// so the page always gets clean JSON. Otherwise the answer is saved but the page can't read the reply and says
+// "That didn't go through", and people send it again.
+ob_start();
+
 function reply(bool $ok): void {
+  while (ob_get_level()) ob_end_clean();
   header('Content-Type: application/json');
   header('Cache-Control: no-store');
   echo json_encode(['ok' => $ok]);
   exit;
+}
+
+// The email is only a heads-up; the answer is already saved. If the host has mail() turned off (on PHP 8 calling it
+// is then a fatal error that @ doesn't hide) or sending fails, skip it rather than break the visitor's reply.
+function notify(string $subject, string $body): void {
+  if (!function_exists('mail')) return;
+  try { @mail(NOTIFY, $subject, $body, 'From: Web Whizz <' . NOTIFY . '>'); } catch (\Throwable $e) {}
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -154,7 +167,6 @@ $lines = [];
 foreach ($p['columns'] as $c) if ($c !== 'date' && ($row[$c] ?? '') !== '') $lines[] = "$c: " . $row[$c];
 $reason = $row['reason'] ?? '';
 $rating = $row['rating'] ?? '';
-@mail(NOTIFY, "{$p['name']}: new $type answer" . ($reason ? " ($reason)" : '') . ($rating ? " ({$rating}★)" : ''),
-  implode("\n", $lines), 'From: Web Whizz <' . NOTIFY . '>');
+notify("{$p['name']}: new $type answer" . ($reason ? " ($reason)" : '') . ($rating ? " ({$rating}★)" : ''), implode("\n", $lines));
 
 reply(true);
