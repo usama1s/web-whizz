@@ -6,6 +6,7 @@ import FlowSurvey, { SURVEY_PAGES } from "./pages/FlowSurvey.jsx";
 import SmartSentinel, { FAQ as SENTINEL_FAQ, FEATURES as SENTINEL_FEATURES, META as SENTINEL_META } from "./pages/SmartSentinel.jsx";
 import SentinelPrivacy, { UPDATED as SENTINEL_PRIVACY_UPDATED } from "./pages/SentinelPrivacy.jsx";
 import SentinelSurvey, { SURVEY_PAGES as SENTINEL_SURVEY_PAGES } from "./pages/SentinelSurvey.jsx";
+import SentinelGuide, { GUIDE as SENTINEL_GUIDE } from "./pages/SentinelGuide.jsx";
 import Extensions, { META as EXTENSIONS_META } from "./pages/Extensions.jsx";
 import { EXTENSIONS, EXTENSIONS_PATH } from "./components/Extensions.jsx";
 import NotFound from "./pages/NotFound.jsx";
@@ -135,6 +136,41 @@ export const ROUTES = [
       sentinelApp(r, SENTINEL_FEATURES),
       breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SENTINEL.name, r.path]]),
       faqPage(r, SENTINEL_FAQ)
+    ]
+  },
+  // How-to article for problem searches ("how to auto refresh a page in Chrome").
+  {
+    path: SENTINEL_GUIDE.path,
+    Page: SentinelGuide,
+    product: "sentinel",
+    title: SENTINEL_GUIDE.title,
+    description: SENTINEL_GUIDE.description,
+    image: SENTINEL.img("og.png"),
+    imageAlt: SENTINEL_GUIDE.h1,
+    ogType: "article",
+    updated: SENTINEL_GUIDE.updated,
+    schema: (r) => [
+      organization(),
+      website(),
+      {
+        "@type": "TechArticle",
+        "@id": `${r.url}#article`,
+        headline: SENTINEL_GUIDE.h1,
+        description: SENTINEL_GUIDE.description,
+        url: r.url,
+        mainEntityOfPage: { "@id": `${r.url}#webpage` },
+        image: [SITE.url + SENTINEL.img("shot-exact-time.png"), SITE.url + SENTINEL.img("og.png")],
+        datePublished: SENTINEL_GUIDE.published,
+        dateModified: SENTINEL_GUIDE.updated,
+        inLanguage: "en",
+        author: { "@id": ORG },
+        publisher: { "@id": ORG },
+        about: { "@id": SENTINEL_APP },
+        mentions: { "@id": SENTINEL_APP }
+      },
+      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SENTINEL.name, SENTINEL.path], [SENTINEL_GUIDE.crumb, r.path]]),
+      faqPage(r, SENTINEL_GUIDE.faq)
     ]
   },
   {

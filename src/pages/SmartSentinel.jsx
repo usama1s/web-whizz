@@ -1,6 +1,7 @@
 import Icon from "../components/Icon.jsx";
 import { Shot } from "../components/Flow.jsx";
 import { SENTINEL } from "../site.js";
+import { GUIDE } from "./SentinelGuide.jsx";
 
 // The Smart Sentinel page (English only). Only list what the published version really does: the
 // "page monitor" ideas in the extension's README are on the survey's wish list, not in the product yet.
@@ -8,9 +9,9 @@ import { SENTINEL } from "../site.js";
 // copy them to public/e/smart-sentinel/ and recreate the .webp files when they change.
 
 export const META = {
-  title: "Smart Sentinel — Auto Refresh & Tab Reloader for Chrome | Web Whizz",
+  title: "Auto Refresh Chrome Tabs Every X Seconds or at a Set Time — Smart Sentinel",
   description:
-    "Free Chrome extension that auto refreshes any tab every few seconds or minutes, at random intervals, or between two exact times. Keeps going after restarts, sleep and errors. No account, no tracking."
+    "Free Chrome auto refresh extension: reload any tab every 5, 10 or 30 seconds, at random or at an exact time. Keeps going after restarts, sleep and errors."
 };
 
 export const FEATURES = [
@@ -34,6 +35,7 @@ const SHOTS = [
 ];
 
 export const FAQ = [
+  ["How do I make Chrome refresh a page automatically?", "Chrome has no built-in auto refresh. Install Smart Sentinel, open the page, click its icon, pick an interval and press Start. It keeps reloading until you stop it."],
   ["Is Smart Sentinel free?", "Yes. No account, no ads, no paid tier."],
   ["Does it keep refreshing when the tab is in the background?", "Yes. It doesn't matter which tab you're looking at, or whether the window is minimized. It also tells Chrome's Memory Saver not to put that tab to sleep while it's refreshing."],
   ["What happens if I close Chrome or restart my computer?", "Your refreshes are saved. When Chrome opens again and the page is back (Chrome can reopen your tabs for you), the refresh picks up on its own."],
@@ -120,6 +122,15 @@ export default function SmartSentinel() {
               <Shot key={file} file={file} img={SENTINEL.img} alt={alt} caption={caption} />
             ))}
           </div>
+          {/* After the screenshots is when people are most ready to install. */}
+          <div className="after-video">
+            <div className="actions">
+              <StoreButton campaign="sentinel-gallery" />
+              <a className="btn btn-ghost" href="#how">
+                How it works
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -144,6 +155,9 @@ export default function SmartSentinel() {
               <b>Stop</b> any time from the same popup, or let your stop condition end it.
             </li>
           </ol>
+          <p>
+            Step by step for each case — every few seconds, at an exact time, at random — and why auto refresh stops: <a href={GUIDE.path}>how to auto refresh a page in Chrome</a>.
+          </p>
 
           <h3>Good for</h3>
           <ul className="tags">

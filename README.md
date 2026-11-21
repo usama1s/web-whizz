@@ -11,6 +11,7 @@ The Web Whizz website: a static site made with plain React + Vite (no router, no
 | `/api/waitlist.php` | `public/api/waitlist.php`: saves "Pro coming soon" signups (PHP, runs on the cPanel host) |
 | `/e/flow-downloader/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/FlowSurvey.jsx`: the extension's surveys (not indexed, not in the sitemap). See **Extension surveys** below |
 | `/api/feedback.php` | `public/api/feedback.php`: saves the survey answers |
+| `/admin/` | `public/admin/index.php`: private dashboard of every survey answer and waitlist signup (super admin login). See **Admin dashboard** below |
 | `/e/flow-downloader/privacy/` | `src/pages/FlowPrivacy.jsx`: privacy policy (keep in sync with `flow-bulk-downloader-store/PRIVACY.md` in the extension project, `~/Desktop/google flow extension/`) |
 | `/e/smart-sentinel/` | `src/pages/SmartSentinel.jsx`: Smart Sentinel page (English only): features, screenshots, how it works, FAQ |
 | `/e/smart-sentinel/privacy/` | `src/pages/SentinelPrivacy.jsx`: Smart Sentinel privacy policy (keep in sync with `store/PRIVACY.md` in the extension project, `~/Desktop/P Projects/Smart Sentinel/`) |
@@ -24,7 +25,7 @@ Edit `src/site.js`:
 - `FLOW.version` and `RELEASES`: add a line to `RELEASES` for every new version, and its notes under `changelog.entries` in each language file.
 - `FLOW.demoVideo`: put a screen recording (e.g. `demo.mp4`) in `public/e/flow-downloader/` and name it here to replace the animated demo.
 - `FLOW.chromeStoreUrl`, `SITE.email`.
-- `SENTINEL.chromeStoreUrl`: paste Smart Sentinel's store link here once it's published. Until then its page says "Coming soon" and the surveys hide the Rate and Reinstall links. Also `SENTINEL.version` / `released` for each new version.
+- `SENTINEL.chromeStoreUrl`: Smart Sentinel's store link (empty would make its page say "Coming soon" and hide the surveys' Rate and Reinstall links). Also `SENTINEL.version` / `released` for each new version.
 
 ### Translations
 
@@ -54,6 +55,10 @@ Both extensions have the same three surveys. The form is `src/components/Survey.
 Answers go to `/api/feedback.php`, which appends one row per answer to `/home2/codifyp1/web-whizz-data/flow-feedback.csv` (outside the web root; open it in cPanel → File Manager, or download it and open in Google Sheets/Excel) and emails a summary to `support@web-whizz.com`. Same spam protection as the waitlist (honeypot, time check), and 5 answers per IP per hour. Only known answer values are kept, so when you change a question's choices in `FlowSurvey.jsx`, change the lists at the top of `feedback.php` too. Umami counts visits to these pages but is told to ignore their address (`data-exclude-search`), so the usage counts never reach it; it does record the events `survey-welcome`, `survey-goodbye`, `survey-feedback`, `share`, `reinstall-click`.
 
 Flow CSV columns: `date, type, v, lang, from, days, runs, okRuns, files, skipped, errRuns, stopped, pick, wait, home, newOnly, folder, qv, qi, reason, tool, rating, plan, use, source, volume, want, chain, stay, bad, good, email`.
+
+### Admin dashboard
+
+`https://web-whizz.com/admin/` (`public/admin/index.php`) shows every survey answer and waitlist signup from the CSVs above: one tab per product, counts, charts (uninstall reasons, ratings, wanted features, uses, sources), filters by survey type, search, "only with written comments", and a **Download CSV** button. It's private: nothing links to it, it's never indexed, and every page (and download) needs the super admin login (the email in `ADMIN_USER`). Only a bcrypt hash of the password is in the code, because this repo is public. The steps to change the password are at the top of the file. 5 wrong passwords lock that IP out for 15 minutes. When you change a survey's answer choices, also update `LABELS` there, or the dashboard shows the raw code.
 
 **Publish the site before any extension version that opens these pages** (for Smart Sentinel: before 1.0.0 goes live on the store), or uninstalling users land on the 404 page.
 

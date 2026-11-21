@@ -132,7 +132,7 @@ export function sentinelApp(route, features) {
     dateModified: SENTINEL.released,
     image: abs(SENTINEL.img("logo.png")),
     screenshot: ["shot-running.png", "shot-pick-interval.png", "shot-exact-time.png", "shot-random-stop.png", "shot-retrying.png"].map((f) => abs(SENTINEL.img(f))),
-    featureList: features.map((f) => f.title),
+    featureList: features.map((f) => `${f.title}: ${f.text}`),
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: SENTINEL.chromeStoreUrl || abs(route.path) },
     ...(SENTINEL.chromeStoreUrl ? { installUrl: SENTINEL.chromeStoreUrl, downloadUrl: SENTINEL.chromeStoreUrl, sameAs: [SENTINEL.chromeStoreUrl] } : {}),

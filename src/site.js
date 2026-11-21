@@ -52,7 +52,7 @@ export const SENTINEL = {
   version: "1.0.0",
   released: "2026-11-21",
   // Chrome Web Store listing. Empty = "Coming soon" instead of Add to Chrome, and no Rate / Reinstall links.
-  chromeStoreUrl: "",
+  chromeStoreUrl: "https://chromewebstore.google.com/detail/smart-sentinel-%E2%80%93-auto-ref/fhikicejdnionanjgbocbhpkmikdjhnj",
   feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/smart-sentinel/${file}`
 };
