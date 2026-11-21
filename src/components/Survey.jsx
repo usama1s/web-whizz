@@ -112,6 +112,14 @@ function Question({ q, answers, set }) {
  * rateText:   the sentence before "Rate it"
  * noShareIf:  (answers) => true hides the share buttons (e.g. after "it didn't work")
  */
+// Umami event, if analytics is on. Kept apart from the submit's try/catch: an analytics error must never turn an
+// answer that was saved into "That didn't go through".
+function track(name, data) {
+  try {
+    window.umami?.track(name, data);
+  } catch {}
+}
+
 export default function Survey({ product, survey, s, context: contextKeys, quickStart, share, fine, rateText, noShareIf }) {
   const [answers, setAnswers] = useState({});
   const [context, setContext] = useState({});
@@ -136,7 +144,7 @@ export default function Survey({ product, survey, s, context: contextKeys, quick
       const res = await fetch(product.feedbackUrl, { method: "POST", body, headers: { Accept: "application/json" } });
       const data = await res.json();
       setStatus(data.ok ? "ok" : "error");
-      if (data.ok) window.umami?.track(`survey-${survey}`, { product: product.key, reason: answers.reason || "", rating: answers.rating || "", v: context.v || "" });
+      if (data.ok) track(`survey-${survey}`, { product: product.key, reason: answers.reason || "", rating: answers.rating || "", v: context.v || "" });
     } catch {
       setStatus("error");
     }

@@ -163,7 +163,12 @@ export function Waitlist({ t, lang }) {
       const data = await res.json();
       setStatus(data.ok ? "ok" : "error");
       // Counted in Umami (if it's on). Bots also get ok:true, so this can count a few more than the real CSV.
-      if (data.ok) window.umami?.track("waitlist-signup", { lang });
+      // Its own try/catch, so an analytics error never turns a saved signup into an error message.
+      if (data.ok) {
+        try {
+          window.umami?.track("waitlist-signup", { lang });
+        } catch {}
+      }
     } catch {
       setStatus("error");
     }
