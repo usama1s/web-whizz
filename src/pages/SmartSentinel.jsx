@@ -120,6 +120,15 @@ export default function SmartSentinel() {
               <Shot key={file} file={file} img={SENTINEL.img} alt={alt} caption={caption} />
             ))}
           </div>
+          {/* After the screenshots is when people are most ready to install. */}
+          <div className="after-video">
+            <div className="actions">
+              <StoreButton campaign="sentinel-gallery" />
+              <a className="btn btn-ghost" href="#how">
+                How it works
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -24,7 +24,7 @@ Edit `src/site.js`:
 - `FLOW.version` and `RELEASES`: add a line to `RELEASES` for every new version, and its notes under `changelog.entries` in each language file.
 - `FLOW.demoVideo`: put a screen recording (e.g. `demo.mp4`) in `public/e/flow-downloader/` and name it here to replace the animated demo.
 - `FLOW.chromeStoreUrl`, `SITE.email`.
-- `SENTINEL.chromeStoreUrl`: paste Smart Sentinel's store link here once it's published. Until then its page says "Coming soon" and the surveys hide the Rate and Reinstall links. Also `SENTINEL.version` / `released` for each new version.
+- `SENTINEL.chromeStoreUrl`: Smart Sentinel's store link (empty would make its page say "Coming soon" and hide the surveys' Rate and Reinstall links). Also `SENTINEL.version` / `released` for each new version.
 
 ### Translations
 
