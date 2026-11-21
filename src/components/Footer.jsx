@@ -23,6 +23,7 @@ export default function Footer({ ui, flowPath, product }) {
             {sentinel ? (
               <>
                 <a href={SENTINEL.path + "#how"}>How Smart Sentinel works</a>
+                <a href={SENTINEL.path + "auto-refresh-page-chrome/"}>How to auto refresh a page in Chrome</a>
                 <a href={SENTINEL.privacyPath}>{ui.footerPrivacy}</a>
               </>
             ) : (
