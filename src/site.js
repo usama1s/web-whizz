@@ -2,6 +2,9 @@
 
 export const SITE = {
   name: "Web Whizz",
+  // The registered company, shown in the footer. Meta's business verification matches the site to this name and address.
+  legalName: "Web Whizz LLC",
+  address: ["1209 Mountain Road Pl NE, STE R", "Albuquerque, NM 87110, USA"],
   url: "https://web-whizz.com",
   email: "support@web-whizz.com",
   // Umami Cloud website ID (umami.is → Settings → Websites → Edit). Empty = no analytics script on the site.
@@ -73,6 +76,14 @@ export const SIDEKICK = {
   // addresses. Their answers post here (public/api/feedback.php → "sidekick").
   feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/sidekick-boomi/${file}`
+};
+
+// DropKaro (dropkaro.pk): daily pick & drop rides in Pakistan, run by Web Whizz LLC. Its own site, so links go out.
+export const DROPKARO = {
+  key: "dropkaro",
+  name: "DropKaro",
+  url: "https://dropkaro.pk",
+  img: (file) => `/dropkaro/${file}`
 };
 
 // Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).
