@@ -1,5 +1,5 @@
 import { Brand } from "./Brand.jsx";
-import { FLOW, SENTINEL, SIDEKICK, SITE } from "../site.js";
+import { FLOW, SENTINEL, SIDEKICK, SITE, WEBSITES } from "../site.js";
 
 // product: "sentinel" / "sidekick" on those extensions' pages (src/routes.jsx), so Help links to their own guide and privacy policy.
 export default function Footer({ ui, flowPath, product }) {
@@ -11,6 +11,12 @@ export default function Footer({ ui, flowPath, product }) {
         <div className="footer-brand">
           <Brand size={28} />
           <p>{ui.footerTagline}</p>
+          <address className="footer-address">
+            {SITE.legalName}
+            {SITE.address.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </address>
         </div>
         <div className="footer-cols">
           <div>
@@ -18,6 +24,11 @@ export default function Footer({ ui, flowPath, product }) {
             <a href={flowPath}>{FLOW.name}</a>
             <a href={SENTINEL.path}>{SENTINEL.name}</a>
             <a href={SIDEKICK.path}>{SIDEKICK.name}</a>
+            {WEBSITES.map((w) => (
+              <a key={w.key} href={w.url} data-umami-event={`${w.key}-click`} data-umami-event-where="footer">
+                {w.domain}
+              </a>
+            ))}
             <a href="/e/">{ui.navExtensions}</a>
           </div>
           <div>
@@ -43,7 +54,7 @@ export default function Footer({ ui, flowPath, product }) {
         </div>
       </div>
       <div className="wrap legal">
-        <span suppressHydrationWarning>© {new Date().getFullYear()} Web Whizz</span>
+        <span suppressHydrationWarning>© {new Date().getFullYear()} {SITE.legalName}</span>
         <span>
           {sidekick
             ? "Boomi is a trademark of Boomi, LP. Web Whizz is independent and not affiliated with Boomi."

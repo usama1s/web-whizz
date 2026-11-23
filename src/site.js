@@ -2,6 +2,9 @@
 
 export const SITE = {
   name: "Web Whizz",
+  // The registered company, shown in the footer. Meta's business verification matches the site to this name and address.
+  legalName: "Web Whizz LLC",
+  address: ["1209 Mountain Road Pl NE, STE R", "Albuquerque, NM 87110, USA"],
   url: "https://web-whizz.com",
   email: "support@web-whizz.com",
   // Umami Cloud website ID (umami.is → Settings → Websites → Edit). Empty = no analytics script on the site.
@@ -74,6 +77,37 @@ export const SIDEKICK = {
   feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/sidekick-boomi/${file}`
 };
+
+// Web Whizz LLC's own websites, listed under Products on the home page and in the footer. Each is its own site, so links go out.
+export const WEBSITES = [
+  {
+    key: "dropkaro",
+    name: "DropKaro",
+    domain: "dropkaro.pk",
+    url: "https://dropkaro.pk",
+    logo: "/dropkaro/logo.svg",
+    text: "Daily pick & drop rides in Pakistan. Drivers post their route for free, and riders going to school, college or the office contact them directly.",
+    tags: ["Website", "Pakistan"]
+  },
+  {
+    key: "davetiim-pk",
+    name: "Davetiim.pk",
+    domain: "davetiim.pk",
+    url: "https://davetiim.pk",
+    logo: "/davetiim/logo.svg",
+    text: "Digital wedding invitations for Pakistan. Pick a template, add every function from Mangni to Walima, pay once in PKR and share one link with your guests.",
+    tags: ["Website", "Pakistan"]
+  },
+  {
+    key: "davetiim-com",
+    name: "Davetiim",
+    domain: "davetiim.com",
+    url: "https://davetiim.com",
+    logo: "/davetiim/logo.svg",
+    text: "Digital wedding invitations for Turkey. Pick a template, fill in the details, pay once and share a hosted invitation with your guests.",
+    tags: ["Website", "Turkey"]
+  }
+];
 
 // Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).
 export const RELEASES = [
