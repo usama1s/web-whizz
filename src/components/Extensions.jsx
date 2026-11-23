@@ -1,5 +1,5 @@
 import Icon from "./Icon.jsx";
-import { FLOW, SENTINEL } from "../site.js";
+import { FLOW, SENTINEL, SIDEKICK } from "../site.js";
 
 // Every Chrome extension, in the order they're shown on /e/ and on the home page.
 // A new extension needs one entry here (and its page in src/routes.jsx).
@@ -13,6 +13,11 @@ export const EXTENSIONS = [
     product: SENTINEL,
     text: "Auto refresh any tab on a timer, at random intervals or at an exact time — and keep going after restarts, sleep and errors.",
     tags: ["Free", "Auto refresh"]
+  },
+  {
+    product: SIDEKICK,
+    text: "A real script editor, a Message shape editor, Set Properties on one screen, shortcuts and canvas glow for the Boomi Integration build screen.",
+    tags: ["Free", "Developer tools"]
   }
 ];
 

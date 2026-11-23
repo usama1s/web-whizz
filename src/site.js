@@ -57,6 +57,24 @@ export const SENTINEL = {
   img: (file) => `/e/smart-sentinel/${file}`
 };
 
+// Sidekick for Boomi (Chrome extension: script editor & canvas helpers for Boomi Integration). English only.
+// A basic product page (src/pages/SidekickBoomi.jsx) and the privacy policy the store listing links to.
+// The extension's code is in ~/Desktop/P Projects/sidekick-boomi (logo and promo copied from its docs/store/).
+export const SIDEKICK = {
+  key: "sidekick",
+  path: "/e/sidekick-boomi/",
+  privacyPath: "/e/sidekick-boomi/privacy/",
+  name: "Sidekick for Boomi",
+  storeName: "Sidekick for Boomi – Script Editor & Canvas Helpers",
+  version: "0.1.0",
+  // Chrome Web Store listing, once it's live. Empty = no Rate / Reinstall links on the surveys.
+  chromeStoreUrl: "",
+  // The extension (src/shared/usage.ts) opens SIDEKICK.path + "welcome/", "goodbye/" and "feedback/": keep these
+  // addresses. Their answers post here (public/api/feedback.php → "sidekick").
+  feedbackUrl: "/api/feedback.php",
+  img: (file) => `/e/sidekick-boomi/${file}`
+};
+
 // Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).
 export const RELEASES = [
   { version: "2.6.2", date: "2026-11-16" },
