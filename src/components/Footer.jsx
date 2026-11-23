@@ -17,6 +17,7 @@ export default function Footer({ ui, flowPath, product }) {
             <h2>{ui.footerProducts}</h2>
             <a href={flowPath}>{FLOW.name}</a>
             <a href={SENTINEL.path}>{SENTINEL.name}</a>
+            <a href={SIDEKICK.path}>{SIDEKICK.name}</a>
             <a href="/e/">{ui.navExtensions}</a>
           </div>
           <div>

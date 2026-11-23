@@ -7,6 +7,8 @@ import SmartSentinel, { FAQ as SENTINEL_FAQ, FEATURES as SENTINEL_FEATURES, META
 import SentinelPrivacy, { UPDATED as SENTINEL_PRIVACY_UPDATED } from "./pages/SentinelPrivacy.jsx";
 import SentinelSurvey, { SURVEY_PAGES as SENTINEL_SURVEY_PAGES } from "./pages/SentinelSurvey.jsx";
 import SentinelGuide, { GUIDE as SENTINEL_GUIDE } from "./pages/SentinelGuide.jsx";
+import SidekickBoomi, { FAQ as SIDEKICK_FAQ, META as SIDEKICK_META } from "./pages/SidekickBoomi.jsx";
+import SidekickSurvey, { SURVEY_PAGES as SIDEKICK_SURVEY_PAGES } from "./pages/SidekickSurvey.jsx";
 import SidekickPrivacy, { UPDATED as SIDEKICK_PRIVACY_UPDATED } from "./pages/SidekickPrivacy.jsx";
 import Extensions, { META as EXTENSIONS_META } from "./pages/Extensions.jsx";
 import { EXTENSIONS, EXTENSIONS_PATH } from "./components/Extensions.jsx";
@@ -192,15 +194,42 @@ export const ROUTES = [
     description: `${SENTINEL.name}: a short ${survey} survey.`,
     noindex: true
   })),
-  // Sidekick for Boomi: only the privacy policy so far (linked from its Chrome Web Store listing).
+  // Sidekick for Boomi (English only): a basic product page and the privacy policy its store listing links to.
+  {
+    path: SIDEKICK.path,
+    Page: SidekickBoomi,
+    product: "sidekick",
+    title: SIDEKICK_META.title,
+    description: SIDEKICK_META.description,
+    image: SIDEKICK.img("promo.png"),
+    imageAlt: `${SIDEKICK.name} — script editor and canvas helpers for Boomi`,
+    updated: "2026-11-23",
+    schema: (r) => [
+      organization(),
+      website(),
+      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SIDEKICK.name, r.path]]),
+      faqPage(r, SIDEKICK_FAQ)
+    ]
+  },
   {
     path: SIDEKICK.privacyPath,
     Page: SidekickPrivacy,
     product: "sidekick",
     title: "Privacy Policy — Sidekick for Boomi | Web Whizz",
-    description: "Sidekick for Boomi collects and sends nothing: no accounts, no analytics, no network requests. Your settings stay in your browser.",
+    description: "Sidekick for Boomi sends nothing while you use it: no accounts, no analytics, no network requests. Your settings stay in your browser. What our optional surveys collect.",
     updated: SIDEKICK_PRIVACY_UPDATED
-  }
+  },
+  // The extension's welcome, goodbye (uninstall) and feedback pages. Not for search engines, not in the sitemap.
+  ...SIDEKICK_SURVEY_PAGES.map((survey) => ({
+    path: `${SIDEKICK.path}${survey}/`,
+    Page: SidekickSurvey,
+    product: "sidekick",
+    survey,
+    title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${SIDEKICK.name} | Web Whizz`,
+    description: `${SIDEKICK.name}: a short ${survey} survey.`,
+    noindex: true
+  }))
 ].map((r) => ({ ...r, url: SITE.url + r.path }));
 
 export const NOT_FOUND = {
