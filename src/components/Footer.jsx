@@ -1,5 +1,5 @@
 import { Brand } from "./Brand.jsx";
-import { DROPKARO, FLOW, SENTINEL, SIDEKICK, SITE } from "../site.js";
+import { FLOW, SENTINEL, SIDEKICK, SITE, WEBSITES } from "../site.js";
 
 // product: "sentinel" / "sidekick" on those extensions' pages (src/routes.jsx), so Help links to their own guide and privacy policy.
 export default function Footer({ ui, flowPath, product }) {
@@ -24,7 +24,11 @@ export default function Footer({ ui, flowPath, product }) {
             <a href={flowPath}>{FLOW.name}</a>
             <a href={SENTINEL.path}>{SENTINEL.name}</a>
             <a href={SIDEKICK.path}>{SIDEKICK.name}</a>
-            <a href={DROPKARO.url} data-umami-event="dropkaro-click" data-umami-event-where="footer">{DROPKARO.name}</a>
+            {WEBSITES.map((w) => (
+              <a key={w.key} href={w.url} data-umami-event={`${w.key}-click`} data-umami-event-where="footer">
+                {w.domain}
+              </a>
+            ))}
             <a href="/e/">{ui.navExtensions}</a>
           </div>
           <div>

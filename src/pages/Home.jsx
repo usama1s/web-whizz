@@ -1,7 +1,7 @@
 import Icon from "../components/Icon.jsx";
 import { Shot } from "../components/Flow.jsx";
 import { ExtensionCards } from "../components/Extensions.jsx";
-import { DROPKARO, SITE } from "../site.js";
+import { SITE, WEBSITES } from "../site.js";
 
 const PRINCIPLES = [
   { icon: "shield", title: "Private by default", text: "Our tools collect only what they need to work — never to sell, profile or track you." },
@@ -40,20 +40,23 @@ export default function Home() {
           <p className="section-lead">Built carefully, tested against real-world use, and documented properly.</p>
           <div className="cards">
             <ExtensionCards where="home" />
-            <a className="card ext-card" href={DROPKARO.url} data-umami-event="home-dropkaro-card">
-              <img src={DROPKARO.img("logo.svg")} alt="" width="72" height="72" />
-              <div>
-                <h3>{DROPKARO.name}</h3>
-                <p>Daily pick &amp; drop rides in Pakistan. Drivers post their route for free, and riders going to school, college or the office contact them directly.</p>
-                <ul className="tags">
-                  <li>Website</li>
-                  <li>Pakistan</li>
-                </ul>
-                <span className="link-more">
-                  Visit dropkaro.pk <Icon name="arrow" size={16} />
-                </span>
-              </div>
-            </a>
+            {WEBSITES.map((w) => (
+              <a key={w.key} className="card ext-card" href={w.url} data-umami-event={`home-${w.key}-card`}>
+                <img src={w.logo} alt="" width="72" height="72" />
+                <div>
+                  <h3>{w.name}</h3>
+                  <p>{w.text}</p>
+                  <ul className="tags">
+                    {w.tags.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
+                  <span className="link-more">
+                    Visit {w.domain} <Icon name="arrow" size={16} />
+                  </span>
+                </div>
+              </a>
+            ))}
             <div className="card card-dashed">
               <div className="soon-icon">
                 <Icon name="grid" size={26} />

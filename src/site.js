@@ -78,13 +78,36 @@ export const SIDEKICK = {
   img: (file) => `/e/sidekick-boomi/${file}`
 };
 
-// DropKaro (dropkaro.pk): daily pick & drop rides in Pakistan, run by Web Whizz LLC. Its own site, so links go out.
-export const DROPKARO = {
-  key: "dropkaro",
-  name: "DropKaro",
-  url: "https://dropkaro.pk",
-  img: (file) => `/dropkaro/${file}`
-};
+// Web Whizz LLC's own websites, listed under Products on the home page and in the footer. Each is its own site, so links go out.
+export const WEBSITES = [
+  {
+    key: "dropkaro",
+    name: "DropKaro",
+    domain: "dropkaro.pk",
+    url: "https://dropkaro.pk",
+    logo: "/dropkaro/logo.svg",
+    text: "Daily pick & drop rides in Pakistan. Drivers post their route for free, and riders going to school, college or the office contact them directly.",
+    tags: ["Website", "Pakistan"]
+  },
+  {
+    key: "davetiim-pk",
+    name: "Davetiim.pk",
+    domain: "davetiim.pk",
+    url: "https://davetiim.pk",
+    logo: "/davetiim/logo.svg",
+    text: "Digital wedding invitations for Pakistan. Pick a template, add every function from Mangni to Walima, pay once in PKR and share one link with your guests.",
+    tags: ["Website", "Pakistan"]
+  },
+  {
+    key: "davetiim-com",
+    name: "Davetiim",
+    domain: "davetiim.com",
+    url: "https://davetiim.com",
+    logo: "/davetiim/logo.svg",
+    text: "Digital wedding invitations for Turkey. Pick a template, fill in the details, pay once and share a hosted invitation with your guests.",
+    tags: ["Website", "Turkey"]
+  }
+];
 
 // Changelog, newest first. The text of each entry is translated in src/i18n/flow/<lang>.js (changelog.entries).
 export const RELEASES = [
