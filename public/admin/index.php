@@ -1,7 +1,8 @@
 <?php
 // Private admin dashboard: https://web-whizz.com/admin/ (copied into dist/admin/ by the build).
 // Shows the answers that public/api/feedback.php and waitlist.php save OUTSIDE the web root:
-//   /home2/codifyp1/web-whizz-data/flow-feedback.csv, smart-sentinel-feedback.csv, flow-pro-waitlist.csv
+//   /home2/codifyp1/web-whizz-data/flow-feedback.csv, smart-sentinel-feedback.csv, sidekick-boomi-feedback.csv,
+//   flow-pro-waitlist.csv
 // Nothing on the site links here, it is never indexed (X-Robots-Tag), and every page needs the super admin login.
 //
 // Login: one super admin. Only a bcrypt hash of the password is stored here (this repo is public).
@@ -10,7 +11,7 @@
 // 5 wrong passwords from one IP lock that IP out for 15 minutes (web-whizz-data/admin-login-rate.json).
 //
 // The answer values (codes like "broken" or "other_tool") are turned into readable text with LABELS below.
-// Keep them in sync with src/pages/FlowSurvey.jsx and SentinelSurvey.jsx; an unknown code is shown as is.
+// Keep them in sync with src/pages/FlowSurvey.jsx, SentinelSurvey.jsx and SidekickSurvey.jsx; an unknown code is shown as is.
 
 const ADMIN_USER = 'usamamunir1s@gmail.com'; // lowercase; the login form ignores case and spaces around it
 const ADMIN_HASH = '$2y$12$hT6fNaRvvb3zcOUErhGn3OqGKedLKXgkncIvzSMnin7G4MrCywwie';
@@ -25,6 +26,7 @@ $dataDir = dirname(__DIR__, 2) . '/web-whizz-data';
 const SOURCES = [
   'flow' => ['name' => 'Flow Bulk Downloader', 'file' => 'flow-feedback.csv'],
   'sentinel' => ['name' => 'Smart Sentinel', 'file' => 'smart-sentinel-feedback.csv'],
+  'sidekick' => ['name' => 'Sidekick for Boomi', 'file' => 'sidekick-boomi-feedback.csv'],
   'waitlist' => ['name' => 'Pro waitlist', 'file' => 'flow-pro-waitlist.csv'],
 ];
 const TYPES = ['welcome' => 'Welcome', 'goodbye' => 'Goodbye', 'feedback' => 'Feedback'];
@@ -63,6 +65,16 @@ const LABELS = [
       'scroll' => 'Keep scroll position', 'list' => 'List of all refreshing tabs', 'autostart' => 'Auto-start on certain pages',
       'sound' => 'Sound / desktop notification'],
   ],
+  'sidekick' => [
+    'reason' => ['broken' => "Didn't work on their Boomi screens", 'conflict' => "Got in the way of Boomi's editor or keys",
+      'slow' => 'Boomi felt slower', 'confusing' => "Couldn't figure out how to use it", 'trust' => "Didn't want an extension on their Boomi account",
+      'missing' => 'Missing a feature', 'no_boomi' => "Doesn't work with Boomi any more", 'other_tool' => 'Found another tool', 'other' => 'Something else'],
+    'role' => ['developer' => 'Builds integrations for their company', 'consultant' => 'Consultant / partner', 'admin' => 'Supports, monitors or reviews',
+      'learning' => 'Learning Boomi', 'other' => 'Something else'],
+    'source' => SOURCE_Q + ['community' => 'Boomi Community / forum', 'linkedin' => 'LinkedIn'],
+    'want' => ['map' => 'Map function / map script editor', 'search' => 'Search inside every shape and script', 'diff' => 'Compare script/process versions',
+      'docs' => 'Export process documentation', 'logs' => 'Easier Test mode documents and logs', 'team' => 'Share snippets and dictionary with team'],
+  ],
 ];
 
 // Questions shown on each answer, in order: [column, label]. Usage counts go in the collapsible "Usage" line.
@@ -71,6 +83,7 @@ const QUESTIONS = [
     ['chain', 'Would use prompt chaining'], ['use', 'Makes'], ['want', 'Would use']],
   'sentinel' => [['reason', 'Reason'], ['tool', 'Other tool'], ['source', 'Found us via'], ['before', 'Used before'],
     ['monitor', 'Would use change alerts'], ['use', 'Refreshes'], ['want', 'Would use']],
+  'sidekick' => [['reason', 'Reason'], ['tool', 'Other tool'], ['role', 'Role'], ['source', 'Found us via'], ['want', 'Would use']],
 ];
 const TEXTS = [['stay', 'What would have made them stay'], ['bad', 'Fix or add'], ['good', 'Works well']];
 const USAGE = [
@@ -80,6 +93,8 @@ const USAGE = [
   'sentinel' => ['days' => 'days installed', 'starts' => 'starts', 'reloads' => 'reloads', 'errors' => 'errors', 'finished' => 'finished',
     'site' => 'site', 'random' => 'random', 'custom' => 'custom', 'stop' => 'stop', 'hard' => 'hard', 'sched' => 'sched',
     'daily' => 'daily', 'iv' => 'top interval'],
+  'sidekick' => ['days' => 'days installed', 'editorOpens' => 'full editor opens', 'inPlace' => 'in-place editors', 'setProps' => 'Set Properties opens',
+    'shortcuts' => 'shortcuts used'],
 ];
 
 // ---------------------------------------------------------------------------------------------------------------
