@@ -7,10 +7,11 @@ import SmartSentinel, { FAQ as SENTINEL_FAQ, FEATURES as SENTINEL_FEATURES, META
 import SentinelPrivacy, { UPDATED as SENTINEL_PRIVACY_UPDATED } from "./pages/SentinelPrivacy.jsx";
 import SentinelSurvey, { SURVEY_PAGES as SENTINEL_SURVEY_PAGES } from "./pages/SentinelSurvey.jsx";
 import SentinelGuide, { GUIDE as SENTINEL_GUIDE } from "./pages/SentinelGuide.jsx";
+import SidekickPrivacy, { UPDATED as SIDEKICK_PRIVACY_UPDATED } from "./pages/SidekickPrivacy.jsx";
 import Extensions, { META as EXTENSIONS_META } from "./pages/Extensions.jsx";
 import { EXTENSIONS, EXTENSIONS_PATH } from "./components/Extensions.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { FLOW, RELEASES, SENTINEL, SITE } from "./site.js";
+import { FLOW, RELEASES, SENTINEL, SIDEKICK, SITE } from "./site.js";
 import { LOCALES } from "./i18n/flow/index.js";
 import { breadcrumbs, faqPage, organization, sentinelApp, softwareApp, video, webPage, website, APP, ORG, SENTINEL_APP } from "./seo.js";
 
@@ -190,7 +191,16 @@ export const ROUTES = [
     title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${SENTINEL.name} | Web Whizz`,
     description: `${SENTINEL.name}: a short ${survey} survey.`,
     noindex: true
-  }))
+  })),
+  // Sidekick for Boomi: only the privacy policy so far (linked from its Chrome Web Store listing).
+  {
+    path: SIDEKICK.privacyPath,
+    Page: SidekickPrivacy,
+    product: "sidekick",
+    title: "Privacy Policy — Sidekick for Boomi | Web Whizz",
+    description: "Sidekick for Boomi collects and sends nothing: no accounts, no analytics, no network requests. Your settings stay in your browser.",
+    updated: SIDEKICK_PRIVACY_UPDATED
+  }
 ].map((r) => ({ ...r, url: SITE.url + r.path }));
 
 export const NOT_FOUND = {

@@ -16,6 +16,7 @@ The Web Whizz website: a static site made with plain React + Vite (no router, no
 | `/e/smart-sentinel/` | `src/pages/SmartSentinel.jsx`: Smart Sentinel page (English only): features, screenshots, how it works, FAQ |
 | `/e/smart-sentinel/privacy/` | `src/pages/SentinelPrivacy.jsx`: Smart Sentinel privacy policy (keep in sync with `store/PRIVACY.md` in the extension project, `~/Desktop/P Projects/Smart Sentinel/`) |
 | `/e/smart-sentinel/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/SentinelSurvey.jsx`: Smart Sentinel's surveys (not indexed). See **Extension surveys** |
+| `/e/sidekick-boomi/privacy/` | `src/pages/SidekickPrivacy.jsx`: Sidekick for Boomi privacy policy, linked from its Chrome Web Store listing (keep in sync with `docs/PRIVACY.md` in the extension project, `~/Desktop/P Projects/sidekick-boomi/`). No product page yet |
 | any other URL | `src/pages/NotFound.jsx`, built as `404.html` |
 
 ## Things you'll change most
@@ -104,6 +105,7 @@ npm run preview    # serves dist/ locally to check the build
    - The **Join the waitlist** form on the Flow page, then check that the CSV appeared
    - `https://web-whizz.com/e/flow-downloader/feedback/?v=test`: send a test answer, check `flow-feedback.csv` and the email, then delete the test row
    - `https://web-whizz.com/e/smart-sentinel/`, `.../privacy/`, and `.../feedback/?v=test`: send a test answer, check `smart-sentinel-feedback.csv` and the email, then delete the test row
+   - `https://web-whizz.com/e/sidekick-boomi/privacy/`
    - `https://web-whizz.com/anything-else` (should show the 404 page)
 
 **Updating later** (e.g. after changing `FLOW.stats` in `src/site.js`): repeat steps 1, 3 and 4.
