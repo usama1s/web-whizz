@@ -57,7 +57,7 @@ Both extensions have the same three surveys. The form is `src/components/Survey.
 
 Answers go to `/api/feedback.php`, which appends one row per answer to `/home2/codifyp1/web-whizz-data/flow-feedback.csv` (outside the web root; open it in cPanel → File Manager, or download it and open in Google Sheets/Excel) and emails a summary to `support@web-whizz.com`. Same spam protection as the waitlist (honeypot, time check), and 5 answers per IP per hour. Only known answer values are kept, so when you change a question's choices in `FlowSurvey.jsx`, change the lists at the top of `feedback.php` too. Umami counts visits to these pages but is told to ignore their address (`data-exclude-search`), so the usage counts never reach it; it does record the events `survey-welcome`, `survey-goodbye`, `survey-feedback`, `share`, `reinstall-click`.
 
-Flow CSV columns: `date, type, v, lang, from, days, runs, okRuns, files, skipped, errRuns, stopped, pick, wait, home, newOnly, folder, qv, qi, reason, tool, rating, plan, use, source, volume, want, chain, stay, bad, good, email`.
+Flow CSV columns: `date, type, v, lang, from, days, runs, okRuns, files, skipped, errRuns, stopped, pick, wait, home, newOnly, folder, qv, qi, reason, tool, rating, plan, use, source, volume, want, chain, stay, bad, good, email, stopUser, stopCredits, stopPrompt, stopPage`. The last four (from 2.6.4) split `stopped` by cause: Stop pressed, Flow out of credits, Stop chosen at a credit question, the Flow page changed; older installs' stops have no cause, so they can add up to less than `stopped`. New columns only ever go at the end: `feedback.php` then rewrites an older CSV's header line in place.
 
 ### Admin dashboard
 

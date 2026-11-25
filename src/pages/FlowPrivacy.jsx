@@ -25,7 +25,7 @@ export default function FlowPrivacy() {
           <li>While a download is running: which tab is downloading and where the files go. This is kept in memory and cleared when you close the browser.</li>
           <li>The videos and images you download, saved directly to the folder you choose.</li>
           <li>
-            A few usage counts: when you started using it, how many downloads you ran (and how many finished, failed or were stopped), how many files they saved or skipped, which options you used (Pick, “items being generated”, several
+            A few usage counts: when you started using it, how many downloads you ran (and how many finished, failed or were stopped, and why: by you, out of Flow credits, at a credit question, or because the Flow page changed), how many files they saved or skipped, which options you used (Pick, “items being generated”, several
             projects, “all except downloaded”, a chosen folder) and which quality you picked most. No titles, file names, prompts or addresses. Removed when you uninstall the extension.
           </li>
         </ul>

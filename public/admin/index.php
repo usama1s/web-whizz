@@ -88,7 +88,8 @@ const QUESTIONS = [
 const TEXTS = [['stay', 'What would have made them stay'], ['bad', 'Fix or add'], ['good', 'Works well']];
 const USAGE = [
   'flow' => ['days' => 'days installed', 'runs' => 'runs', 'okRuns' => 'ok runs', 'files' => 'files', 'skipped' => 'skipped',
-    'errRuns' => 'error runs', 'stopped' => 'stopped', 'pick' => 'pick', 'wait' => 'wait', 'home' => 'home',
+    'errRuns' => 'error runs', 'stopped' => 'stopped', 'stopUser' => 'stopped by hand', 'stopCredits' => 'stopped: no credits',
+    'stopPrompt' => 'stopped at credit question', 'stopPage' => 'stopped: page changed', 'pick' => 'pick', 'wait' => 'wait', 'home' => 'home',
     'newOnly' => 'newOnly', 'folder' => 'folder', 'qv' => 'video quality', 'qi' => 'image quality'],
   'sentinel' => ['days' => 'days installed', 'starts' => 'starts', 'reloads' => 'reloads', 'errors' => 'errors', 'finished' => 'finished',
     'site' => 'site', 'random' => 'random', 'custom' => 'custom', 'stop' => 'stop', 'hard' => 'hard', 'sched' => 'sched',

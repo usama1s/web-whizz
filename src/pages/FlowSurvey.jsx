@@ -11,7 +11,7 @@ import { GUIDE } from "./FlowGuide.jsx";
 // sync with the lists in public/api/feedback.php: anything else is dropped there.
 
 // Usage counts the extension adds to the address (background.js → pageUrl()). Sent as hidden fields.
-export const CONTEXT = ["v", "lang", "d", "r", "ok", "f", "s", "e", "x", "pick", "wait", "home", "newOnly", "folder", "qv", "qi", "from"];
+export const CONTEXT = ["v", "lang", "d", "r", "ok", "f", "s", "e", "x", "xu", "xc", "xq", "xp", "pick", "wait", "home", "newOnly", "folder", "qv", "qi", "from"];
 
 const PLAN = {
   name: "plan",
