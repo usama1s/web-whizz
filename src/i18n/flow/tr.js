@@ -267,6 +267,11 @@ export default {
   changelog: {
     title: "Değişiklik günlüğü",
     entries: {
+      "2.6.3": [
+        "Açılır pencerede yeni Geri bildirim, Puan ver ve Paylaş bağlantıları.",
+        "Birkaç başarılı indirmeden sonra, sorunlar bize daha hızlı ulaşsın diye bir kez iyi çalışıp çalışmadığını sorar.",
+        "Yükledikten sonra kısa bir karşılama sayfası ve kaldırırsanız isteğe bağlı tek soruluk bir anket."
+      ],
       "2.6.2": [
         "Hâlâ üretilen öğeleri seçin: her biri Flow onu bitirdiği anda iner, dosya numaraları proje sırasında kalır.",
         "Hâlâ üretilen kutucuklarda yeni ⏳ WAITING durumu. Flow'un üretemediği öğeler sonunda adıyla belirtilir.",

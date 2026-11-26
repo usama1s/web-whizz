@@ -268,6 +268,11 @@ export default {
   changelog: {
     title: "Nhật ký thay đổi",
     entries: {
+      "2.6.3": [
+        "Thêm liên kết Góp ý, Đánh giá và Chia sẻ trong cửa sổ bật lên.",
+        "Sau vài lần tải xuống thành công, tiện ích hỏi một lần xem nó có hoạt động tốt với bạn không, để vấn đề đến với chúng tôi nhanh hơn.",
+        "Một trang chào mừng ngắn sau khi cài đặt và một khảo sát tùy chọn một câu hỏi nếu bạn gỡ cài đặt."
+      ],
       "2.6.2": [
         "Chọn cả các mục đang được tạo: mỗi mục được tải ngay khi Flow tạo xong, và số thứ tự tệp vẫn theo thứ tự dự án.",
         "Trạng thái mới ⏳ ĐANG CHỜ trên các ô đang được tạo. Mục nào Flow không tạo được sẽ được nêu tên ở cuối.",
