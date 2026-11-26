@@ -51,9 +51,9 @@ export const SENTINEL = {
   path: "/e/smart-sentinel/",
   privacyPath: "/e/smart-sentinel/privacy/",
   name: "Smart Sentinel",
-  storeName: "Smart Sentinel – Auto Refresh & Tab Reloader",
-  version: "1.0.0",
-  released: "2026-11-21",
+  storeName: "Auto Refresh That Never Stops – Smart Sentinel",
+  version: "1.0.1",
+  released: "2026-11-26",
   // Chrome Web Store listing. Empty = "Coming soon" instead of Add to Chrome, and no Rate / Reinstall links.
   chromeStoreUrl: "https://chromewebstore.google.com/detail/smart-sentinel-%E2%80%93-auto-ref/fhikicejdnionanjgbocbhpkmikdjhnj",
   feedbackUrl: "/api/feedback.php",

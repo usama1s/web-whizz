@@ -28,10 +28,10 @@ export const FEATURES = [
 const USES = ["Ticket and sneaker drops", "Visa and exam appointments", "Back-in-stock pages", "Dashboards and reports", "Order and support queues", "Job and freelance boards", "Live scores and auctions", "Your own site while you build it"];
 
 const SHOTS = [
-  ["shot-pick-interval.png", "Smart Sentinel popup: pick an interval from 5 seconds to 15 minutes, This page or Whole site", "Pick an interval and press Start."],
+  ["shot-retrying.png", "Smart Sentinel popup retrying after a page failed to load (connection refused)", "Failed loads are retried with a growing wait."],
   ["shot-exact-time.png", "Smart Sentinel popup set to reload every second between 9:59:55 and 10:00:10, every day", "Reload at an exact time, every day if you like."],
   ["shot-random-stop.png", "Smart Sentinel popup with a random 30–60 second interval, an auto stop after 1 hour and hard reload", "Random intervals, auto stop and hard reload."],
-  ["shot-retrying.png", "Smart Sentinel popup retrying after a page failed to load (connection refused)", "Failed loads are retried with a growing wait."]
+  ["shot-pick-interval.png", "Smart Sentinel popup: pick an interval from 5 seconds to 15 minutes, This page or Whole site", "Pick an interval and press Start."]
 ];
 
 export const FAQ = [
