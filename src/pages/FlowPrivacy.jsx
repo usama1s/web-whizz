@@ -9,14 +9,17 @@ export default function FlowPrivacy() {
           <a href={FLOW.path}>{FLOW.name}</a>
         </p>
         <h1>Privacy Policy</h1>
-        <p className="meta">Last updated: November 19, 2026</p>
+        <p className="meta">Last updated: November 26, 2026</p>
 
         <p>
           {FLOW.name} (“{FLOW.storeName}”) is a browser extension that downloads videos and images from your own Google Flow projects to your computer.
         </p>
 
         <h2>What we collect</h2>
-        <p>While you use it, nothing. The extension has no accounts, no analytics and no tracking, and it sends nothing in the background. The only time anything reaches us is when one of our short web pages opens (see “Usage counts and surveys” below).</p>
+        <p>
+          No accounts, no ads and nothing that identifies you. Your Flow prompts, titles, files and page addresses never reach us. Only two things do: anonymous usage statistics, at most once a day, which you can turn off (see{" "}
+          <a href="#stats">“Anonymous usage statistics”</a> below), and what you choose to send from one of our short web pages (see <a href="#surveys">“Usage counts and surveys”</a> below).
+        </p>
 
         <h2>What stays on your device</h2>
         <ul>
@@ -25,7 +28,7 @@ export default function FlowPrivacy() {
           <li>While a download is running: which tab is downloading and where the files go. This is kept in memory and cleared when you close the browser.</li>
           <li>The videos and images you download, saved directly to the folder you choose.</li>
           <li>
-            A few usage counts: when you started using it, how many downloads you ran (and how many finished, failed or were stopped, and why: by you, out of Flow credits, at a credit question, or because the Flow page changed), how many files they saved or skipped, which options you used (Pick, “items being generated”, several
+            A few usage counts: when you started using it, how many downloads you ran (and how many finished, failed or were stopped, and why: by you, out of Flow credits, at a credit question, or because the Flow page changed), how many files they saved or skipped and why items were skipped (for example “timed out” or “quality not on your plan”), which options you used (Pick, “items being generated”, several
             projects, “all except downloaded”, a chosen folder) and which quality you picked most. No titles, file names, prompts or addresses. Removed when you uninstall the extension.
           </li>
         </ul>
@@ -47,6 +50,19 @@ export default function FlowPrivacy() {
 
         <h2>Support link</h2>
         <p>If you click “Support”, your browser opens our tip page on Lemon Squeezy in a new tab. The extension itself sends nothing; any payment is handled by Lemon Squeezy under its own privacy policy.</p>
+
+        <h2 id="stats">Anonymous usage statistics</h2>
+        <p>
+          From version 2.6.4, at most once a day, after you run a download, the extension sends web-whizz.com what changed in the usage counts above since its last message, together with the extension's version, your browser's
+          language and roughly how long ago you installed it (a range such as “8 to 30 days”). On the day you install it, one message says only that there is a new install (with the version and language). We use these numbers to see how many people actually
+          use the extension, which versions work well and where downloads go wrong.
+        </p>
+        <p>
+          The message has no ID of any kind, no titles, prompts, file names, page addresses or anything else from Google Flow, and no cookies are sent with it. Like any web request, it reaches our server from your IP address, which
+          we don't store (a scrambled form of it is kept for one hour only, to limit how many messages one address can send). The numbers are kept on web-whizz.com's own server, are never shared or sold, and are not sent to Umami
+          or any other analytics service. Because they carry no ID, nobody can tell which messages came from you.
+        </p>
+        <p>To turn it off, untick “Send anonymous usage statistics” in the extension's popup. Nothing is sent after that, and what you do while it's off is never sent later.</p>
 
         <h2 id="surveys">Usage counts and surveys</h2>
         <p>Three short pages on web-whizz.com, our website, can open:</p>

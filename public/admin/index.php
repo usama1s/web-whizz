@@ -3,6 +3,7 @@
 // Shows the answers that public/api/feedback.php and waitlist.php save OUTSIDE the web root:
 //   /home2/codifyp1/web-whizz-data/flow-feedback.csv, smart-sentinel-feedback.csv, sidekick-boomi-feedback.csv,
 //   flow-pro-waitlist.csv
+// and the Flow Bulk Downloader's anonymous usage statistics from public/api/usage.php (flow-usage.csv).
 // Nothing on the site links here, it is never indexed (X-Robots-Tag), and every page needs the super admin login.
 //
 // Login: one super admin. Only a bcrypt hash of the password is stored here (this repo is public).
@@ -28,6 +29,7 @@ const SOURCES = [
   'sentinel' => ['name' => 'Smart Sentinel', 'file' => 'smart-sentinel-feedback.csv'],
   'sidekick' => ['name' => 'Sidekick for Boomi', 'file' => 'sidekick-boomi-feedback.csv'],
   'waitlist' => ['name' => 'Pro waitlist', 'file' => 'flow-pro-waitlist.csv'],
+  'usage' => ['name' => 'Flow usage', 'file' => 'flow-usage.csv'],
 ];
 const TYPES = ['welcome' => 'Welcome', 'goodbye' => 'Goodbye', 'feedback' => 'Feedback'];
 
@@ -97,6 +99,20 @@ const USAGE = [
   'sidekick' => ['days' => 'days installed', 'editorOpens' => 'full editor opens', 'inPlace' => 'in-place editors', 'setProps' => 'Set Properties opens',
     'shortcuts' => 'shortcuts used'],
 ];
+
+// The "Flow usage" tab (public/api/usage.php). Keep the codes in sync with usage.php and the extension's background.js.
+const USAGE_STOPS = ['stopUser' => 'Stopped by the user', 'stopCredits' => 'Out of Flow credits', 'stopPrompt' => 'Stopped at a credit question',
+  'stopPage' => 'The Flow page changed'];
+const USAGE_ERRS = ['menu' => "Couldn't open Flow's download menu", 'quality' => 'Chosen quality not in the menu', 'plan' => 'Quality not on their Flow plan',
+  'hidden' => 'Tab was hidden', 'flow' => 'Flow failed to make the file', 'timeout' => 'Timed out waiting for the download',
+  'ask' => "Couldn't answer Flow's question", 'declined' => 'User skipped a credit question', 'notFound' => 'Item not found on the page',
+  'genFailed' => 'Flow failed to generate it', 'stillGen' => 'Still generating when the wait ended', 'project' => "Couldn't open the project",
+  'other' => 'Other'];
+const USAGE_FEATURES = ['pick' => 'Pick mode', 'wait' => 'Wait for items being generated', 'home' => 'Several projects (home page)',
+  'newOnly' => 'All except downloaded', 'folder' => 'Chosen folder'];
+const USAGE_NUMS = ['runs', 'okRuns', 'files', 'skipped', 'errRuns', 'stopped', 'stopUser', 'stopCredits', 'stopPrompt', 'stopPage',
+  'pick', 'wait', 'home', 'newOnly', 'folder'];
+const USAGE_PERIODS = [7 => 'Last 7 days', 30 => 'Last 30 days', 90 => 'Last 90 days', 0 => 'All time'];
 
 // ---------------------------------------------------------------------------------------------------------------
 // Security headers on every response.
@@ -237,7 +253,7 @@ function tally(array $rows, string $col, bool $multi = false): array {
 }
 function url(array $change): string {
   global $self;
-  $p = array_merge(array_intersect_key($_GET, array_flip(['src', 'type', 'q', 'written'])), $change);
+  $p = array_merge(array_intersect_key($_GET, array_flip(['src', 'type', 'q', 'written', 'days'])), $change);
   $p = array_filter($p, fn($v) => $v !== '' && $v !== null && $v !== 0);
   return $self . ($p ? '?' . http_build_query($p) : '');
 }
@@ -259,6 +275,62 @@ $byType = tally($all, 'type');
 $ratings = tally($rows, 'rating');
 $rated = array_sum($ratings);
 $avg = $rated ? array_sum(array_map(fn($k, $n) => $k * $n, array_keys($ratings), $ratings)) / $rated : 0;
+
+// Flow usage: weekly numbers for the last 12 weeks, and totals for the chosen period.
+function monday(int $t): int { return gmmktime(0, 0, 0, (int)gmdate('n', $t), (int)gmdate('j', $t) - (int)gmdate('N', $t) + 1, (int)gmdate('Y', $t)); }
+function mapCell(string $v): array {
+  $o = [];
+  foreach (explode(',', $v) as $part) if (preg_match('/^(.+):(\d+)$/', $part, $m)) $o[$m[1]] = (int)$m[2];
+  return $o;
+}
+function usageStats(array $all, int $days, int $now): array {
+  $zero = array_fill_keys(USAGE_NUMS, 0);
+  $weeks = [];
+  for ($i = 0, $w = monday($now); $i < 12; $i++, $w -= 7 * 86400) $weeks[$w] = ['active' => 0, 'new' => 0] + $zero;
+  $since = $days ? $now - $days * 86400 : 0;
+  $u = ['total' => $zero, 'new' => 0, 'messages' => 0, 'versions' => [], 'langs' => [], 'qv' => [], 'qi' => [], 'er' => []];
+  foreach ($all as $r) {
+    $t = strtotime($r['date'] ?? '') ?: 0;
+    $w = monday($t);
+    if (isset($weeks[$w])) {
+      $weeks[$w]['active'] += ($r['weekFirst'] ?? '') === '1' ? 1 : 0;
+      $weeks[$w]['new'] += ($r['new'] ?? '') === '1' ? 1 : 0;
+      foreach (USAGE_NUMS as $c) $weeks[$w][$c] += (int)($r[$c] ?? 0);
+    }
+    if ($t < $since) continue;
+    $u['messages']++;
+    $u['new'] += ($r['new'] ?? '') === '1' ? 1 : 0;
+    foreach (USAGE_NUMS as $c) $u['total'][$c] += (int)($r[$c] ?? 0);
+    $v = ($r['v'] ?? '') !== '' ? $r['v'] : '?';
+    $u['versions'][$v] ??= ['messages' => 0] + $zero;
+    $u['versions'][$v]['messages']++;
+    foreach (USAGE_NUMS as $c) $u['versions'][$v][$c] += (int)($r[$c] ?? 0);
+    if (($r['lang'] ?? '') !== '') $u['langs'][$r['lang']] = ($u['langs'][$r['lang']] ?? 0) + 1;
+    foreach (['qv', 'qi', 'er'] as $k) foreach (mapCell($r[$k] ?? '') as $name => $n) $u[$k][$name] = ($u[$k][$name] ?? 0) + $n;
+  }
+  uksort($u['versions'], fn($a, $b) => version_compare($b, $a));
+  foreach (['langs', 'qv', 'qi', 'er'] as $k) arsort($u[$k]);
+  $u['weeks'] = $weeks;
+  return $u;
+}
+function pct(int $part, int $whole): string { return $whole ? round($part / $whole * 100) . '%' : '—'; }
+function bars(string $title, array $t, array $labels = [], string $empty = 'None yet.'): void {
+  $t = array_filter($t);
+  arsort($t);
+  $max = $t ? max($t) : 1; ?>
+  <div class="card chart">
+    <h3><?= h($title) ?></h3>
+    <?php if (!$t): ?><p class="muted"><?= h($empty) ?></p><?php endif; ?>
+    <?php foreach ($t as $k => $n): $l = $labels[$k] ?? (string)$k; ?>
+      <div class="bar"><span class="l" title="<?= h($l) ?>"><?= h($l) ?></span>
+        <span class="track"><span style="width:<?= round($n / $max * 100) ?>%"></span></span><span class="c"><?= number_format($n) ?></span></div>
+    <?php endforeach; ?>
+  </div>
+<?php }
+
+$days = (int)($_GET['days'] ?? 30);
+if (!isset(USAGE_PERIODS[$days])) $days = 30;
+$U = $src === 'usage' ? usageStats($all, $days, $now) : null;
 
 pageTop(SOURCES[$src]['name'] . ' — Admin');
 ?>
@@ -293,6 +365,65 @@ pageTop(SOURCES[$src]['name'] . ' — Admin');
       <?php endforeach; ?></tr><?php endforeach; ?></tbody>
     </table></div>
     <?php endif; ?>
+  </section>
+
+<?php elseif ($src === 'usage'):
+  $T = $U['total'];
+  $thisWeek = reset($U['weeks']);
+  $lastWeek = next($U['weeks']); ?>
+  <section class="tiles">
+    <div class="tile"><span>Active installs this week</span><b><?= number_format($thisWeek['active']) ?></b><small>last week <?= number_format($lastWeek['active']) ?></small></div>
+    <div class="tile"><span>New installs</span><b><?= number_format($U['new']) ?></b><small><?= h(USAGE_PERIODS[$days]) ?></small></div>
+    <div class="tile"><span>Runs</span><b><?= number_format($T['runs']) ?></b><small><?= h(USAGE_PERIODS[$days]) ?></small></div>
+    <div class="tile"><span>Finished OK</span><b><?= pct($T['okRuns'], $T['runs']) ?></b><small><?= number_format($T['okRuns']) ?> runs</small></div>
+    <div class="tile"><span>Files saved</span><b><?= number_format($T['files']) ?></b><small><?= number_format($T['skipped']) ?> skipped</small></div>
+    <div class="tile"><span>Stopped</span><b><?= pct($T['stopped'], $T['runs']) ?></b><small><?= number_format($T['errRuns']) ?> ended with an error</small></div>
+  </section>
+
+  <form class="filters" method="get" action="<?= h($self) ?>">
+    <input type="hidden" name="src" value="usage">
+    <div class="chips">
+      <?php foreach (USAGE_PERIODS as $d => $l): ?><a href="<?= h($self . '?src=usage' . ($d === 30 ? '' : '&days=' . $d)) ?>" class="<?= $d === $days ? 'on' : '' ?>"><?= h($l) ?></a><?php endforeach; ?>
+    </div>
+    <span class="muted grow">Anonymous: one message per install per day at most, only after a download ran (plus one on install day). No IDs.</span>
+    <a class="btn ghost" href="<?= h($self . '?src=usage&download=1') ?>">Download CSV</a>
+  </form>
+
+  <section class="card">
+    <div class="head"><h2>By week</h2><span class="muted">Weeks start on Monday (UTC). Active = installs that ran a download that week.</span></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Week of</th><th>Active installs</th><th>New installs</th><th>Runs</th><th>Finished OK</th><th>Files</th><th>Skipped</th><th>Stopped</th><th>Error runs</th></tr></thead>
+      <tbody><?php foreach ($U['weeks'] as $w => $r): ?><tr>
+        <td><?= gmdate('j M Y', $w) ?></td><td><?= number_format($r['active']) ?></td><td><?= number_format($r['new']) ?></td><td><?= number_format($r['runs']) ?></td>
+        <td><?= pct($r['okRuns'], $r['runs']) ?></td><td><?= number_format($r['files']) ?></td><td><?= number_format($r['skipped']) ?></td>
+        <td><?= number_format($r['stopped']) ?></td><td><?= number_format($r['errRuns']) ?></td>
+      </tr><?php endforeach; ?></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <div class="head"><h2>By version</h2><span class="muted"><?= h(USAGE_PERIODS[$days]) ?></span></div>
+    <?php if (!$U['versions']): ?><p class="empty">No usage messages yet.</p><?php else: ?>
+    <div class="scroll"><table>
+      <thead><tr><th>Version</th><th>Messages</th><th>Runs</th><th>Finished OK</th><th>Files</th><th>Skipped per run</th><th>Stopped</th><th>Error runs</th></tr></thead>
+      <tbody><?php foreach ($U['versions'] as $v => $r): ?><tr>
+        <td><?= h($v) ?></td><td><?= number_format($r['messages']) ?></td><td><?= number_format($r['runs']) ?></td><td><?= pct($r['okRuns'], $r['runs']) ?></td>
+        <td><?= number_format($r['files']) ?></td><td><?= $r['runs'] ? number_format($r['skipped'] / $r['runs'], 1) : '—' ?></td>
+        <td><?= pct($r['stopped'], $r['runs']) ?></td><td><?= pct($r['errRuns'], $r['runs']) ?></td>
+      </tr><?php endforeach; ?></tbody>
+    </table></div>
+    <?php endif; ?>
+  </section>
+
+  <section class="charts">
+    <?php
+    bars('Why runs stopped', array_intersect_key($T, USAGE_STOPS), USAGE_STOPS, 'No stopped runs.');
+    bars('Why items were skipped', $U['er'], USAGE_ERRS, 'No skipped items.');
+    bars('Options used (runs)', array_intersect_key($T, USAGE_FEATURES), USAGE_FEATURES);
+    bars('Video quality (good runs)', $U['qv']);
+    bars('Image quality (good runs)', $U['qi']);
+    bars('Browser language (messages)', $U['langs']);
+    ?>
   </section>
 
 <?php else: ?>
@@ -444,6 +575,7 @@ main { max-width:1100px; margin:0 auto; padding:20px 16px 60px; display:grid; ga
 .tile small { color:var(--muted); font-size:12px; }
 .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
 .filters input[type=search] { flex:1 1 220px; }
+.grow { flex:1 1 220px; }
 .chips { display:flex; gap:4px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:3px; }
 .chips a { padding:6px 12px; border-radius:9px; text-decoration:none; color:var(--muted); font-weight:600; font-size:14px; }
 .chips a.on { background:var(--soft); color:var(--primary); }
