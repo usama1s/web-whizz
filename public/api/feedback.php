@@ -5,6 +5,7 @@
 //   /home2/codifyp1/web-whizz-data/flow-feedback.csv             (Flow Bulk Downloader)
 //   /home2/codifyp1/web-whizz-data/smart-sentinel-feedback.csv   (Smart Sentinel)
 //   /home2/codifyp1/web-whizz-data/sidekick-boomi-feedback.csv   (Sidekick for Boomi)
+//   /home2/codifyp1/web-whizz-data/turn-off-ai-feedback.csv     (Turn Off AI)
 // (download them from cPanel → File Manager) and a short summary is emailed to NOTIFY. Answers JSON for the page's fetch().
 // Only known values are kept (the lists below match the questions on each product's survey page); everything else is dropped.
 // Spam protection like waitlist.php: hidden honeypot field, a time check, and 5 answers per IP per hour (all products together).
@@ -85,6 +86,29 @@ const PRODUCTS = [
     'labels' => ['v' => '/^[0-9.]{1,15}$/', 'lang' => '/^[A-Za-z_-]{2,10}$/', 'from' => '/^(popup|site)$/'],
     'columns' => ['date', 'type', 'v', 'lang', 'from', 'days', 'editorOpens', 'inPlace', 'setProps', 'shortcuts',
       'reason', 'tool', 'rating', 'role', 'source', 'want', 'stay', 'bad', 'good', 'email'],
+  ],
+  // Keep in sync with src/pages/TurnOffAiSurvey.jsx and the extension's src/shared/usage.ts → pageUrl().
+  'turnoffai' => [
+    'name' => 'Turn Off AI',
+    'file' => 'turn-off-ai-feedback.csv',
+    'choices' => [
+      'reason' => ['missed', 'broke', 'slow', 'confusing', 'want_ai', 'trust', 'other_tool', 'other'],
+      'role' => ['everyday', 'office', 'writer', 'privacy', 'it', 'other'],
+      'source' => ['store', 'google', 'reddit', 'social', 'news', 'friend', 'ai', 'other'],
+      'rating' => ['1', '2', '3', '4', '5'],
+    ],
+    'multi' => [
+      'annoy' => ['overviews', 'gmail', 'docs', 'youtube', 'outlook', 'office', 'linkedin', 'bing'],
+      'want' => ['meta', 'amazon', 'x', 'notion', 'canva', 'zoom', 'firefox'],
+    ],
+    'texts' => ['tool' => 200, 'where' => 300, 'stay' => 2000, 'good' => 2000, 'bad' => 2000],
+    'counts' => ['d' => 'days', 'p' => 'pages', 'h' => 'hidden', 'o' => 'showOnce', 'rp' => 'reports', 'cr' => 'customRules',
+      'ru' => 'rulesOk', 'rf' => 'rulesFail'],
+    // top: the site with most hidden; off: sites switched off (site ids from the extension's bundled.json)
+    'labels' => ['v' => '/^[0-9.]{1,15}$/', 'lang' => '/^[A-Za-z_-]{2,10}$/', 'top' => '/^[a-z0-9]{1,12}$/',
+      'off' => '/^[a-z0-9]{1,12}(,[a-z0-9]{1,12}){0,19}$/', 'from' => '/^(popup|site)$/'],
+    'columns' => ['date', 'type', 'v', 'lang', 'from', 'days', 'pages', 'hidden', 'showOnce', 'reports', 'customRules', 'rulesOk', 'rulesFail',
+      'top', 'off', 'reason', 'tool', 'where', 'rating', 'role', 'source', 'annoy', 'want', 'stay', 'bad', 'good', 'email'],
   ],
 ];
 

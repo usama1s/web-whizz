@@ -10,10 +10,13 @@ import SentinelGuide, { GUIDE as SENTINEL_GUIDE } from "./pages/SentinelGuide.js
 import SidekickBoomi, { FAQ as SIDEKICK_FAQ, META as SIDEKICK_META } from "./pages/SidekickBoomi.jsx";
 import SidekickSurvey, { SURVEY_PAGES as SIDEKICK_SURVEY_PAGES } from "./pages/SidekickSurvey.jsx";
 import SidekickPrivacy, { UPDATED as SIDEKICK_PRIVACY_UPDATED } from "./pages/SidekickPrivacy.jsx";
+import TurnOffAi, { FAQ as TURNOFFAI_FAQ, META as TURNOFFAI_META } from "./pages/TurnOffAi.jsx";
+import TurnOffAiSurvey, { SURVEY_PAGES as TURNOFFAI_SURVEY_PAGES } from "./pages/TurnOffAiSurvey.jsx";
+import TurnOffAiPrivacy, { UPDATED as TURNOFFAI_PRIVACY_UPDATED } from "./pages/TurnOffAiPrivacy.jsx";
 import Extensions, { META as EXTENSIONS_META } from "./pages/Extensions.jsx";
 import { EXTENSIONS, EXTENSIONS_PATH } from "./components/Extensions.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { FLOW, RELEASES, SENTINEL, SIDEKICK, SITE } from "./site.js";
+import { FLOW, RELEASES, SENTINEL, SIDEKICK, SITE, TURNOFFAI } from "./site.js";
 import { LOCALES } from "./i18n/flow/index.js";
 import { breadcrumbs, faqPage, organization, sentinelApp, softwareApp, video, webPage, website, APP, ORG, SENTINEL_APP } from "./seo.js";
 
@@ -228,6 +231,43 @@ export const ROUTES = [
     survey,
     title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${SIDEKICK.name} | Web Whizz`,
     description: `${SIDEKICK.name}: a short ${survey} survey.`,
+    noindex: true
+  })),
+  // Turn Off AI (English only): product page, privacy policy and the extension's surveys. Its signed rules file is a
+  // static file, public/e/turn-off-ai/rules/rules.json (+ .sig), not a page.
+  {
+    path: TURNOFFAI.path,
+    Page: TurnOffAi,
+    product: "turnoffai",
+    title: TURNOFFAI_META.title,
+    description: TURNOFFAI_META.description,
+    image: TURNOFFAI.img("og.png"),
+    imageAlt: `${TURNOFFAI.name} — hide AI Overviews, Gemini and Copilot`,
+    updated: TURNOFFAI.released,
+    schema: (r) => [
+      organization(),
+      website(),
+      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [TURNOFFAI.name, r.path]]),
+      faqPage(r, TURNOFFAI_FAQ)
+    ]
+  },
+  {
+    path: TURNOFFAI.privacyPath,
+    Page: TurnOffAiPrivacy,
+    product: "turnoffai",
+    title: "Privacy Policy — Turn Off AI | Web Whizz",
+    description: "Turn Off AI never reads your emails, documents or searches and sends nothing unless you choose to. What its opt-in anonymous statistics, reports and our optional surveys collect.",
+    updated: TURNOFFAI_PRIVACY_UPDATED
+  },
+  // The extension's welcome, goodbye (uninstall) and feedback pages. Not for search engines, not in the sitemap.
+  ...TURNOFFAI_SURVEY_PAGES.map((survey) => ({
+    path: `${TURNOFFAI.path}${survey}/`,
+    Page: TurnOffAiSurvey,
+    product: "turnoffai",
+    survey,
+    title: { welcome: "Welcome", goodbye: "Sorry to see you go", feedback: "Feedback" }[survey] + ` — ${TURNOFFAI.name} | Web Whizz`,
+    description: `${TURNOFFAI.name}: a short ${survey} survey.`,
     noindex: true
   }))
 ].map((r) => ({ ...r, url: SITE.url + r.path }));
