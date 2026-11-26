@@ -56,6 +56,14 @@ export const SENTINEL = {
   released: "2026-11-26",
   // Chrome Web Store listing. Empty = "Coming soon" instead of Add to Chrome, and no Rate / Reinstall links.
   chromeStoreUrl: "https://chromewebstore.google.com/detail/smart-sentinel-%E2%80%93-auto-ref/fhikicejdnionanjgbocbhpkmikdjhnj",
+  // The promo video, embedded under the hero with VideoObject structured data (src/seo.js). Copied from YouTube; id "" hides it.
+  youtube: {
+    id: "l_SPVGzqG08",
+    title: "Auto Refresh That Never Stops – Free Chrome Extension | Smart Sentinel",
+    description: "Smart Sentinel is a free Chrome auto refresh extension that keeps refreshing through browser restarts, sleep and site errors, so a page you leave running stays fresh.",
+    uploadDate: "2026-11-26T09:23:56-08:00",
+    duration: "PT1M30S"
+  },
   feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/smart-sentinel/${file}`
 };
@@ -72,6 +80,15 @@ export const SIDEKICK = {
   version: "0.1.0",
   // Chrome Web Store listing, once it's live. Empty = no Rate / Reinstall links on the surveys.
   chromeStoreUrl: "",
+  // The promo video, embedded under the hero with VideoObject structured data (src/seo.js). Copied from YouTube; id "" hides it.
+  // Made in the extension project's docs/video/.
+  youtube: {
+    id: "CSl18bR9M_Q",
+    title: "Sidekick for Boomi: Groovy Script Editor & Shortcuts for Boomi",
+    description: "Sidekick for Boomi is a free Chrome extension that makes Boomi Integration's build screen nicer to work in: a real Groovy and JavaScript script editor, Message shapes with named variables, Set Properties on one screen, keyboard shortcuts and canvas glow.",
+    uploadDate: "2026-11-26T07:31:59-08:00",
+    duration: "PT1M16S"
+  },
   // The extension (src/shared/usage.ts) opens SIDEKICK.path + "welcome/", "goodbye/" and "feedback/": keep these
   // addresses. Their answers post here (public/api/feedback.php → "sidekick").
   feedbackUrl: "/api/feedback.php",
@@ -92,6 +109,15 @@ export const TURNOFFAI = {
   released: "2026-11-26",
   // Chrome Web Store listing, once it's live. Empty = "Coming soon" instead of Add to Chrome, and no Rate / Reinstall links.
   chromeStoreUrl: "",
+  // The promo video, embedded under the hero with VideoObject structured data (src/seo.js). Copied from YouTube; id "" hides it.
+  // Made in the extension project's scripts/promo-video.mjs.
+  youtube: {
+    id: "V6KMjiuJNIQ",
+    title: "How to Turn Off Google AI Overviews, Gemini & Copilot (Free Chrome Extension)",
+    description: "AI-Free Web is a free Chrome extension that hides AI Overviews and AI Mode in Google Search, Gemini in Gmail and Google Docs, and Copilot in Outlook, Word and Excel on the web: one switch, no more AI answers at the top of your search.",
+    uploadDate: "2026-11-26T09:48:40-08:00",
+    duration: "PT57S"
+  },
   feedbackUrl: "/api/feedback.php",
   img: (file) => `/e/ai-free-web/${file}`
 };

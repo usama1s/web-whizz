@@ -96,8 +96,8 @@ export function softwareApp(route, t) {
 }
 
 // The YouTube demo, on every page that embeds it (Google only uses VideoObject for a video that is on the page).
-export function video() {
-  const v = FLOW.youtube;
+// Flow's by default; pass another product's video and app id (e.g. SIDEKICK.youtube, SIDEKICK_APP).
+export function video(v = FLOW.youtube, about = APP) {
   return {
     "@type": "VideoObject",
     "@id": `https://www.youtube.com/watch?v=${v.id}`,
@@ -110,7 +110,7 @@ export function video() {
     url: `https://www.youtube.com/watch?v=${v.id}`,
     inLanguage: "en",
     publisher: { "@id": ORG },
-    about: { "@id": APP }
+    about: { "@id": about }
   };
 }
 

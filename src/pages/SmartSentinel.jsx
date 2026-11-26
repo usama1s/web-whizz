@@ -1,5 +1,5 @@
 import Icon from "../components/Icon.jsx";
-import { Shot } from "../components/Flow.jsx";
+import { Shot, YouTube } from "../components/Flow.jsx";
 import { SENTINEL } from "../site.js";
 import { GUIDE } from "./SentinelGuide.jsx";
 
@@ -95,6 +95,15 @@ export default function SmartSentinel() {
           <Shot file="shot-running.png" img={SENTINEL.img} alt="Smart Sentinel popup refreshing a page every 5 seconds: countdown ring, 2 of 50 reloads done" eager />
         </div>
       </section>
+
+      {SENTINEL.youtube?.id && (
+        <section id="video" className="section section-alt">
+          <div className="wrap">
+            <h2 className="section-title">See it in 90 seconds</h2>
+            <YouTube v={SENTINEL.youtube} caption="Auto refresh that keeps going through restarts, sleep and site errors, in the real extension" />
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <div className="wrap">
