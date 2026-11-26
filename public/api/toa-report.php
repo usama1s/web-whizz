@@ -1,7 +1,7 @@
 <?php
-// "Something AI still showing?" reports from the Turn Off AI extension (src/background/index.ts → sendReport()), sent only
-// after the user ticks the consent box. Shown in the admin dashboard's "Turn Off AI reports" tab, grouped so the
-// most-reported elements come first, to turn into rules (rules.json in the extension repo → public/e/turn-off-ai/rules/).
+// "Something AI still showing?" reports from the AI-Free Web extension (src/background/index.ts → sendReport()), sent only
+// after the user ticks the consent box. Shown in the admin dashboard's "AI-Free Web reports" tab, grouped so the
+// most-reported elements come first, to turn into rules (rules.json in the extension repo → public/e/ai-free-web/rules/).
 // Holds the site, the proposed selector and the element's type, role and own short label. Never page content or addresses.
 // Appended to /home2/codifyp1/web-whizz-data/turn-off-ai-reports.csv (outside the web root); a summary is emailed.
 require __DIR__ . '/toa-common.php';
@@ -36,7 +36,7 @@ if (!toa_append($dataDir . '/' . FILE, COLUMNS, $row)) toa_reply(false, 500);
 
 if (function_exists('mail')) {
   try {
-    @mail(NOTIFY, "Turn Off AI: element still showing on {$row['host']}", "site: {$row['site']}\nhost: {$row['host']}\nselector: {$row['selector']}\nstable: {$row['stable']}\nelement: {$row['tag']} {$row['role']}\nlabel: {$row['label']}\nversion: {$row['v']} ({$row['lang']})", 'From: Web Whizz <' . NOTIFY . '>');
+    @mail(NOTIFY, "AI-Free Web: element still showing on {$row['host']}", "site: {$row['site']}\nhost: {$row['host']}\nselector: {$row['selector']}\nstable: {$row['stable']}\nelement: {$row['tag']} {$row['role']}\nlabel: {$row['label']}\nversion: {$row['v']} ({$row['lang']})", 'From: Web Whizz <' . NOTIFY . '>');
   } catch (\Throwable $e) {}
 }
 toa_reply(true);

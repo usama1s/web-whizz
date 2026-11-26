@@ -5,7 +5,7 @@
 //   /home2/codifyp1/web-whizz-data/flow-feedback.csv             (Flow Bulk Downloader)
 //   /home2/codifyp1/web-whizz-data/smart-sentinel-feedback.csv   (Smart Sentinel)
 //   /home2/codifyp1/web-whizz-data/sidekick-boomi-feedback.csv   (Sidekick for Boomi)
-//   /home2/codifyp1/web-whizz-data/turn-off-ai-feedback.csv     (Turn Off AI)
+//   /home2/codifyp1/web-whizz-data/turn-off-ai-feedback.csv     (AI-Free Web)
 // (download them from cPanel → File Manager) and a short summary is emailed to NOTIFY. Answers JSON for the page's fetch().
 // Only known values are kept (the lists below match the questions on each product's survey page); everything else is dropped.
 // Spam protection like waitlist.php: hidden honeypot field, a time check, and 5 answers per IP per hour (all products together).
@@ -86,7 +86,7 @@ const PRODUCTS = [
   ],
   // Keep in sync with src/pages/TurnOffAiSurvey.jsx and the extension's src/shared/usage.ts → pageUrl().
   'turnoffai' => [
-    'name' => 'Turn Off AI',
+    'name' => 'AI-Free Web',
     'file' => 'turn-off-ai-feedback.csv',
     'choices' => [
       'reason' => ['missed', 'broke', 'slow', 'confusing', 'want_ai', 'trust', 'other_tool', 'other'],

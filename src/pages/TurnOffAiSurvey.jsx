@@ -1,7 +1,7 @@
 import Survey from "../components/Survey.jsx";
 import { TURNOFFAI } from "../site.js";
 
-// Turn Off AI's three short surveys (the form itself is src/components/Survey.jsx). Three pages (see src/routes.jsx):
+// AI-Free Web's three short surveys (the form itself is src/components/Survey.jsx). Three pages (see src/routes.jsx):
 //   welcome  — opened once by the extension right after it is installed
 //   goodbye  — opened by Chrome when the extension is removed (chrome.runtime.setUninstallURL)
 //   feedback — the popup's "Feedback" link
@@ -72,7 +72,7 @@ const SURVEYS = {
   welcome: {
     eyebrow: "Installed",
     h1: "AI is switched off 🎉",
-    lead: "Turn Off AI is already working on every supported site. Here's how to control it, plus a few quick questions so we build what you need.",
+    lead: "AI-Free Web is already working on every supported site. Here's how to control it, plus a few quick questions so we build what you need.",
     questionsTitle: "A few quick questions (all optional)",
     questions: [
       ANNOY,
@@ -80,7 +80,7 @@ const SURVEYS = {
       {
         name: "source",
         type: "radio",
-        label: "How did you find Turn Off AI?",
+        label: "How did you find AI-Free Web?",
         options: [
           ["store", "Searching the Chrome Web Store"],
           ["google", "Google search"],
@@ -102,7 +102,7 @@ const SURVEYS = {
   goodbye: {
     eyebrow: "Uninstalled",
     h1: "Sorry to see you go",
-    lead: "Turn Off AI is free and made by a small team. One minute of your time tells us what to fix.",
+    lead: "AI-Free Web is free and made by a small team. One minute of your time tells us what to fix.",
     questionsTitle: "Why did you uninstall?",
     questions: [
       {
@@ -141,7 +141,7 @@ const SURVEYS = {
         name: "rating",
         type: "stars",
         required: true,
-        label: "How happy are you with Turn Off AI?"
+        label: "How happy are you with AI-Free Web?"
       },
       { name: "bad", type: "textarea", label: "What should we fix or add?", hint: "If AI is still showing somewhere, which site and which button or panel?" },
       { name: "good", type: "textarea", label: "What works well for you?", hint: "Optional." },
@@ -159,7 +159,7 @@ export const SURVEY_PAGES = Object.keys(SURVEYS);
 const SHARE = {
   question: "Know someone tired of AI popping up everywhere? Share it with them:",
   text: "Free Chrome extension that turns off AI Overviews, Gemini and Copilot on Google, Gmail, YouTube, Outlook and Word:",
-  title: "Turn Off AI – hide AI Overviews, Gemini & Copilot"
+  title: "AI-Free Web – hide AI Overviews, Gemini & Copilot"
 };
 
 function QuickStart() {
@@ -168,7 +168,7 @@ function QuickStart() {
       <h2>How to control it</h2>
       <ol>
         <li>
-          <b>Pin it:</b> click the puzzle piece next to Chrome's address bar, then the pin next to Turn Off AI.
+          <b>Pin it:</b> click the puzzle piece next to Chrome's address bar, then the pin next to AI-Free Web.
         </li>
         <li>
           <b>Reload</b> any Google or Microsoft tab that was already open. AI Overviews, Gemini and Copilot are now hidden.

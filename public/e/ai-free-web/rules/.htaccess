@@ -1,4 +1,4 @@
-# Turn Off AI's signed rules file (made in the extension repo: npm run rules:sign). The extension's background worker
+# AI-Free Web's signed rules file (made in the extension repo: npm run rules:sign). The extension's background worker
 # fetches it every few hours, so it must be readable cross-origin and never served stale.
 <IfModule mod_headers.c>
   Header set Access-Control-Allow-Origin "*"

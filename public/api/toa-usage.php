@@ -1,6 +1,6 @@
 <?php
-// Anonymous usage statistics from the Turn Off AI extension (its src/background/index.ts → trySend()), shown in the admin
-// dashboard's "Turn Off AI usage" tab. OFF unless the user turns them on in the extension. At most one message a day per
+// Anonymous usage statistics from the AI-Free Web extension (its src/background/index.ts → trySend()), shown in the admin
+// dashboard's "AI-Free Web usage" tab. OFF unless the user turns them on in the extension. At most one message a day per
 // install, only after the extension cleaned a page (plus one "new install" message on install day if already on).
 // Each message holds what changed since the extension's last send: numbers and short codes, no ID of any kind.
 // Appended to a CSV OUTSIDE the web root:  /home2/codifyp1/web-whizz-data/turn-off-ai-usage.csv

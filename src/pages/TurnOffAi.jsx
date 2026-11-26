@@ -1,11 +1,11 @@
 import Icon from "../components/Icon.jsx";
 import { TURNOFFAI } from "../site.js";
 
-// The Turn Off AI page (English only). Keep the site list in sync with src/rules/bundled.json in the extension
+// The AI-Free Web page (English only). Keep the site list in sync with src/rules/bundled.json in the extension
 // project (~/Desktop/P Projects/AI free web) and the copy with its store/STORE-LISTING.md.
 
 export const META = {
-  title: "Turn Off AI — Hide AI Overviews, Gemini & Copilot in Chrome | Web Whizz",
+  title: "AI-Free Web — Turn Off Google AI Overviews, Gemini & Copilot in Chrome | Web Whizz",
   description:
     "Free Chrome extension that hides AI Overviews, Gemini, Copilot, “Help me write” and other AI buttons, banners and panels on Google Search, Gmail, Docs, Drive, YouTube, Outlook, Word and more. A switch per site."
 };
@@ -33,14 +33,14 @@ export const FEATURES = [
 ];
 
 export const FAQ = [
-  ["Is Turn Off AI free?", "Yes. Every site and every switch is free. No account, no ads."],
+  ["Is AI-Free Web free?", "Yes. Every site and every switch is free. No account, no ads."],
   ["Does it turn off AI in my Google or Microsoft account?", "No. It hides AI buttons, banners, panels and prompts in your browser. Your account settings don't change, and other devices aren't affected. Turn the extension off and everything is back."],
   ["Will it break Send, Save or Search?", "No. Its rules only target AI features, every rule is checked so it can never match core buttons like Send, Save or Search, and it never hides the editor you're typing in. “Show AI on this page once” brings back anything instantly."],
   ["Does it read my emails or documents?", "No. It looks only at the labels of buttons and panels (like “Ask Gemini”) to find AI features. Nothing you write or receive is read, stored or sent."],
-  ["Something AI is still showing. What can I do?", "Click the Turn Off AI icon → “Something AI still showing?” and click the element. You can hide it right away on your browser, and send us an anonymous report so the next rules update hides it for everyone."],
+  ["Something AI is still showing. What can I do?", "Click the AI-Free Web icon → “Something AI still showing?” and click the element. You can hide it right away on your browser, and send us an anonymous report so the next rules update hides it for everyone."],
   ["Can my company deploy it with AI hidden for everyone?", "Yes. Admins can set every switch and lock them with Chrome policy (Google Admin console or Windows Group Policy), without access to the Google Workspace or Microsoft 365 admin settings."],
   ["Which browsers does it work in?", "Chrome and Microsoft Edge. Firefox is planned."],
-  ["Is it made by Google or Microsoft?", "No. Turn Off AI is an independent extension made by Web Whizz. It isn't affiliated with, endorsed by or sponsored by Google or Microsoft."]
+  ["Is it made by Google or Microsoft?", "No. AI-Free Web is an independent extension made by Web Whizz. It isn't affiliated with, endorsed by or sponsored by Google or Microsoft."]
 ];
 
 function StoreButton({ campaign }) {
@@ -73,7 +73,7 @@ export default function TurnOffAi() {
             </div>
             <h1>Turn off AI Overviews, Gemini and Copilot — everywhere</h1>
             <p className="lead">
-              Google and Microsoft keep adding AI to Search, Gmail, Docs, YouTube, Outlook and Word, with no single off switch. Turn Off AI is that switch: it hides AI buttons, banners, summaries, side panels and
+              Google and Microsoft keep adding AI to Search, Gmail, Docs, YouTube, Outlook and Word, with no single off switch. AI-Free Web is that switch: it hides AI buttons, banners, summaries, side panels and
               popups, with one switch per site and per feature.
             </p>
             <div className="actions">
@@ -147,7 +147,7 @@ export default function TurnOffAi() {
 
           <h3 id="privacy">Privacy</h3>
           <p>
-            Turn Off AI never reads your emails, documents or searches, and sends nothing unless you choose to: an anonymous report about an element it missed, or anonymous usage statistics, which are off
+            AI-Free Web never reads your emails, documents or searches, and sends nothing unless you choose to: an anonymous report about an element it missed, or anonymous usage statistics, which are off
             unless you turn them on. Read the <a href={TURNOFFAI.privacyPath}>privacy policy</a>.
           </p>
 
@@ -162,7 +162,7 @@ export default function TurnOffAi() {
             </a>
           </div>
           <p className="meta">
-            Turn Off AI is not affiliated with, endorsed by or sponsored by Google or Microsoft. Gemini, Google, Gmail, YouTube, Copilot, Outlook and Microsoft 365 are trademarks of their owners, used here only to
+            AI-Free Web is not affiliated with, endorsed by or sponsored by Google or Microsoft. Gemini, Google, Gmail, YouTube, Copilot, Outlook and Microsoft 365 are trademarks of their owners, used here only to
             describe compatibility.
           </p>
         </div>

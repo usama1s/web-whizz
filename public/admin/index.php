@@ -3,7 +3,7 @@
 // Shows the answers that public/api/feedback.php and waitlist.php save OUTSIDE the web root:
 //   /home2/codifyp1/web-whizz-data/flow-feedback.csv, smart-sentinel-feedback.csv, sidekick-boomi-feedback.csv,
 //   flow-pro-waitlist.csv, turn-off-ai-feedback.csv
-// and Turn Off AI's opt-in usage statistics and element reports (public/api/toa-usage.php, toa-report.php).
+// and AI-Free Web's opt-in usage statistics and element reports (public/api/toa-usage.php, toa-report.php).
 // Nothing on the site links here, it is never indexed (X-Robots-Tag), and every page needs the super admin login.
 //
 // Login: one super admin. Only a bcrypt hash of the password is stored here (this repo is public).
@@ -29,9 +29,9 @@ const SOURCES = [
   'sentinel' => ['name' => 'Smart Sentinel', 'file' => 'smart-sentinel-feedback.csv'],
   'sidekick' => ['name' => 'Sidekick for Boomi', 'file' => 'sidekick-boomi-feedback.csv'],
   'waitlist' => ['name' => 'Pro waitlist', 'file' => 'flow-pro-waitlist.csv'],
-  'turnoffai' => ['name' => 'Turn Off AI', 'file' => 'turn-off-ai-feedback.csv'],
-  'toausage' => ['name' => 'Turn Off AI usage', 'file' => 'turn-off-ai-usage.csv'],
-  'toareports' => ['name' => 'Turn Off AI reports', 'file' => 'turn-off-ai-reports.csv'],
+  'turnoffai' => ['name' => 'AI-Free Web', 'file' => 'turn-off-ai-feedback.csv'],
+  'toausage' => ['name' => 'AI-Free Web usage', 'file' => 'turn-off-ai-usage.csv'],
+  'toareports' => ['name' => 'AI-Free Web reports', 'file' => 'turn-off-ai-reports.csv'],
 ];
 const TYPES = ['welcome' => 'Welcome', 'goodbye' => 'Goodbye', 'feedback' => 'Feedback'];
 
@@ -92,7 +92,7 @@ const LABELS = [
       'zoom' => 'Zoom AI Companion', 'firefox' => 'Firefox version'],
   ],
 ];
-// Turn Off AI site ids (the extension's src/rules/bundled.json) → names, for the usage and reports tabs.
+// AI-Free Web site ids (the extension's src/rules/bundled.json) → names, for the usage and reports tabs.
 const TOA_SITES = ['search' => 'Google Search', 'gmail' => 'Gmail', 'docs' => 'Google Docs', 'drive' => 'Google Drive', 'sheets' => 'Sheets & Slides',
   'youtube' => 'YouTube', 'outlook' => 'Outlook', 'office' => 'Word/Excel/PowerPoint', 'linkedin' => 'LinkedIn', 'bing' => 'Bing', 'other' => 'Other'];
 const TOA_NUMS = ['pages', 'hidden', 'showOnce', 'reports', 'customRules', 'rulesOk', 'rulesFail'];
@@ -284,7 +284,7 @@ $ratings = tally($rows, 'rating');
 $rated = array_sum($ratings);
 $avg = $rated ? array_sum(array_map(fn($k, $n) => $k * $n, array_keys($ratings), $ratings)) / $rated : 0;
 
-// ---- Turn Off AI usage (toa-usage.php) and reports (toa-report.php). toa* names: Flow's usage tab has its own helpers.
+// ---- AI-Free Web usage (toa-usage.php) and reports (toa-report.php). toa* names: Flow's usage tab has its own helpers.
 function toaMonday(int $t): int { return gmmktime(0, 0, 0, (int)gmdate('n', $t), (int)gmdate('j', $t) - (int)gmdate('N', $t) + 1, (int)gmdate('Y', $t)); }
 function toaMap(string $v): array {
   $o = [];
@@ -436,7 +436,7 @@ pageTop(SOURCES[$src]['name'] . ' — Admin');
     <div class="tile"><span>Different elements</span><b><?= number_format(count($TR)) ?></b></div>
   </section>
   <section class="card">
-    <div class="head"><h2>Elements still showing</h2><span class="muted">Most reported first. Turn the good ones into rules (bundled.json in the extension repo → npm run rules:sign → public/e/turn-off-ai/rules/).</span>
+    <div class="head"><h2>Elements still showing</h2><span class="muted">Most reported first. Turn the good ones into rules (bundled.json in the extension repo → npm run rules:sign → public/e/ai-free-web/rules/).</span>
       <a class="btn ghost" href="<?= h($self . '?src=toareports&download=1') ?>">Download CSV</a></div>
     <?php if (!$TR): ?><p class="empty">No reports yet.</p><?php else: ?>
     <div class="scroll"><table>

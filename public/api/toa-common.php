@@ -1,5 +1,5 @@
 <?php
-// Shared by toa-usage.php and toa-report.php (Turn Off AI). Not an endpoint: it only defines helpers.
+// Shared by toa-usage.php and toa-report.php (AI-Free Web). Not an endpoint: it only defines helpers.
 //
 // ORIGINS: only the extension itself may send. Replace the placeholder with the Chrome Web Store ID once the extension
 // is published (and add the Edge Add-ons ID), e.g. 'chrome-extension://abcdefghijklmnopabcdefghijklmnop'. Until then
