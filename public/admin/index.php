@@ -2,7 +2,8 @@
 // Private admin dashboard: https://web-whizz.com/admin/ (copied into dist/admin/ by the build).
 // Shows the answers that public/api/feedback.php and waitlist.php save OUTSIDE the web root:
 //   /home2/codifyp1/web-whizz-data/flow-feedback.csv, smart-sentinel-feedback.csv, sidekick-boomi-feedback.csv,
-//   flow-pro-waitlist.csv
+//   flow-pro-waitlist.csv, turn-off-ai-feedback.csv
+// and Turn Off AI's opt-in usage statistics and element reports (public/api/toa-usage.php, toa-report.php).
 // Nothing on the site links here, it is never indexed (X-Robots-Tag), and every page needs the super admin login.
 //
 // Login: one super admin. Only a bcrypt hash of the password is stored here (this repo is public).
@@ -11,7 +12,7 @@
 // 5 wrong passwords from one IP lock that IP out for 15 minutes (web-whizz-data/admin-login-rate.json).
 //
 // The answer values (codes like "broken" or "other_tool") are turned into readable text with LABELS below.
-// Keep them in sync with src/pages/FlowSurvey.jsx, SentinelSurvey.jsx and SidekickSurvey.jsx; an unknown code is shown as is.
+// Keep them in sync with src/pages/FlowSurvey.jsx, SentinelSurvey.jsx, SidekickSurvey.jsx and TurnOffAiSurvey.jsx; an unknown code is shown as is.
 
 const ADMIN_USER = 'usamamunir1s@gmail.com'; // lowercase; the login form ignores case and spaces around it
 const ADMIN_HASH = '$2y$12$hT6fNaRvvb3zcOUErhGn3OqGKedLKXgkncIvzSMnin7G4MrCywwie';
@@ -28,6 +29,9 @@ const SOURCES = [
   'sentinel' => ['name' => 'Smart Sentinel', 'file' => 'smart-sentinel-feedback.csv'],
   'sidekick' => ['name' => 'Sidekick for Boomi', 'file' => 'sidekick-boomi-feedback.csv'],
   'waitlist' => ['name' => 'Pro waitlist', 'file' => 'flow-pro-waitlist.csv'],
+  'turnoffai' => ['name' => 'Turn Off AI', 'file' => 'turn-off-ai-feedback.csv'],
+  'toausage' => ['name' => 'Turn Off AI usage', 'file' => 'turn-off-ai-usage.csv'],
+  'toareports' => ['name' => 'Turn Off AI reports', 'file' => 'turn-off-ai-reports.csv'],
 ];
 const TYPES = ['welcome' => 'Welcome', 'goodbye' => 'Goodbye', 'feedback' => 'Feedback'];
 
@@ -75,7 +79,24 @@ const LABELS = [
     'want' => ['map' => 'Map function / map script editor', 'search' => 'Search inside every shape and script', 'diff' => 'Compare script/process versions',
       'docs' => 'Export process documentation', 'logs' => 'Easier Test mode documents and logs', 'team' => 'Share snippets and dictionary with team'],
   ],
+  'turnoffai' => [
+    'reason' => ['missed' => 'AI was still showing', 'broke' => 'Hid something they needed / broke a page', 'slow' => 'Pages felt slower',
+      'confusing' => "Couldn't figure out how to use it", 'want_ai' => 'Wants the AI features after all',
+      'trust' => "Didn't want an extension on email/documents", 'other_tool' => 'Found another tool', 'other' => 'Something else'],
+    'role' => ['everyday' => 'Everyday user (Gmail, Search, YouTube)', 'office' => 'Office worker (Microsoft 365 web)', 'writer' => 'Writer / student / teacher',
+      'privacy' => 'Privacy-minded', 'it' => 'IT / manages browsers', 'other' => 'Something else'],
+    'source' => SOURCE_Q + ['reddit' => 'Reddit / forum', 'news' => 'News article or blog'],
+    'annoy' => ['overviews' => 'AI Overviews / AI Mode', 'gmail' => 'Gemini in Gmail', 'docs' => 'Gemini in Docs/Sheets/Slides/Drive', 'youtube' => 'AI on YouTube',
+      'outlook' => 'Copilot in Outlook', 'office' => 'Copilot in Word/Excel/PowerPoint', 'linkedin' => 'AI on LinkedIn', 'bing' => 'Copilot in Bing'],
+    'want' => ['meta' => 'Meta AI (FB/IG/WhatsApp)', 'amazon' => 'Amazon Rufus', 'x' => 'Grok on X', 'notion' => 'Notion AI', 'canva' => 'Canva AI',
+      'zoom' => 'Zoom AI Companion', 'firefox' => 'Firefox version'],
+  ],
 ];
+// Turn Off AI site ids (the extension's src/rules/bundled.json) → names, for the usage and reports tabs.
+const TOA_SITES = ['search' => 'Google Search', 'gmail' => 'Gmail', 'docs' => 'Google Docs', 'drive' => 'Google Drive', 'sheets' => 'Sheets & Slides',
+  'youtube' => 'YouTube', 'outlook' => 'Outlook', 'office' => 'Word/Excel/PowerPoint', 'linkedin' => 'LinkedIn', 'bing' => 'Bing', 'other' => 'Other'];
+const TOA_NUMS = ['pages', 'hidden', 'showOnce', 'reports', 'customRules', 'rulesOk', 'rulesFail'];
+const TOA_PERIODS = [7 => 'Last 7 days', 30 => 'Last 30 days', 90 => 'Last 90 days', 0 => 'All time'];
 
 // Questions shown on each answer, in order: [column, label]. Usage counts go in the collapsible "Usage" line.
 const QUESTIONS = [
@@ -84,8 +105,10 @@ const QUESTIONS = [
   'sentinel' => [['reason', 'Reason'], ['tool', 'Other tool'], ['source', 'Found us via'], ['before', 'Used before'],
     ['monitor', 'Would use change alerts'], ['use', 'Refreshes'], ['want', 'Would use']],
   'sidekick' => [['reason', 'Reason'], ['tool', 'Other tool'], ['role', 'Role'], ['source', 'Found us via'], ['want', 'Would use']],
+  'turnoffai' => [['reason', 'Reason'], ['tool', 'Other tool'], ['role', 'Role'], ['source', 'Found us via'], ['annoy', 'Bothered most by'],
+    ['want', 'Sites to cover next'], ['top', 'Most hidden on'], ['off', 'Sites switched off']],
 ];
-const TEXTS = [['stay', 'What would have made them stay'], ['bad', 'Fix or add'], ['good', 'Works well']];
+const TEXTS = [['where', 'Where (site / element)'], ['stay', 'What would have made them stay'], ['bad', 'Fix or add'], ['good', 'Works well']];
 const USAGE = [
   'flow' => ['days' => 'days installed', 'runs' => 'runs', 'okRuns' => 'ok runs', 'files' => 'files', 'skipped' => 'skipped',
     'errRuns' => 'error runs', 'stopped' => 'stopped', 'pick' => 'pick', 'wait' => 'wait', 'home' => 'home',
@@ -95,6 +118,8 @@ const USAGE = [
     'daily' => 'daily', 'iv' => 'top interval'],
   'sidekick' => ['days' => 'days installed', 'editorOpens' => 'full editor opens', 'inPlace' => 'in-place editors', 'setProps' => 'Set Properties opens',
     'shortcuts' => 'shortcuts used'],
+  'turnoffai' => ['days' => 'days installed', 'pages' => 'pages cleaned', 'hidden' => 'AI elements hidden', 'showOnce' => '"show once" uses',
+    'reports' => 'reports sent', 'customRules' => 'own rules', 'rulesOk' => 'rule updates', 'rulesFail' => 'rejected rule files'],
 ];
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -236,7 +261,7 @@ function tally(array $rows, string $col, bool $multi = false): array {
 }
 function url(array $change): string {
   global $self;
-  $p = array_merge(array_intersect_key($_GET, array_flip(['src', 'type', 'q', 'written'])), $change);
+  $p = array_merge(array_intersect_key($_GET, array_flip(['src', 'type', 'q', 'written', 'days'])), $change);
   $p = array_filter($p, fn($v) => $v !== '' && $v !== null && $v !== 0);
   return $self . ($p ? '?' . http_build_query($p) : '');
 }
@@ -259,6 +284,77 @@ $ratings = tally($rows, 'rating');
 $rated = array_sum($ratings);
 $avg = $rated ? array_sum(array_map(fn($k, $n) => $k * $n, array_keys($ratings), $ratings)) / $rated : 0;
 
+// ---- Turn Off AI usage (toa-usage.php) and reports (toa-report.php). toa* names: Flow's usage tab has its own helpers.
+function toaMonday(int $t): int { return gmmktime(0, 0, 0, (int)gmdate('n', $t), (int)gmdate('j', $t) - (int)gmdate('N', $t) + 1, (int)gmdate('Y', $t)); }
+function toaMap(string $v): array {
+  $o = [];
+  foreach (explode(',', $v) as $part) if (preg_match('/^(.+):(\d+)$/', $part, $m)) $o[$m[1]] = (int)$m[2];
+  return $o;
+}
+function toaPct(int $part, int $whole): string { return $whole ? round($part / $whole * 100) . '%' : '—'; }
+function toaStats(array $all, int $days, int $now): array {
+  $zero = array_fill_keys(TOA_NUMS, 0);
+  $weeks = [];
+  for ($i = 0, $w = toaMonday($now); $i < 12; $i++, $w -= 7 * 86400) $weeks[$w] = ['active' => 0, 'new' => 0] + $zero;
+  $since = $days ? $now - $days * 86400 : 0;
+  $u = ['total' => $zero, 'new' => 0, 'messages' => 0, 'versions' => [], 'rules' => [], 'langs' => [], 'sites' => [], 'off' => [], 'masterOff' => 0, 'managed' => 0];
+  foreach ($all as $r) {
+    $t = strtotime($r['date'] ?? '') ?: 0;
+    $w = toaMonday($t);
+    if (isset($weeks[$w])) {
+      $weeks[$w]['active'] += ($r['weekFirst'] ?? '') === '1' ? 1 : 0;
+      $weeks[$w]['new'] += ($r['new'] ?? '') === '1' ? 1 : 0;
+      foreach (TOA_NUMS as $c) $weeks[$w][$c] += (int)($r[$c] ?? 0);
+    }
+    if ($t < $since) continue;
+    $u['messages']++;
+    $u['new'] += ($r['new'] ?? '') === '1' ? 1 : 0;
+    $u['masterOff'] += ($r['masterOff'] ?? '') === '1' ? 1 : 0;
+    $u['managed'] += ($r['managed'] ?? '') === '1' ? 1 : 0;
+    foreach (TOA_NUMS as $c) $u['total'][$c] += (int)($r[$c] ?? 0);
+    $v = ($r['v'] ?? '') !== '' ? $r['v'] : '?';
+    $u['versions'][$v] ??= ['messages' => 0] + $zero;
+    $u['versions'][$v]['messages']++;
+    foreach (TOA_NUMS as $c) $u['versions'][$v][$c] += (int)($r[$c] ?? 0);
+    if (($r['rulesVersion'] ?? '') !== '') $u['rules'][$r['rulesVersion']] = ($u['rules'][$r['rulesVersion']] ?? 0) + 1;
+    if (($r['lang'] ?? '') !== '') $u['langs'][$r['lang']] = ($u['langs'][$r['lang']] ?? 0) + 1;
+    foreach (toaMap($r['sites'] ?? '') as $k => $n) $u['sites'][$k] = ($u['sites'][$k] ?? 0) + $n;
+    foreach (array_filter(explode(',', $r['off'] ?? '')) as $k) $u['off'][$k] = ($u['off'][$k] ?? 0) + 1;
+  }
+  uksort($u['versions'], fn($a, $b) => version_compare($b, $a));
+  foreach (['rules', 'langs', 'sites', 'off'] as $k) arsort($u[$k]);
+  $u['weeks'] = $weeks;
+  return $u;
+}
+function toaBars(string $title, array $t, array $labels = [], string $empty = 'None yet.', string $note = ''): void {
+  $t = array_filter($t);
+  arsort($t);
+  $max = $t ? max($t) : 1; ?>
+  <div class="card chart">
+    <h3><?= h($title) ?></h3>
+    <?php if ($note): ?><p class="muted"><?= h($note) ?></p><?php endif; ?>
+    <?php if (!$t): ?><p class="muted"><?= h($empty) ?></p><?php endif; ?>
+    <?php foreach ($t as $k => $n): $l = $labels[$k] ?? (string)$k; ?>
+      <div class="bar"><span class="l" title="<?= h($l) ?>"><?= h($l) ?></span>
+        <span class="track"><span style="width:<?= round($n / $max * 100) ?>%"></span></span><span class="c"><?= number_format($n) ?></span></div>
+    <?php endforeach; ?>
+  </div>
+<?php }
+$days = (int)($_GET['days'] ?? 30);
+if (!isset(TOA_PERIODS[$days])) $days = 30;
+$TU = $src === 'toausage' ? toaStats($all, $days, $now) : null;
+// Reports grouped by host + selector, most reported first.
+$TR = [];
+if ($src === 'toareports') {
+  foreach ($all as $r) {
+    $k = ($r['host'] ?? '') . ' ' . ($r['selector'] ?? '');
+    $TR[$k] ??= ['n' => 0, 'last' => $r['date'] ?? '', 'r' => $r, 'versions' => []];
+    $TR[$k]['n']++;
+    $TR[$k]['versions'][$r['v'] ?? ''] = true;
+  }
+  uasort($TR, fn($a, $b) => $b['n'] <=> $a['n'] ?: strcmp($b['last'], $a['last']));
+}
+
 pageTop(SOURCES[$src]['name'] . ' — Admin');
 ?>
 <header class="top">
@@ -277,7 +373,85 @@ pageTop(SOURCES[$src]['name'] . ' — Admin');
     <?php endforeach; ?>
   </nav>
 
-<?php if ($src === 'waitlist'): ?>
+<?php if ($src === 'toausage'):
+  $T = $TU['total'];
+  $thisWeek = reset($TU['weeks']);
+  $lastWeek = next($TU['weeks']); ?>
+  <section class="tiles">
+    <div class="tile"><span>Active installs this week</span><b><?= number_format($thisWeek['active']) ?></b><small>last week <?= number_format($lastWeek['active']) ?></small></div>
+    <div class="tile"><span>New installs</span><b><?= number_format($TU['new']) ?></b><small><?= h(TOA_PERIODS[$days]) ?></small></div>
+    <div class="tile"><span>Pages cleaned</span><b><?= number_format($T['pages']) ?></b><small><?= h(TOA_PERIODS[$days]) ?></small></div>
+    <div class="tile"><span>AI elements hidden</span><b><?= number_format($T['hidden']) ?></b><small><?= $T['pages'] ? number_format($T['hidden'] / $T['pages'], 1) . ' per page' : '—' ?></small></div>
+    <div class="tile"><span>"Show AI once"</span><b><?= number_format($T['showOnce']) ?></b><small><?= toaPct($T['showOnce'], $T['pages']) ?> of pages</small></div>
+    <div class="tile"><span>Rule files rejected</span><b><?= number_format($T['rulesFail']) ?></b><small><?= number_format($T['rulesOk']) ?> updates installed</small></div>
+  </section>
+
+  <form class="filters" method="get" action="<?= h($self) ?>">
+    <div class="chips">
+      <?php foreach (TOA_PERIODS as $d => $l): ?><a href="<?= h($self . '?src=toausage' . ($d === 30 ? '' : '&days=' . $d)) ?>" class="<?= $d === $days ? 'on' : '' ?>"><?= h($l) ?></a><?php endforeach; ?>
+    </div>
+    <span class="muted grow">Opt-in (off by default): only installs that turned statistics on. At most one message per install per day, only after a page was cleaned. No IDs.</span>
+    <a class="btn ghost" href="<?= h($self . '?src=toausage&download=1') ?>">Download CSV</a>
+  </form>
+
+  <section class="card">
+    <div class="head"><h2>By week</h2><span class="muted">Weeks start on Monday (UTC). Active = opted-in installs that cleaned a page that week.</span></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Week of</th><th>Active installs</th><th>New installs</th><th>Pages cleaned</th><th>AI hidden</th><th>Show once</th><th>Reports</th><th>Own rules</th></tr></thead>
+      <tbody><?php foreach ($TU['weeks'] as $w => $r): ?><tr>
+        <td><?= gmdate('j M Y', $w) ?></td><td><?= number_format($r['active']) ?></td><td><?= number_format($r['new']) ?></td><td><?= number_format($r['pages']) ?></td>
+        <td><?= number_format($r['hidden']) ?></td><td><?= number_format($r['showOnce']) ?></td><td><?= number_format($r['reports']) ?></td><td><?= number_format($r['customRules']) ?></td>
+      </tr><?php endforeach; ?></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <div class="head"><h2>By version</h2><span class="muted"><?= h(TOA_PERIODS[$days]) ?></span></div>
+    <?php if (!$TU['versions']): ?><p class="empty">No usage messages yet.</p><?php else: ?>
+    <div class="scroll"><table>
+      <thead><tr><th>Version</th><th>Messages</th><th>Pages cleaned</th><th>Hidden per page</th><th>Show once</th><th>Reports</th><th>Rules rejected</th></tr></thead>
+      <tbody><?php foreach ($TU['versions'] as $v => $r): ?><tr>
+        <td><?= h($v) ?></td><td><?= number_format($r['messages']) ?></td><td><?= number_format($r['pages']) ?></td>
+        <td><?= $r['pages'] ? number_format($r['hidden'] / $r['pages'], 1) : '—' ?></td><td><?= toaPct($r['showOnce'], $r['pages']) ?></td>
+        <td><?= number_format($r['reports']) ?></td><td><?= number_format($r['rulesFail']) ?></td>
+      </tr><?php endforeach; ?></tbody>
+    </table></div>
+    <?php endif; ?>
+  </section>
+
+  <section class="charts">
+    <?php
+    toaBars('AI elements hidden, by site', $TU['sites'], TOA_SITES, 'Nothing hidden yet.', 'A site that drops suddenly may mean its rules broke.');
+    toaBars('Sites switched off (messages)', $TU['off'], TOA_SITES, 'No site switched off.');
+    toaBars('Rules version (messages)', $TU['rules']);
+    toaBars('Browser language (messages)', $TU['langs']);
+    toaBars('Master switch off / managed', ['Master switch off' => $TU['masterOff'], 'Managed by an organization' => $TU['managed']]);
+    ?>
+  </section>
+
+<?php elseif ($src === 'toareports'): ?>
+  <section class="tiles">
+    <div class="tile"><span>Reports</span><b><?= number_format(count($all)) ?></b></div>
+    <div class="tile"><span>Last 7 days</span><b><?= $week ?></b></div>
+    <div class="tile"><span>Different elements</span><b><?= number_format(count($TR)) ?></b></div>
+  </section>
+  <section class="card">
+    <div class="head"><h2>Elements still showing</h2><span class="muted">Most reported first. Turn the good ones into rules (bundled.json in the extension repo → npm run rules:sign → public/e/turn-off-ai/rules/).</span>
+      <a class="btn ghost" href="<?= h($self . '?src=toareports&download=1') ?>">Download CSV</a></div>
+    <?php if (!$TR): ?><p class="empty">No reports yet.</p><?php else: ?>
+    <div class="scroll"><table>
+      <thead><tr><th>Reports</th><th>Site</th><th>Host</th><th>Label</th><th>Element</th><th>Proposed selector</th><th>Last</th><th>Versions</th></tr></thead>
+      <tbody><?php foreach (array_slice($TR, 0, 300) as $g): $r = $g['r']; ?><tr>
+        <td><b><?= number_format($g['n']) ?></b></td><td><?= h(TOA_SITES[$r['site'] ?? ''] ?? ($r['site'] ?? '')) ?></td><td><?= h($r['host'] ?? '') ?></td>
+        <td><?= h($r['label'] ?? '') ?></td><td><?= h(trim(($r['tag'] ?? '') . ' ' . ($r['role'] ?? ''))) ?></td>
+        <td><code><?= h($r['selector'] ?? '') ?></code><?= ($r['stable'] ?? '') === '1' ? '' : ' <span class="muted">(unstable)</span>' ?></td>
+        <td><?= h(when($g['last'])) ?></td><td><?= h(implode(', ', array_filter(array_keys($g['versions'])))) ?></td>
+      </tr><?php endforeach; ?></tbody>
+    </table></div>
+    <?php endif; ?>
+  </section>
+
+<?php elseif ($src === 'waitlist'): ?>
   <section class="tiles">
     <div class="tile"><span>Signups</span><b><?= count($all) ?></b></div>
     <div class="tile"><span>Last 7 days</span><b><?= $week ?></b></div>
@@ -317,7 +491,8 @@ pageTop(SOURCES[$src]['name'] . ' — Admin');
 
   <?php
   $charts = [['reason', 'Why they uninstalled', false], ['rating', 'Ratings', false], ['want', 'Features they would use', true],
-    ['use', 'What they use it for', true], ['source', 'How they found it', false]];
+    ['use', 'What they use it for', true], ['source', 'How they found it', false], ['annoy', 'AI that bothered them most', true],
+    ['role', 'Who they are', false]];
   $charts = array_filter($charts, fn($c) => tally($rows, $c[0], $c[2]));
   if ($charts): ?>
   <section class="charts">
@@ -356,7 +531,7 @@ pageTop(SOURCES[$src]['name'] . ' — Admin');
         <dl>
           <?php foreach (QUESTIONS[$src] as [$c, $l]): $v = trim($r[$c] ?? ''); if ($v === '') continue; ?>
             <div><dt><?= h($l) ?></dt><dd>
-              <?php if (in_array($c, ['use', 'want'], true)): foreach (explode(' ', $v) as $x): ?><span class="pill"><?= h(label($src, $c, $x)) ?></span><?php endforeach;
+              <?php if (in_array($c, ['use', 'want', 'annoy'], true)): foreach (explode(' ', $v) as $x): ?><span class="pill"><?= h(label($src, $c, $x)) ?></span><?php endforeach;
               else: ?><?= h(label($src, $c, $v)) ?><?php endif; ?>
             </dd></div>
           <?php endforeach; ?>
@@ -443,6 +618,7 @@ main { max-width:1100px; margin:0 auto; padding:20px 16px 60px; display:grid; ga
 .tile small { color:var(--muted); font-size:12px; }
 .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
 .filters input[type=search] { flex:1 1 220px; }
+.grow { flex:1 1 220px; }
 .chips { display:flex; gap:4px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:3px; }
 .chips a { padding:6px 12px; border-radius:9px; text-decoration:none; color:var(--muted); font-weight:600; font-size:14px; }
 .chips a.on { background:var(--soft); color:var(--primary); }

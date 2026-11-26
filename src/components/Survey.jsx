@@ -128,7 +128,7 @@ export default function Survey({ product, survey, s, context: contextKeys, quick
 
   useEffect(() => {
     const q = new URLSearchParams(location.search);
-    setContext(Object.fromEntries(contextKeys.filter((k) => q.get(k)).map((k) => [k, q.get(k).slice(0, 20)])));
+    setContext(Object.fromEntries(contextKeys.filter((k) => q.get(k)).map((k) => [k, q.get(k).slice(0, 80)])));
     shownAt.current = performance.now();
   }, [contextKeys]);
 

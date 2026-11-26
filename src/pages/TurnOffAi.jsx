@@ -1,0 +1,172 @@
+import Icon from "../components/Icon.jsx";
+import { TURNOFFAI } from "../site.js";
+
+// The Turn Off AI page (English only). Keep the site list in sync with src/rules/bundled.json in the extension
+// project (~/Desktop/P Projects/AI free web) and the copy with its store/STORE-LISTING.md.
+
+export const META = {
+  title: "Turn Off AI — Hide AI Overviews, Gemini & Copilot in Chrome | Web Whizz",
+  description:
+    "Free Chrome extension that hides AI Overviews, Gemini, Copilot, “Help me write” and other AI buttons, banners and panels on Google Search, Gmail, Docs, Drive, YouTube, Outlook, Word and more. A switch per site."
+};
+
+export const SITES = [
+  ["Google Search", "AI Overviews, the AI Mode tab, “Dive deeper” AI prompts; optional plain “Web” results"],
+  ["Gmail", "Ask Gemini, “Help me write”, summary cards, the Gemini side panel, AI reply chips, “Try Gemini” promos"],
+  ["Google Docs", "Gemini menu, Ask Gemini, “Help me write”, Refine, AI Summary block, image generation"],
+  ["Google Drive", "Ask Gemini, Summarize folder / file buttons and right-click items, preview summaries, the Gemini panel"],
+  ["Google Sheets & Slides", "The Gemini panel and menu, “Help me organize”, “Help me create” image prompts"],
+  ["YouTube", "The Gemini “Ask” button, AI video summaries, “Ask about this video” chips"],
+  ["Outlook on the web", "The Copilot summary bar on emails, Copilot buttons and drafting prompts, the Copilot pane"],
+  ["Word, Excel & PowerPoint on the web", "The Copilot ribbon button, the Copilot prompt in new documents, the Copilot pane"],
+  ["LinkedIn", "AI writing prompts in posts and messages, AI Premium nudges"],
+  ["Bing", "Copilot answer panels, Copilot and chat tabs, “Ask Copilot” prompts"]
+];
+
+export const FEATURES = [
+  { icon: "zap", title: "Gone before the page appears", text: "AI elements are hidden as the page loads, so they never flash on screen, and the layout closes up around them." },
+  { icon: "sliders", title: "A switch per site and per feature", text: "One master switch, a switch for every website, and in the settings a switch for every single AI element. Keep the ones you like." },
+  { icon: "retry", title: "Keeps working when sites change", text: "Google and Microsoft redesign often. Rules update automatically, so fixes arrive the same day, without waiting for a store update." },
+  { icon: "target", title: "Something still showing? Click it", text: "Point at any AI element we missed to hide it on your browser, and send us an anonymous report so we fix it for everyone." },
+  { icon: "play", title: "Show AI once", text: "Need Gemini or Copilot just this time? One click shows everything on the current page until you reload." },
+  { icon: "shield", title: "Private, and ready for IT", text: "It never reads your emails or documents. Admins can set and lock the settings for every browser with Chrome policy." }
+];
+
+export const FAQ = [
+  ["Is Turn Off AI free?", "Yes. Every site and every switch is free. No account, no ads."],
+  ["Does it turn off AI in my Google or Microsoft account?", "No. It hides AI buttons, banners, panels and prompts in your browser. Your account settings don't change, and other devices aren't affected. Turn the extension off and everything is back."],
+  ["Will it break Send, Save or Search?", "No. Its rules only target AI features, every rule is checked so it can never match core buttons like Send, Save or Search, and it never hides the editor you're typing in. “Show AI on this page once” brings back anything instantly."],
+  ["Does it read my emails or documents?", "No. It looks only at the labels of buttons and panels (like “Ask Gemini”) to find AI features. Nothing you write or receive is read, stored or sent."],
+  ["Something AI is still showing. What can I do?", "Click the Turn Off AI icon → “Something AI still showing?” and click the element. You can hide it right away on your browser, and send us an anonymous report so the next rules update hides it for everyone."],
+  ["Can my company deploy it with AI hidden for everyone?", "Yes. Admins can set every switch and lock them with Chrome policy (Google Admin console or Windows Group Policy), without access to the Google Workspace or Microsoft 365 admin settings."],
+  ["Which browsers does it work in?", "Chrome and Microsoft Edge. Firefox is planned."],
+  ["Is it made by Google or Microsoft?", "No. Turn Off AI is an independent extension made by Web Whizz. It isn't affiliated with, endorsed by or sponsored by Google or Microsoft."]
+];
+
+function StoreButton({ campaign }) {
+  if (TURNOFFAI.chromeStoreUrl) {
+    return (
+      <a className="btn btn-primary" href={`${TURNOFFAI.chromeStoreUrl}?utm_source=web-whizz.com&utm_medium=website&utm_campaign=${campaign}`} target="_blank" rel="noopener noreferrer" data-umami-event="add-to-chrome" data-umami-event-product="turnoffai">
+        <Icon name="download" size={18} /> Add to Chrome — it's free
+      </a>
+    );
+  }
+  return (
+    <span className="btn btn-soon" role="status">
+      Coming soon to the Chrome Web Store
+    </span>
+  );
+}
+
+export default function TurnOffAi() {
+  return (
+    <>
+      <section className="hero hero-product">
+        <div className="wrap hero-grid">
+          <div>
+            <div className="product-id">
+              <img src={TURNOFFAI.img("logo.png")} alt="" width="64" height="64" />
+              <div>
+                <p className="product-name">{TURNOFFAI.name}</p>
+                <span className="eyebrow">Hide AI features on the web</span>
+              </div>
+            </div>
+            <h1>Turn off AI Overviews, Gemini and Copilot — everywhere</h1>
+            <p className="lead">
+              Google and Microsoft keep adding AI to Search, Gmail, Docs, YouTube, Outlook and Word, with no single off switch. Turn Off AI is that switch: it hides AI buttons, banners, summaries, side panels and
+              popups, with one switch per site and per feature.
+            </p>
+            <div className="actions">
+              <StoreButton campaign="turnoffai-hero" />
+              <a className="btn btn-ghost" href="#sites">
+                See what it hides
+              </a>
+            </div>
+            <ul className="trust">
+              <li>v{TURNOFFAI.version}</li>
+              <li>Free · No account · Reads nothing you write</li>
+            </ul>
+          </div>
+          <img className="hero-promo" src={TURNOFFAI.img("og.png")} alt={`${TURNOFFAI.name}: hide AI Overviews, Gemini and Copilot`} width="1200" height="630" style={{ width: "100%", height: "auto", borderRadius: 16 }} />
+        </div>
+      </section>
+
+      <section id="sites" className="section">
+        <div className="wrap">
+          <h2 className="section-title">What it hides</h2>
+          <p className="section-lead">Every item below has its own switch. Turn a whole site off, or keep just the AI features you actually use.</p>
+          <div className="table-wrap">
+            <table className="compare">
+              <thead>
+                <tr>
+                  <th scope="col">Website</th>
+                  <th scope="col">AI features hidden</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SITES.map(([site, what]) => (
+                  <tr key={site}>
+                    <th scope="row">{site}</th>
+                    <td>{what}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className="section section-alt">
+        <div className="wrap">
+          <h2 className="section-title">Made to stay out of your way</h2>
+          <div className="features">
+            {FEATURES.map((f) => (
+              <div className="feature" key={f.title}>
+                <span className="feature-icon">
+                  <Icon name={f.icon} />
+                </span>
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap narrow prose">
+          <h3 id="faq">Questions</h3>
+          <div className="faq">
+            {FAQ.map(([q, a]) => (
+              <details key={q}>
+                <summary>{q}</summary>
+                <p>{a}</p>
+              </details>
+            ))}
+          </div>
+
+          <h3 id="privacy">Privacy</h3>
+          <p>
+            Turn Off AI never reads your emails, documents or searches, and sends nothing unless you choose to: an anonymous report about an element it missed, or anonymous usage statistics, which are off
+            unless you turn them on. Read the <a href={TURNOFFAI.privacyPath}>privacy policy</a>.
+          </p>
+
+          {/* The same feedback form the extension opens (TurnOffAiSurvey); from=site marks answers sent from the website. */}
+          <div className="callout callout-feedback">
+            <div>
+              <h3>Questions, bugs or a site we should cover?</h3>
+              <p>Tell us which AI features still bother you and where. It takes a minute.</p>
+            </div>
+            <a className="btn btn-ghost" href={`${TURNOFFAI.path}feedback/?from=site`} data-umami-event="feedback-click" data-umami-event-product="turnoffai">
+              <Icon name="chat" size={18} /> Send feedback
+            </a>
+          </div>
+          <p className="meta">
+            Turn Off AI is not affiliated with, endorsed by or sponsored by Google or Microsoft. Gemini, Google, Gmail, YouTube, Copilot, Outlook and Microsoft 365 are trademarks of their owners, used here only to
+            describe compatibility.
+          </p>
+        </div>
+      </section>
+    </>
+  );
+}

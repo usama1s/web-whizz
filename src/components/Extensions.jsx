@@ -1,5 +1,5 @@
 import Icon from "./Icon.jsx";
-import { FLOW, SENTINEL, SIDEKICK } from "../site.js";
+import { FLOW, SENTINEL, SIDEKICK, TURNOFFAI } from "../site.js";
 
 // Every Chrome extension, in the order they're shown on /e/ and on the home page.
 // A new extension needs one entry here (and its page in src/routes.jsx).
@@ -18,6 +18,11 @@ export const EXTENSIONS = [
     product: SIDEKICK,
     text: "A real script editor, a Message shape editor, Set Properties on one screen, shortcuts and canvas glow for the Boomi Integration build screen.",
     tags: ["Free", "Developer tools"]
+  },
+  {
+    product: TURNOFFAI,
+    text: "Hide AI Overviews, Gemini, Copilot and other AI buttons, banners and panels on Google, Microsoft and more, with a switch per site.",
+    tags: ["Free", "Privacy"]
   }
 ];
 
