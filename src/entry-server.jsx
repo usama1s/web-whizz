@@ -37,8 +37,8 @@ function head(route) {
   if (route.image) {
     tags.push(
       `<meta property="og:image" content="${esc(SITE.url + route.image)}" />`,
-      `<meta property="og:image:width" content="1400" />`,
-      `<meta property="og:image:height" content="560" />`,
+      `<meta property="og:image:width" content="${route.imageSize?.[0] || 1400}" />`,
+      `<meta property="og:image:height" content="${route.imageSize?.[1] || 560}" />`,
       `<meta property="og:image:alt" content="${esc(route.imageAlt || route.title)}" />`,
       `<meta name="twitter:card" content="summary_large_image" />`,
       `<meta name="twitter:image" content="${esc(SITE.url + route.image)}" />`

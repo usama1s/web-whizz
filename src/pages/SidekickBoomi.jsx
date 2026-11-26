@@ -1,12 +1,14 @@
 import Icon from "../components/Icon.jsx";
+import { Shot } from "../components/Flow.jsx";
 import { SIDEKICK } from "../site.js";
+import { GUIDE_LIST } from "./SidekickGuides.jsx";
 
 // The Sidekick for Boomi page (English only). Only list what 0.1.0 really ships: the copy follows the store
 // listing (docs/STORE_LISTING.md in ~/Desktop/P Projects/sidekick-boomi). The rest of the extension is parked on
-// its `res` branch until tested, so don't mention it here. No screenshots yet: add them once the store ones exist.
+// its `res` branch until tested, so don't mention it here. Screenshots and og.png (the marquee) are copied from its docs/store/.
 
 export const META = {
-  title: "Sidekick for Boomi — Script Editor, Set Properties & Shortcuts for Boomi | Web Whizz",
+  title: "Sidekick for Boomi — Groovy Script Editor & Boomi Shortcuts",
   description:
     "Free, unofficial Chrome extension for the Boomi Integration build screen: a real script editor with Boomi API autocomplete, a Message shape editor, Set Properties on one screen, shortcuts and canvas glow."
 };
@@ -22,11 +24,20 @@ export const FEATURES = [
 
 export const FAQ = [
   ["Is Sidekick for Boomi free?", "Yes. No account, no ads, no paid tier."],
+  ["How do I escape single quotes and curly braces in a Boomi Message shape?", "Write '' for an apostrophe and '{' and '}' for literal braces. Sidekick's Message editor does it for you: write plain text with named {variables} and it produces Boomi's quoted text. See the Message shape guide below."],
+  ["Does it help with Groovy scripts and dynamic properties?", "Yes. The script editor autocompletes dataContext, ExecutionUtil and props, and warns about a missing document.dynamic.userdefined. prefix, a missing persist flag on setDynamicProcessProperty, and property names that don't match your dictionary."],
   ["Is it made by Boomi?", "No. Sidekick is an unofficial extension made by Web Whizz. It isn't affiliated with, endorsed by or sponsored by Boomi."],
   ["Does it call Boomi's API or need my credentials?", "No. It works only from what the Boomi build screen already shows. It never calls an API, never reads passwords or cookies, and makes no network requests of its own."],
   ["Will it break OK and Save in Boomi's dialogs?", "No. Every edit you make in Sidekick's editor is written back into Boomi's own field, so Boomi saves it as usual. You can switch the editor off per dialog with the toggle next to its title."],
   ["Which sites does it run on?", "Only Boomi's own pages, under boomi.com and manywho.com. It doesn't run on or read any other site."],
   ["Where are my settings and snippets stored?", "In Chrome's extension storage on your computer. You can export, import or reset them from the Options page, and uninstalling removes them."]
+];
+
+const SHOTS = [
+  ["shot-script-editor.png", "Sidekick's Groovy script editor in Boomi with the Functions menu for dataContext", "A real code editor for Groovy and JavaScript, with Boomi API autocomplete."],
+  ["shot-set-properties.png", "Sidekick's Set Properties editor showing every property of a Boomi Set Properties step on one screen", "Every Set Properties row on one screen."],
+  ["shot-message-editor.png", "Sidekick's Message shape editor with a named {orderId} variable", "Message shapes with named variables and automatic quoting."],
+  ["shot-shortcuts.png", "Sidekick options: canvas glow settings and Boomi keyboard shortcuts for save, test, stop and revert", "Shortcuts for save, test, stop and revert, and canvas glow for loose ends. Each can be switched off."]
 ];
 
 function StoreButton({ campaign }) {
@@ -73,7 +84,7 @@ export default function SidekickBoomi() {
               <li>Free · No account · No tracking</li>
             </ul>
           </div>
-          <img className="hero-promo" src={SIDEKICK.img("promo.png")} alt={`${SIDEKICK.name}: script editor and canvas helpers for Boomi`} width="440" height="280" style={{ width: "100%", height: "auto", borderRadius: 16 }} />
+          <img className="hero-promo" src={SIDEKICK.img("og.png")} alt={`${SIDEKICK.name}: a Groovy and JavaScript code editor inside Boomi`} width="1400" height="560" fetchPriority="high" style={{ width: "100%", height: "auto", borderRadius: 16 }} />
         </div>
       </section>
 
@@ -92,6 +103,28 @@ export default function SidekickBoomi() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="screenshots" className="section section-alt">
+        <div className="wrap narrow prose">
+          <h2 className="section-title">See it in Boomi</h2>
+          {SHOTS.map(([file, alt, caption]) => (
+            <Shot key={file} file={file} img={SIDEKICK.img} alt={alt} caption={caption} />
+          ))}
+        </div>
+      </section>
+
+      <section id="guides" className="section">
+        <div className="wrap narrow prose">
+          <h2 className="section-title">Boomi guides</h2>
+          <ul>
+            {GUIDE_LIST.map((g) => (
+              <li key={g.path}>
+                <a href={g.path}>{g.h1}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

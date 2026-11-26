@@ -1,7 +1,7 @@
 // Structured data (schema.org JSON-LD) for each page. It tells Google and AI search what the page is about:
 // who publishes the site, what the extension is, what it costs, what it runs on and its FAQ.
 // Test any page at https://search.google.com/test/rich-results after deploying.
-import { FLOW, RELEASES, SENTINEL, SITE } from "./site.js";
+import { FLOW, RELEASES, SENTINEL, SIDEKICK, SITE, TURNOFFAI } from "./site.js";
 
 const abs = (path) => SITE.url + path;
 const ORG = `${SITE.url}/#org`;
@@ -141,4 +141,54 @@ export function sentinelApp(route, features) {
   };
 }
 
-export { APP, ORG, SENTINEL_APP };
+// AI-Free Web and Sidekick for Boomi: the same SoftwareApplication shape, without ratings yet.
+// Add aggregateRating (and show it on the page) once a store listing has real reviews — never before.
+const extensionApp = (product, { browsers, released, screenshots = [] }) => (route, features) => ({
+  "@type": "SoftwareApplication",
+  "@id": `${abs(product.path)}#app`,
+  name: product.name,
+  alternateName: product.storeName,
+  description: route.description,
+  url: abs(product.path),
+  applicationCategory: "BrowserApplication",
+  applicationSubCategory: "Chrome extension",
+  operatingSystem: "Windows, macOS, Linux, ChromeOS",
+  browserRequirements: browsers,
+  softwareVersion: product.version,
+  ...(released ? { datePublished: released } : {}),
+  image: abs(product.img("logo.png")),
+  ...(screenshots.length ? { screenshot: screenshots.map((f) => abs(product.img(f))) } : {}),
+  featureList: features.map((f) => `${f.title}: ${f.text}`),
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: product.chromeStoreUrl || abs(product.path) },
+  ...(product.chromeStoreUrl ? { installUrl: product.chromeStoreUrl, downloadUrl: product.chromeStoreUrl, sameAs: [product.chromeStoreUrl] } : {}),
+  publisher: { "@id": ORG },
+  author: { "@id": ORG }
+});
+const TURNOFFAI_APP = `${abs(TURNOFFAI.path)}#app`;
+const SIDEKICK_APP = `${abs(SIDEKICK.path)}#app`;
+export const turnOffAiApp = extensionApp(TURNOFFAI, { browsers: "Requires Google Chrome or Microsoft Edge", released: TURNOFFAI.released });
+export const sidekickApp = extensionApp(SIDEKICK, {
+  browsers: "Requires Google Chrome",
+  screenshots: ["shot-script-editor.png", "shot-set-properties.png", "shot-message-editor.png", "shot-shortcuts.png"]
+});
+
+// A how-to article (the guides under each extension's page). guide: { h1, description, published, updated }.
+export const techArticle = (route, guide, appId, images) => ({
+  "@type": "TechArticle",
+  "@id": `${route.url}#article`,
+  headline: guide.h1,
+  description: guide.description,
+  url: route.url,
+  mainEntityOfPage: { "@id": `${route.url}#webpage` },
+  image: images.map(abs),
+  datePublished: guide.published,
+  dateModified: guide.updated,
+  inLanguage: "en",
+  author: { "@id": ORG },
+  publisher: { "@id": ORG },
+  about: { "@id": appId },
+  mentions: { "@id": appId }
+});
+
+export { APP, ORG, SENTINEL_APP, SIDEKICK_APP, TURNOFFAI_APP };
