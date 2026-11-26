@@ -1,5 +1,7 @@
 import { Brand } from "./Brand.jsx";
 import { FLOW, SENTINEL, SIDEKICK, SITE, TURNOFFAI, WEBSITES } from "../site.js";
+import { GUIDE_LIST as SIDEKICK_GUIDES } from "../pages/SidekickGuides.jsx";
+import { GUIDE_LIST as TURNOFFAI_GUIDES } from "../pages/AiFreeWebGuides.jsx";
 
 // product: "sentinel" / "sidekick" / "turnoffai" on those extensions' pages (src/routes.jsx), so Help links to their own guide and privacy policy.
 export default function Footer({ ui, flowPath, product }) {
@@ -38,10 +40,22 @@ export default function Footer({ ui, flowPath, product }) {
             {turnoffai ? (
               <>
                 <a href={TURNOFFAI.path + "#sites"}>What AI-Free Web hides</a>
+                {TURNOFFAI_GUIDES.map((g) => (
+                  <a key={g.path} href={g.path}>
+                    {g.crumb}
+                  </a>
+                ))}
                 <a href={TURNOFFAI.privacyPath}>{ui.footerPrivacy}</a>
               </>
             ) : sidekick ? (
-              <a href={SIDEKICK.privacyPath}>{ui.footerPrivacy}</a>
+              <>
+                {SIDEKICK_GUIDES.map((g) => (
+                  <a key={g.path} href={g.path}>
+                    {g.crumb}
+                  </a>
+                ))}
+                <a href={SIDEKICK.privacyPath}>{ui.footerPrivacy}</a>
+              </>
             ) : sentinel ? (
               <>
                 <a href={SENTINEL.path + "#how"}>How Smart Sentinel works</a>

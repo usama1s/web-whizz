@@ -7,10 +7,12 @@ import SmartSentinel, { FAQ as SENTINEL_FAQ, FEATURES as SENTINEL_FEATURES, META
 import SentinelPrivacy, { UPDATED as SENTINEL_PRIVACY_UPDATED } from "./pages/SentinelPrivacy.jsx";
 import SentinelSurvey, { SURVEY_PAGES as SENTINEL_SURVEY_PAGES } from "./pages/SentinelSurvey.jsx";
 import SentinelGuide, { GUIDE as SENTINEL_GUIDE } from "./pages/SentinelGuide.jsx";
-import SidekickBoomi, { FAQ as SIDEKICK_FAQ, META as SIDEKICK_META } from "./pages/SidekickBoomi.jsx";
+import SidekickBoomi, { FAQ as SIDEKICK_FAQ, FEATURES as SIDEKICK_FEATURES, META as SIDEKICK_META } from "./pages/SidekickBoomi.jsx";
+import { GUIDE_LIST as SIDEKICK_GUIDES, GUIDE_PAGES as SIDEKICK_GUIDE_PAGES } from "./pages/SidekickGuides.jsx";
 import SidekickSurvey, { SURVEY_PAGES as SIDEKICK_SURVEY_PAGES } from "./pages/SidekickSurvey.jsx";
 import SidekickPrivacy, { UPDATED as SIDEKICK_PRIVACY_UPDATED } from "./pages/SidekickPrivacy.jsx";
-import TurnOffAi, { FAQ as TURNOFFAI_FAQ, META as TURNOFFAI_META } from "./pages/TurnOffAi.jsx";
+import TurnOffAi, { FAQ as TURNOFFAI_FAQ, FEATURES as TURNOFFAI_FEATURES, META as TURNOFFAI_META } from "./pages/TurnOffAi.jsx";
+import { GUIDE_LIST as TURNOFFAI_GUIDES, GUIDE_PAGES as TURNOFFAI_GUIDE_PAGES } from "./pages/AiFreeWebGuides.jsx";
 import TurnOffAiSurvey, { SURVEY_PAGES as TURNOFFAI_SURVEY_PAGES } from "./pages/TurnOffAiSurvey.jsx";
 import TurnOffAiPrivacy, { UPDATED as TURNOFFAI_PRIVACY_UPDATED } from "./pages/TurnOffAiPrivacy.jsx";
 import Extensions, { META as EXTENSIONS_META } from "./pages/Extensions.jsx";
@@ -18,7 +20,7 @@ import { EXTENSIONS, EXTENSIONS_PATH } from "./components/Extensions.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { FLOW, RELEASES, SENTINEL, SIDEKICK, SITE, TURNOFFAI } from "./site.js";
 import { LOCALES } from "./i18n/flow/index.js";
-import { breadcrumbs, faqPage, organization, sentinelApp, softwareApp, video, webPage, website, APP, ORG, SENTINEL_APP } from "./seo.js";
+import { breadcrumbs, faqPage, organization, sentinelApp, sidekickApp, softwareApp, techArticle, turnOffAiApp, video, webPage, website, APP, ORG, SENTINEL_APP, SIDEKICK_APP, TURNOFFAI_APP } from "./seo.js";
 
 // Every page of the site. Each one is pre-rendered to <path>/index.html at build time.
 // title/description → <title> and meta description. updated → <lastmod> in sitemap.xml (change it when the page's text changes).
@@ -204,17 +206,38 @@ export const ROUTES = [
     product: "sidekick",
     title: SIDEKICK_META.title,
     description: SIDEKICK_META.description,
-    image: SIDEKICK.img("promo.png"),
+    image: SIDEKICK.img("og.png"),
     imageAlt: `${SIDEKICK.name} — script editor and canvas helpers for Boomi`,
-    updated: "2026-11-23",
+    updated: "2026-11-26",
     schema: (r) => [
       organization(),
       website(),
-      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      webPage(r, { about: { "@id": SIDEKICK_APP }, mainEntity: { "@id": SIDEKICK_APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      sidekickApp(r, SIDEKICK_FEATURES),
       breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SIDEKICK.name, r.path]]),
       faqPage(r, SIDEKICK_FAQ)
     ]
   },
+  // How-to articles for Boomi developers' problem searches (Message shape quoting, Groovy dynamic properties).
+  ...SIDEKICK_GUIDES.map((g) => ({
+    path: g.path,
+    Page: SIDEKICK_GUIDE_PAGES[g.path],
+    product: "sidekick",
+    title: g.title,
+    description: g.description,
+    image: SIDEKICK.img("og.png"),
+    imageAlt: g.h1,
+    ogType: "article",
+    updated: g.updated,
+    schema: (r) => [
+      organization(),
+      website(),
+      techArticle(r, g, SIDEKICK_APP, [SIDEKICK.img(g === SIDEKICK_GUIDES[0] ? "shot-message-editor.png" : "shot-script-editor.png"), SIDEKICK.img("og.png")]),
+      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SIDEKICK.name, SIDEKICK.path], [g.crumb, r.path]]),
+      faqPage(r, g.faq)
+    ]
+  })),
   {
     path: SIDEKICK.privacyPath,
     Page: SidekickPrivacy,
@@ -242,16 +265,39 @@ export const ROUTES = [
     title: TURNOFFAI_META.title,
     description: TURNOFFAI_META.description,
     image: TURNOFFAI.img("og.png"),
+    imageSize: [1200, 630],
     imageAlt: `${TURNOFFAI.name} — hide AI Overviews, Gemini and Copilot`,
     updated: TURNOFFAI.released,
     schema: (r) => [
       organization(),
       website(),
-      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      webPage(r, { about: { "@id": TURNOFFAI_APP }, mainEntity: { "@id": TURNOFFAI_APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      turnOffAiApp(r, TURNOFFAI_FEATURES),
       breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [TURNOFFAI.name, r.path]]),
       faqPage(r, TURNOFFAI_FAQ)
     ]
   },
+  // How-to articles for problem searches ("turn off AI overviews", "turn off Gemini in Gmail", "turn off Copilot in Word").
+  ...TURNOFFAI_GUIDES.map((g) => ({
+    path: g.path,
+    Page: TURNOFFAI_GUIDE_PAGES[g.path],
+    product: "turnoffai",
+    title: g.title,
+    description: g.description,
+    image: TURNOFFAI.img("og.png"),
+    imageSize: [1200, 630],
+    imageAlt: g.h1,
+    ogType: "article",
+    updated: g.updated,
+    schema: (r) => [
+      organization(),
+      website(),
+      techArticle(r, g, TURNOFFAI_APP, [TURNOFFAI.img("og.png")]),
+      webPage(r, { breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
+      breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [TURNOFFAI.name, TURNOFFAI.path], [g.crumb, r.path]]),
+      faqPage(r, g.faq)
+    ]
+  })),
   {
     path: TURNOFFAI.privacyPath,
     Page: TurnOffAiPrivacy,

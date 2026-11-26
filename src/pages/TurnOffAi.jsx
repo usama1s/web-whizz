@@ -1,13 +1,14 @@
 import Icon from "../components/Icon.jsx";
 import { TURNOFFAI } from "../site.js";
+import { GUIDE_LIST } from "./AiFreeWebGuides.jsx";
 
 // The AI-Free Web page (English only). Keep the site list in sync with src/rules/bundled.json in the extension
 // project (~/Desktop/P Projects/AI free web) and the copy with its store/STORE-LISTING.md.
 
 export const META = {
-  title: "AI-Free Web — Turn Off Google AI Overviews, Gemini & Copilot in Chrome | Web Whizz",
+  title: "Turn Off Google AI Overviews, Gemini & Copilot — AI-Free Web",
   description:
-    "Free Chrome extension that hides AI Overviews, Gemini, Copilot, “Help me write” and other AI buttons, banners and panels on Google Search, Gmail, Docs, Drive, YouTube, Outlook, Word and more. A switch per site."
+    "Free Chrome extension to turn off AI Overviews, AI Mode, Gemini and Copilot. Hides AI buttons, summaries and panels on Google Search, Gmail, Docs, YouTube, Outlook and Word, with a switch per site."
 };
 
 export const SITES = [
@@ -34,6 +35,9 @@ export const FEATURES = [
 
 export const FAQ = [
   ["Is AI-Free Web free?", "Yes. Every site and every switch is free. No account, no ads."],
+  ["Can't I just turn off AI Overviews in Google's settings?", "No. Google has no setting for AI Overviews or the AI Mode tab. AI-Free Web hides both, and can also switch Google to its plain “Web” results (udm=14) for you."],
+  ["How is this different from turning off Gmail's smart features?", "Gmail's smart features switch removes Gemini but also inbox tabs, Smart Compose and package tracking, and leaves Gemini in Docs, Drive and YouTube. AI-Free Web hides only the AI, on every supported site."],
+  ["Can I turn off Copilot in Word, Excel or PowerPoint on the web?", "Microsoft has no Copilot switch in the web versions. AI-Free Web hides the Copilot ribbon button, new-document prompt and pane there, and the Copilot summary bar in Outlook on the web."],
   ["Does it turn off AI in my Google or Microsoft account?", "No. It hides AI buttons, banners, panels and prompts in your browser. Your account settings don't change, and other devices aren't affected. Turn the extension off and everything is back."],
   ["Will it break Send, Save or Search?", "No. Its rules only target AI features, every rule is checked so it can never match core buttons like Send, Save or Search, and it never hides the editor you're typing in. “Show AI on this page once” brings back anything instantly."],
   ["Does it read my emails or documents?", "No. It looks only at the labels of buttons and panels (like “Ask Gemini”) to find AI features. Nothing you write or receive is read, stored or sent."],
@@ -130,6 +134,20 @@ export default function TurnOffAi() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="guides" className="section">
+        <div className="wrap narrow prose">
+          <h2 className="section-title">How-to guides</h2>
+          <p>Step by step, with the settings Google and Microsoft do offer, what they break, and where AI-Free Web fills the gap:</p>
+          <ul>
+            {GUIDE_LIST.map((g) => (
+              <li key={g.path}>
+                <a href={g.path}>{g.h1}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
