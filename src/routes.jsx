@@ -233,8 +233,8 @@ export const ROUTES = [
     description: `${SIDEKICK.name}: a short ${survey} survey.`,
     noindex: true
   })),
-  // Turn Off AI (English only): product page, privacy policy and the extension's surveys. Its signed rules file is a
-  // static file, public/e/turn-off-ai/rules/rules.json (+ .sig), not a page.
+  // AI-Free Web (English only): product page, privacy policy and the extension's surveys. Its signed rules file is a
+  // static file, public/e/ai-free-web/rules/rules.json (+ .sig), not a page.
   {
     path: TURNOFFAI.path,
     Page: TurnOffAi,
@@ -256,8 +256,8 @@ export const ROUTES = [
     path: TURNOFFAI.privacyPath,
     Page: TurnOffAiPrivacy,
     product: "turnoffai",
-    title: "Privacy Policy — Turn Off AI | Web Whizz",
-    description: "Turn Off AI never reads your emails, documents or searches and sends nothing unless you choose to. What its opt-in anonymous statistics, reports and our optional surveys collect.",
+    title: "Privacy Policy — AI-Free Web | Web Whizz",
+    description: "AI-Free Web never reads your emails, documents or searches and sends nothing unless you choose to. What its opt-in anonymous statistics, reports and our optional surveys collect.",
     updated: TURNOFFAI_PRIVACY_UPDATED
   },
   // The extension's welcome, goodbye (uninstall) and feedback pages. Not for search engines, not in the sitemap.

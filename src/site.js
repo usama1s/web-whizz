@@ -78,22 +78,22 @@ export const SIDEKICK = {
   img: (file) => `/e/sidekick-boomi/${file}`
 };
 
-// Turn Off AI (Chrome extension: hides AI Overviews, Gemini, Copilot and other AI features). English only.
-// The extension's code is in ~/Desktop/P Projects/AI free web (github.com/usama1s/Turn-Off-AI). It opens TURNOFFAI.path +
+// AI-Free Web (Chrome extension: hides AI Overviews, Gemini, Copilot and other AI features). English only.
+// The extension's code is in ~/Desktop/P Projects/AI free web (github.com/usama1s/AI-Free-Web). It opens TURNOFFAI.path +
 // "welcome/", "goodbye/" and "feedback/" (src/shared/usage.ts → pageUrl), fetches TURNOFFAI.path + "rules/rules.json"
 // (+ ".sig"), and posts to /api/toa-usage.php and /api/toa-report.php: keep these addresses.
 export const TURNOFFAI = {
   key: "turnoffai",
-  path: "/e/turn-off-ai/",
-  privacyPath: "/e/turn-off-ai/privacy/",
-  name: "Turn Off AI",
-  storeName: "Turn Off AI – Hide AI Overviews, Gemini & Copilot",
+  path: "/e/ai-free-web/",
+  privacyPath: "/e/ai-free-web/privacy/",
+  name: "AI-Free Web",
+  storeName: "AI-Free Web – Turn Off Google AI Overviews, Gemini & Copilot",
   version: "1.0.0",
   released: "2026-11-26",
   // Chrome Web Store listing, once it's live. Empty = "Coming soon" instead of Add to Chrome, and no Rate / Reinstall links.
   chromeStoreUrl: "",
   feedbackUrl: "/api/feedback.php",
-  img: (file) => `/e/turn-off-ai/${file}`
+  img: (file) => `/e/ai-free-web/${file}`
 };
 
 // Web Whizz LLC's own websites, listed under Products on the home page and in the footer. Each is its own site, so links go out.

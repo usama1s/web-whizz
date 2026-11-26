@@ -37,7 +37,7 @@ export default function Footer({ ui, flowPath, product }) {
             <h2>{ui.footerHelp}</h2>
             {turnoffai ? (
               <>
-                <a href={TURNOFFAI.path + "#sites"}>What Turn Off AI hides</a>
+                <a href={TURNOFFAI.path + "#sites"}>What AI-Free Web hides</a>
                 <a href={TURNOFFAI.privacyPath}>{ui.footerPrivacy}</a>
               </>
             ) : sidekick ? (

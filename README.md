@@ -19,11 +19,11 @@ The Web Whizz website: a static site made with plain React + Vite (no router, no
 | `/e/sidekick-boomi/` | `src/pages/SidekickBoomi.jsx`: Sidekick for Boomi page (English only): features, FAQ. No screenshots yet |
 | `/e/sidekick-boomi/privacy/` | `src/pages/SidekickPrivacy.jsx`: Sidekick for Boomi privacy policy, linked from its Chrome Web Store listing (keep in sync with `docs/PRIVACY.md` in the extension project, `~/Desktop/P Projects/sidekick-boomi/`) |
 | `/e/sidekick-boomi/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/SidekickSurvey.jsx`: Sidekick's surveys (not indexed). See **Extension surveys** |
-| `/e/turn-off-ai/` | `src/pages/TurnOffAi.jsx`: Turn Off AI page (English only): what it hides per site, features, FAQ |
-| `/e/turn-off-ai/privacy/` | `src/pages/TurnOffAiPrivacy.jsx`: Turn Off AI privacy policy (keep in sync with `store/PRIVACY.md` in the extension project, `~/Desktop/P Projects/AI free web/`) |
-| `/e/turn-off-ai/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/TurnOffAiSurvey.jsx`: Turn Off AI's surveys (not indexed). See **Extension surveys** |
-| `/e/turn-off-ai/rules/rules.json` (+ `.sig`) | `public/e/turn-off-ai/rules/`: Turn Off AI's signed rules file. See **Turn Off AI rules, reports and usage statistics** |
-| `/api/toa-usage.php`, `/api/toa-report.php` | Turn Off AI's opt-in usage statistics and "Something AI still showing?" reports (shared code in `toa-common.php`) |
+| `/e/ai-free-web/` | `src/pages/TurnOffAi.jsx`: AI-Free Web page (English only): what it hides per site, features, FAQ |
+| `/e/ai-free-web/privacy/` | `src/pages/TurnOffAiPrivacy.jsx`: AI-Free Web privacy policy (keep in sync with `store/PRIVACY.md` in the extension project, `~/Desktop/P Projects/AI free web/`) |
+| `/e/ai-free-web/welcome/`, `/goodbye/`, `/feedback/` | `src/pages/TurnOffAiSurvey.jsx`: AI-Free Web's surveys (not indexed). See **Extension surveys** |
+| `/e/ai-free-web/rules/rules.json` (+ `.sig`) | `public/e/ai-free-web/rules/`: AI-Free Web's signed rules file. See **AI-Free Web rules, reports and usage statistics** |
+| `/api/toa-usage.php`, `/api/toa-report.php` | AI-Free Web's opt-in usage statistics and "Something AI still showing?" reports (shared code in `toa-common.php`) |
 | any other URL | `src/pages/NotFound.jsx`, built as `404.html` |
 
 ## Things you'll change most
@@ -72,11 +72,11 @@ Columns: `date, v, lang, new, weekFirst, monthFirst, age, runs, okRuns, files, s
 
 **Publish the site before releasing 2.6.4**; until `usage.php` is live the extension just keeps its counts and tries again another day.
 
-### Turn Off AI rules, reports and usage statistics
+### AI-Free Web rules, reports and usage statistics
 
-**Turn Off AI** (extension code: `~/Desktop/P Projects/AI free web`, github.com/usama1s/Turn-Off-AI) uses the same three surveys (product `turnoffai`, `turn-off-ai-feedback.csv`; columns `date, type, v, lang, from, days, pages, hidden, showOnce, reports, customRules, rulesOk, rulesFail, top, off, reason, tool, where, rating, role, source, annoy, want, stay, bad, good, email`) and three more things on this site:
+**AI-Free Web** (extension code: `~/Desktop/P Projects/AI free web`, github.com/usama1s/AI-Free-Web) uses the same three surveys (product `turnoffai`, `turn-off-ai-feedback.csv`; columns `date, type, v, lang, from, days, pages, hidden, showOnce, reports, customRules, rulesOk, rulesFail, top, off, reason, tool, where, rating, role, source, annoy, want, stay, bad, good, email`) and three more things on this site:
 
-- **Rules:** `public/e/turn-off-ai/rules/rules.json` and `rules.json.sig`, made in the extension repo with `npm run rules:sign` (bump the version first). The extension downloads them every 6 hours and only uses a file whose signature matches and that is newer than its own. The folder's `.htaccess` allows cross-origin reads and turns off caching. To ship a fix: copy both files here, `npm run zip`, upload.
+- **Rules:** `public/e/ai-free-web/rules/rules.json` and `rules.json.sig`, made in the extension repo with `npm run rules:sign` (bump the version first). The extension downloads them every 6 hours and only uses a file whose signature matches and that is newer than its own. The folder's `.htaccess` allows cross-origin reads and turns off caching. To ship a fix: copy both files here, `npm run zip`, upload.
 - **Reports** (`/api/toa-report.php`, sent only after the user ticks the consent box): site, host, proposed selector, element tag/role/short label → `turn-off-ai-reports.csv` (columns `date, v, lang, site, host, selector, stable, tag, role, label`) and an email to support@. 10 per IP per hour.
 - **Usage statistics** (`/api/toa-usage.php`): like Flow's, but **off by default** — only installs that turned them on send. At most one message a day per install, only after a page was cleaned, plus `new=1` on install day. No ID; age as a range; `wk` / `mo` flags count active installs. Columns: `date, v, lang, new, weekFirst, monthFirst, age, rulesVersion, pages, hidden, showOnce, reports, customRules, rulesOk, rulesFail, sites, off, masterOff, managed` (`sites` = `site:count,…` hidden per site; `off` = sites switched off). 30 per IP per hour. Keep in sync with the extension's `src/shared/usage.ts`.
 
@@ -84,7 +84,7 @@ Both endpoints accept only the extension's origin: **replace `REPLACE_WITH_CHROM
 
 ### Admin dashboard
 
-`https://web-whizz.com/admin/` (`public/admin/index.php`) shows every survey answer and waitlist signup from the CSVs above: one tab per product, counts, charts (uninstall reasons, ratings, wanted features, uses, sources), filters by survey type, search, "only with written comments", and a **Download CSV** button. The **Flow usage** tab shows the statistics above: active and new installs per week (last 12), runs, finished-OK rate, files, stop causes, skip reasons, options, qualities and languages for a chosen period, and a table by version. The **Turn Off AI usage** tab shows its opt-in statistics (active and new installs per week, pages cleaned, AI hidden per site, sites switched off, rules versions, by version), and **Turn Off AI reports** lists reported elements grouped by host + selector, most reported first. It's private: nothing links to it, it's never indexed, and every page (and download) needs the super admin login (the email in `ADMIN_USER`). Only a bcrypt hash of the password is in the code, because this repo is public. The steps to change the password are at the top of the file. 5 wrong passwords lock that IP out for 15 minutes. When you change a survey's answer choices, also update `LABELS` there, or the dashboard shows the raw code.
+`https://web-whizz.com/admin/` (`public/admin/index.php`) shows every survey answer and waitlist signup from the CSVs above: one tab per product, counts, charts (uninstall reasons, ratings, wanted features, uses, sources), filters by survey type, search, "only with written comments", and a **Download CSV** button. The **Flow usage** tab shows the statistics above: active and new installs per week (last 12), runs, finished-OK rate, files, stop causes, skip reasons, options, qualities and languages for a chosen period, and a table by version. The **AI-Free Web usage** tab shows its opt-in statistics (active and new installs per week, pages cleaned, AI hidden per site, sites switched off, rules versions, by version), and **AI-Free Web reports** lists reported elements grouped by host + selector, most reported first. It's private: nothing links to it, it's never indexed, and every page (and download) needs the super admin login (the email in `ADMIN_USER`). Only a bcrypt hash of the password is in the code, because this repo is public. The steps to change the password are at the top of the file. 5 wrong passwords lock that IP out for 15 minutes. When you change a survey's answer choices, also update `LABELS` there, or the dashboard shows the raw code.
 
 **Publish the site before any extension version that opens these pages** (for Smart Sentinel: before 1.0.0 goes live on the store), or uninstalling users land on the 404 page.
 
@@ -131,7 +131,7 @@ npm run preview    # serves dist/ locally to check the build
    - `https://web-whizz.com/e/flow-downloader/feedback/?v=test`: send a test answer, check `flow-feedback.csv` and the email, then delete the test row
    - `https://web-whizz.com/e/smart-sentinel/`, `.../privacy/`, and `.../feedback/?v=test`: send a test answer, check `smart-sentinel-feedback.csv` and the email, then delete the test row
    - `https://web-whizz.com/e/sidekick-boomi/`, `.../privacy/`, and `.../feedback/?v=test`: send a test answer, check `sidekick-boomi-feedback.csv` and the email, then delete the test row
-   - `https://web-whizz.com/e/turn-off-ai/`, `.../privacy/`, `.../feedback/?v=test` (send a test answer, check `turn-off-ai-feedback.csv`, delete the row), and `.../rules/rules.json`
+   - `https://web-whizz.com/e/ai-free-web/`, `.../privacy/`, `.../feedback/?v=test` (send a test answer, check `turn-off-ai-feedback.csv`, delete the row), and `.../rules/rules.json`
    - `https://web-whizz.com/anything-else` (should show the 404 page)
 
 **Updating later** (e.g. after changing `FLOW.stats` in `src/site.js`): repeat steps 1, 3 and 4.
