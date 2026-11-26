@@ -232,8 +232,8 @@ export function Shot({ file, alt, caption, eager, img = FLOW.img }) {
 // The YouTube demo. youtube-nocookie.com: YouTube stores nothing in the visitor's browser until they press play.
 // A real iframe (not a click-to-load picture) so Google can see the video on the page; loading="lazy" keeps it
 // from loading until it's scrolled near.
-export function YouTube({ caption }) {
-  const v = FLOW.youtube;
+// v: another product's video (e.g. SIDEKICK.youtube); Flow's by default.
+export function YouTube({ caption, v = FLOW.youtube }) {
   if (!v?.id) return null;
   return (
     <figure className="video">

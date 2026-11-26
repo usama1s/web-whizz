@@ -81,6 +81,10 @@ export default function TurnOffAiPrivacy() {
           with those numbers; if you don't, nothing is saved. Your email address is only stored if you type it in, and only used to reply to you. Umami, the privacy-friendly service that counts visits to
           web-whizz.com, is told to ignore these addresses, so the counts never reach it.
         </p>
+        <p>
+          The {TURNOFFAI.name} page shows our demo video from YouTube in privacy-enhanced mode (youtube-nocookie.com). When it scrolls into view, your browser loads YouTube's player, so YouTube sees your IP address; YouTube stores
+          nothing in your browser until you press play. Playing it is covered by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.
+        </p>
 
         <h2>Permissions</h2>
         <ul>

@@ -1,5 +1,5 @@
 import Icon from "../components/Icon.jsx";
-import { Shot } from "../components/Flow.jsx";
+import { Shot, YouTube } from "../components/Flow.jsx";
 import { TURNOFFAI } from "../site.js";
 import { GUIDE_LIST } from "./AiFreeWebGuides.jsx";
 
@@ -104,6 +104,15 @@ export default function TurnOffAi() {
           <img className="hero-promo" src={TURNOFFAI.img("og.png")} alt={`${TURNOFFAI.name}: hide AI Overviews, Gemini and Copilot`} width="1200" height="630" style={{ width: "100%", height: "auto", borderRadius: 16 }} />
         </div>
       </section>
+
+      {TURNOFFAI.youtube?.id && (
+        <section id="video" className="section section-alt">
+          <div className="wrap">
+            <h2 className="section-title">See it in under a minute</h2>
+            <YouTube v={TURNOFFAI.youtube} caption="AI Overviews, Gemini in Gmail and Copilot in Outlook switched off by the real extension" />
+          </div>
+        </section>
+      )}
 
       <section id="sites" className="section">
         <div className="wrap">

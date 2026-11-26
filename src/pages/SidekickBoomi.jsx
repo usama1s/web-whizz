@@ -1,5 +1,5 @@
 import Icon from "../components/Icon.jsx";
-import { Shot } from "../components/Flow.jsx";
+import { Shot, YouTube } from "../components/Flow.jsx";
 import { SIDEKICK } from "../site.js";
 import { GUIDE_LIST } from "./SidekickGuides.jsx";
 
@@ -87,6 +87,15 @@ export default function SidekickBoomi() {
           <img className="hero-promo" src={SIDEKICK.img("og.png")} alt={`${SIDEKICK.name}: a Groovy and JavaScript code editor inside Boomi`} width="1400" height="560" fetchPriority="high" style={{ width: "100%", height: "auto", borderRadius: 16 }} />
         </div>
       </section>
+
+      {SIDEKICK.youtube?.id && (
+        <section id="video" className="section section-alt">
+          <div className="wrap">
+            <h2 className="section-title">See it in 75 seconds</h2>
+            <YouTube v={SIDEKICK.youtube} caption="The script editor, Message shapes, Set Properties, shortcuts and canvas glow, in the real extension" />
+          </div>
+        </section>
+      )}
 
       <section id="features" className="section">
         <div className="wrap">

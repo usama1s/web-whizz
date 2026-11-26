@@ -2,7 +2,7 @@ import { SIDEKICK, SITE } from "../site.js";
 
 // Same text as docs/PRIVACY.md in the extension project (~/Desktop/P Projects/sidekick-boomi) — keep the two in sync.
 // When the extension gains a permission or stores something new, update both before publishing that version.
-export const UPDATED = "2026-11-23";
+export const UPDATED = "2026-11-26";
 
 export default function SidekickPrivacy() {
   return (
@@ -96,6 +96,10 @@ export default function SidekickPrivacy() {
         <p>
           web-whizz.com counts visits with Umami, a privacy-friendly analytics tool: which pages are viewed, which buttons are clicked, and roughly where visitors come from (country, browser, the site that linked here). It
           sets no cookies, stores no personal data, and doesn't follow you to other sites. On the survey pages it leaves out the page address, so the extension's usage counts never reach it.
+        </p>
+        <p>
+          The {SIDEKICK.name} page shows our demo video from YouTube in privacy-enhanced mode (youtube-nocookie.com). When it scrolls into view, your browser loads YouTube's player, so YouTube sees your IP address; YouTube stores
+          nothing in your browser until you press play. Playing it is covered by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.
         </p>
 
         <p className="fine">Boomi is a trademark of Boomi, LP, and Chrome is a trademark of Google LLC. {SIDEKICK.name} is an independent tool and is not affiliated with either.</p>

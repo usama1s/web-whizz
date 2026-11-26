@@ -143,7 +143,8 @@ export const ROUTES = [
       webPage(r, { about: { "@id": SENTINEL_APP }, mainEntity: { "@id": SENTINEL_APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
       sentinelApp(r, SENTINEL_FEATURES),
       breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SENTINEL.name, r.path]]),
-      faqPage(r, SENTINEL_FAQ)
+      faqPage(r, SENTINEL_FAQ),
+      ...(SENTINEL.youtube?.id ? [video(SENTINEL.youtube, SENTINEL_APP)] : [])
     ]
   },
   // How-to article for problem searches ("how to auto refresh a page in Chrome").
@@ -215,7 +216,8 @@ export const ROUTES = [
       webPage(r, { about: { "@id": SIDEKICK_APP }, mainEntity: { "@id": SIDEKICK_APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
       sidekickApp(r, SIDEKICK_FEATURES),
       breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [SIDEKICK.name, r.path]]),
-      faqPage(r, SIDEKICK_FAQ)
+      faqPage(r, SIDEKICK_FAQ),
+      ...(SIDEKICK.youtube?.id ? [video(SIDEKICK.youtube, SIDEKICK_APP)] : [])
     ]
   },
   // How-to articles for Boomi developers' problem searches (Message shape quoting, Groovy dynamic properties).
@@ -274,7 +276,8 @@ export const ROUTES = [
       webPage(r, { about: { "@id": TURNOFFAI_APP }, mainEntity: { "@id": TURNOFFAI_APP }, breadcrumb: { "@id": `${r.url}#breadcrumb` } }),
       turnOffAiApp(r, TURNOFFAI_FEATURES),
       breadcrumbs(r, [["Web Whizz", "/"], EXT_CRUMB, [TURNOFFAI.name, r.path]]),
-      faqPage(r, TURNOFFAI_FAQ)
+      faqPage(r, TURNOFFAI_FAQ),
+      ...(TURNOFFAI.youtube?.id ? [video(TURNOFFAI.youtube, TURNOFFAI_APP)] : [])
     ]
   },
   // How-to articles for problem searches ("turn off AI overviews", "turn off Gemini in Gmail", "turn off Copilot in Word").
