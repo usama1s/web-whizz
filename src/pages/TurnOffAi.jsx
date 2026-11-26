@@ -1,9 +1,12 @@
 import Icon from "../components/Icon.jsx";
+import { Shot } from "../components/Flow.jsx";
 import { TURNOFFAI } from "../site.js";
 import { GUIDE_LIST } from "./AiFreeWebGuides.jsx";
 
 // The AI-Free Web page (English only). Keep the site list in sync with src/rules/bundled.json in the extension
 // project (~/Desktop/P Projects/AI free web) and the copy with its store/STORE-LISTING.md.
+// The screenshots are the store's own (AI free web/store/assets, made by `npm run store:assets`): copy them to
+// public/e/ai-free-web/ as shot-*.png and recreate the .webp files when they change.
 
 export const META = {
   title: "Turn Off Google AI Overviews, Gemini & Copilot — AI-Free Web",
@@ -29,8 +32,15 @@ export const FEATURES = [
   { icon: "sliders", title: "A switch per site and per feature", text: "One master switch, a switch for every website, and in the settings a switch for every single AI element. Keep the ones you like." },
   { icon: "retry", title: "Keeps working when sites change", text: "Google and Microsoft redesign often. Rules update automatically, so fixes arrive the same day, without waiting for a store update." },
   { icon: "target", title: "Something still showing? Click it", text: "Point at any AI element we missed to hide it on your browser, and send us an anonymous report so we fix it for everyone." },
-  { icon: "play", title: "Show AI once", text: "Need Gemini or Copilot just this time? One click shows everything on the current page until you reload." },
+  { icon: "play", title: "Show AI for now", text: "Need Gemini or Copilot just this time? One click shows it on the current page, and one more hides it again." },
   { icon: "shield", title: "Private, and ready for IT", text: "It never reads your emails or documents. Admins can set and lock the settings for every browser with Chrome policy." }
+];
+
+const SHOTS = [
+  ["shot-google-search.png", "Google search results before and after AI-Free Web: the AI Overview and AI Mode tab are gone", "Google Search: AI Overviews and the AI Mode tab, gone."],
+  ["shot-gmail.png", "Gmail before and after AI-Free Web: no Ask Gemini, summary button, AI reply chips, Help me write or Gemini panel", "Gmail without Gemini buttons, summaries or side panel."],
+  ["shot-outlook.png", "Outlook on the web before and after AI-Free Web: no Copilot summary, buttons or pane", "Outlook with the Copilot summary, buttons and pane hidden."],
+  ["shot-popup.png", "The AI-Free Web popup: a master switch, the current site's switch with the number of AI elements hidden, and a switch per website", "A switch for every site, right in the toolbar."]
 ];
 
 export const FAQ = [
@@ -39,7 +49,7 @@ export const FAQ = [
   ["How is this different from turning off Gmail's smart features?", "Gmail's smart features switch removes Gemini but also inbox tabs, Smart Compose and package tracking, and leaves Gemini in Docs, Drive and YouTube. AI-Free Web hides only the AI, on every supported site."],
   ["Can I turn off Copilot in Word, Excel or PowerPoint on the web?", "Microsoft has no Copilot switch in the web versions. AI-Free Web hides the Copilot ribbon button, new-document prompt and pane there, and the Copilot summary bar in Outlook on the web."],
   ["Does it turn off AI in my Google or Microsoft account?", "No. It hides AI buttons, banners, panels and prompts in your browser. Your account settings don't change, and other devices aren't affected. Turn the extension off and everything is back."],
-  ["Will it break Send, Save or Search?", "No. Its rules only target AI features, every rule is checked so it can never match core buttons like Send, Save or Search, and it never hides the editor you're typing in. “Show AI on this page once” brings back anything instantly."],
+  ["Will it break Send, Save or Search?", "No. Its rules only target AI features, every rule is checked so it can never match core buttons like Send, Save or Search, and it never hides the editor you're typing in. “Show AI on this page for now” brings back anything instantly."],
   ["Does it read my emails or documents?", "No. It looks only at the labels of buttons and panels (like “Ask Gemini”) to find AI features. Nothing you write or receive is read, stored or sent."],
   ["Something AI is still showing. What can I do?", "Click the AI-Free Web icon → “Something AI still showing?” and click the element. You can hide it right away on your browser, and send us an anonymous report so the next rules update hides it for everyone."],
   ["Can my company deploy it with AI hidden for everyone?", "Yes. Admins can set every switch and lock them with Chrome policy (Google Admin console or Windows Group Policy), without access to the Google Workspace or Microsoft 365 admin settings."],
@@ -120,7 +130,27 @@ export default function TurnOffAi() {
         </div>
       </section>
 
-      <section id="features" className="section section-alt">
+      <section id="screenshots" className="section section-alt">
+        <div className="wrap">
+          <h2 className="section-title">See it in action</h2>
+          <div className="gallery">
+            {SHOTS.map(([file, alt, caption]) => (
+              <Shot key={file} file={file} img={TURNOFFAI.img} alt={alt} caption={caption} />
+            ))}
+          </div>
+          {/* After the screenshots is when people are most ready to install. */}
+          <div className="after-video">
+            <div className="actions">
+              <StoreButton campaign="turnoffai-gallery" />
+              <a className="btn btn-ghost" href="#features">
+                How it works
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className="section">
         <div className="wrap">
           <h2 className="section-title">Made to stay out of your way</h2>
           <div className="features">
@@ -137,7 +167,7 @@ export default function TurnOffAi() {
         </div>
       </section>
 
-      <section id="guides" className="section">
+      <section id="guides" className="section section-alt">
         <div className="wrap narrow prose">
           <h2 className="section-title">How-to guides</h2>
           <p>Step by step, with the settings Google and Microsoft do offer, what they break, and where AI-Free Web fills the gap:</p>
