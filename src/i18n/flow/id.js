@@ -268,6 +268,11 @@ export default {
   changelog: {
     title: "Catatan perubahan",
     entries: {
+      "2.6.3": [
+        "Tautan baru Masukan, Beri nilai, dan Bagikan di popup.",
+        "Setelah beberapa unduhan berhasil, ekstensi bertanya sekali apakah berjalan baik untuk Anda, agar masalah lebih cepat sampai ke kami.",
+        "Halaman sambutan singkat setelah dipasang, dan survei opsional satu pertanyaan jika Anda mencopotnya."
+      ],
       "2.6.2": [
         "Pilih item yang masih dibuat: masing-masing diunduh begitu Flow selesai membuatnya, dan nomor file tetap sesuai urutan proyek.",
         "Status baru ⏳ MENUNGGU di ubin yang masih dibuat. Item yang gagal dibuat Flow disebutkan namanya di akhir.",

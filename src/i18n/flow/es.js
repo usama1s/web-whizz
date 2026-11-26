@@ -268,6 +268,11 @@ export default {
   changelog: {
     title: "Registro de cambios",
     entries: {
+      "2.6.3": [
+        "Nuevos enlaces Comentarios, Valorar y Compartir en la ventana emergente.",
+        "Tras unas cuantas descargas correctas, pregunta una vez si te funciona bien, para que los problemas nos lleguen antes.",
+        "Una breve página de bienvenida al instalarla y una encuesta opcional de una pregunta si la desinstalas."
+      ],
       "2.6.2": [
         "Selecciona elementos que aún se están generando: cada uno se descarga en cuanto Flow lo termina, y los números de archivo siguen el orden del proyecto.",
         "Nuevo estado ⏳ EN ESPERA en los mosaicos que aún se generan. Lo que Flow no consigue generar aparece por nombre al final.",

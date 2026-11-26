@@ -271,6 +271,11 @@ export default {
   changelog: {
     title: "Changelog",
     entries: {
+      "2.6.3": [
+        "New Feedback, Rate it and Share links in the popup.",
+        "After a few good downloads it asks once whether it's working well for you, so problems reach us faster.",
+        "A short welcome page after installing, and an optional one-question survey if you uninstall."
+      ],
       "2.6.2": [
         "Select items that are still being generated: each one downloads the moment Flow finishes it, and file numbers stay in project order.",
         "New ⏳ WAITING status on tiles still being generated. Items Flow fails to make are named at the end.",

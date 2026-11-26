@@ -268,6 +268,11 @@ export default {
   changelog: {
     title: "Histórico de versões",
     entries: {
+      "2.6.3": [
+        "Novos links Feedback, Avaliar e Compartilhar no pop-up.",
+        "Depois de alguns downloads bem-sucedidos, pergunta uma vez se está funcionando bem para você, para que os problemas cheguem até nós mais rápido.",
+        "Uma breve página de boas-vindas após a instalação e uma pesquisa opcional de uma pergunta se você desinstalar."
+      ],
       "2.6.2": [
         "Selecione itens que ainda estão em geração: cada um é baixado assim que o Flow termina, e os números dos arquivos seguem a ordem do projeto.",
         "Novo status ⏳ AGUARDANDO nos blocos ainda em geração. O que o Flow não consegue gerar aparece pelo nome no fim.",
