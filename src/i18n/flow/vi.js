@@ -296,7 +296,7 @@ export default {
   },
   privacy: {
     title: "Quyền riêng tư",
-    text: "Flow Bulk Downloader không thu thập gì khi bạn sử dụng: không tài khoản, không phân tích, không theo dõi. Chỉ khi bạn trả lời một khảo sát ngắn, không bắt buộc của chúng tôi (sau khi cài, sau khi gỡ, hoặc qua “Góp ý”), câu trả lời và vài số liệu sử dụng ẩn danh mới được lưu trên web-whizz.com. Cài đặt của bạn và danh sách các mục đã tải nằm trong Chrome trên máy bạn, và tệp đi thẳng từ Google Flow về máy tính của bạn. [Đọc toàn bộ chính sách quyền riêng tư]($privacy) (tiếng Anh)."
+    text: "Flow Bulk Downloader không cần tài khoản và không gửi bất cứ thứ gì nhận diện được bạn: prompt, tiêu đề và tệp của bạn không bao giờ đến chỗ chúng tôi. Từ phiên bản 2.6.4, tiện ích gửi vài số liệu sử dụng ẩn danh tối đa mỗi ngày một lần (bao nhiêu lượt tải đã chạy, hoàn tất hoặc lỗi, và lý do), không kèm ID nào; bạn có thể tắt trong cửa sổ bật lên của tiện ích. Nếu bạn trả lời một khảo sát ngắn, không bắt buộc của chúng tôi (sau khi cài, sau khi gỡ, hoặc qua “Góp ý”), câu trả lời cũng được lưu trên web-whizz.com. Cài đặt của bạn và danh sách các mục đã tải nằm trong Chrome trên máy bạn, và tệp đi thẳng từ Google Flow về máy tính của bạn. [Đọc toàn bộ chính sách quyền riêng tư]($privacy) (tiếng Anh)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro sắp ra mắt",

@@ -113,8 +113,8 @@ export const ROUTES = [
     path: FLOW.privacyPath,
     Page: FlowPrivacy,
     title: "Privacy Policy — Flow Bulk Downloader | Web Whizz",
-    description: "Flow Bulk Downloader sends nothing while you use it: no accounts, no analytics, no tracking. What our optional surveys collect, and why.",
-    updated: "2026-11-18"
+    description: "Flow Bulk Downloader has no accounts and sends nothing that identifies you. What its anonymous usage statistics and our optional surveys collect, and why.",
+    updated: "2026-11-26"
   },
   // The extension's welcome, goodbye (uninstall) and feedback pages. Not for search engines, not in the sitemap.
   ...SURVEY_PAGES.map((survey) => ({

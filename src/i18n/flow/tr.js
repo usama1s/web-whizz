@@ -295,7 +295,7 @@ export default {
   },
   privacy: {
     title: "Gizlilik",
-    text: "Flow Bulk Downloader, siz kullanırken hiçbir şey toplamaz: hesap yok, analiz yok, izleme yok. Yalnızca kısa ve isteğe bağlı anketlerimizden birini yanıtlarsanız (kurulumdan sonra, kaldırdıktan sonra veya “Feedback” ile), yanıtlarınız ve birkaç anonim kullanım sayısı web-whizz.com'da saklanır. Ayarlarınız ve indirdiğiniz öğelerin listesi bilgisayarınızda, Chrome'da kalır ve dosyalarınız doğrudan Google Flow'dan bilgisayarınıza gider. [Gizlilik politikasının tamamını okuyun]($privacy) (İngilizce)."
+    text: "Flow Bulk Downloader'da hesap yoktur ve sizi tanımlayan hiçbir şey göndermez: istemleriniz (prompt), başlıklarınız ve dosyalarınız bize asla ulaşmaz. 2.6.4 sürümünden itibaren günde en fazla bir kez birkaç anonim kullanım sayısı gönderir (kaç indirme çalıştı, bitti veya başarısız oldu ve neden), hiçbir kimlik olmadan; bunu eklentinin açılır penceresinden kapatabilirsiniz. Kısa ve isteğe bağlı anketlerimizden birini yanıtlarsanız (kurulumdan sonra, kaldırdıktan sonra veya “Feedback” ile), yanıtlarınız da web-whizz.com'da saklanır. Ayarlarınız ve indirdiğiniz öğelerin listesi bilgisayarınızda, Chrome'da kalır ve dosyalarınız doğrudan Google Flow'dan bilgisayarınıza gider. [Gizlilik politikasının tamamını okuyun]($privacy) (İngilizce)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro geliyor",

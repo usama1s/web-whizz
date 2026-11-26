@@ -296,7 +296,7 @@ export default {
   },
   privacy: {
     title: "Privasi",
-    text: "Flow Bulk Downloader tidak mengumpulkan apa pun saat Anda menggunakannya: tanpa akun, tanpa analitik, tanpa pelacakan. Hanya jika Anda menjawab salah satu survei singkat dan opsional kami (setelah memasang, setelah mencopot, atau lewat “Masukan”), jawaban Anda dan beberapa hitungan penggunaan anonim disimpan di web-whizz.com. Pengaturan Anda dan daftar item yang sudah diunduh tetap di Chrome di komputer Anda, dan file Anda langsung dari Google Flow ke komputer Anda. [Baca kebijakan privasi lengkap]($privacy) (dalam bahasa Inggris)."
+    text: "Flow Bulk Downloader tidak memakai akun dan tidak mengirim apa pun yang mengenali Anda: prompt, judul, dan file Anda tidak pernah sampai ke kami. Mulai versi 2.6.4, ekstensi ini mengirim beberapa hitungan penggunaan anonim paling banyak sekali sehari (berapa unduhan yang dijalankan, selesai, atau gagal, dan alasannya), tanpa ID apa pun; Anda bisa mematikannya di popup ekstensi. Jika Anda menjawab salah satu survei singkat dan opsional kami (setelah memasang, setelah mencopot, atau lewat “Masukan”), jawaban Anda juga disimpan di web-whizz.com. Pengaturan Anda dan daftar item yang sudah diunduh tetap di Chrome di komputer Anda, dan file Anda langsung dari Google Flow ke komputer Anda. [Baca kebijakan privasi lengkap]($privacy) (dalam bahasa Inggris)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro segera hadir",
