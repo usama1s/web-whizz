@@ -36,11 +36,14 @@ const PRODUCTS = [
     ],
     'texts' => ['tool' => 200, 'stay' => 2000, 'good' => 2000, 'bad' => 2000],
     'counts' => ['d' => 'days', 'r' => 'runs', 'ok' => 'okRuns', 'f' => 'files', 's' => 'skipped', 'e' => 'errRuns', 'x' => 'stopped',
+      'xu' => 'stopUser', 'xc' => 'stopCredits', 'xq' => 'stopPrompt', 'xp' => 'stopPage',
       'pick' => 'pick', 'wait' => 'wait', 'home' => 'home', 'newOnly' => 'newOnly', 'folder' => 'folder'],
     'labels' => ['v' => '/^[0-9.]{1,15}$/', 'lang' => '/^[A-Za-z_-]{2,10}$/', 'qv' => '/^[\w .+-]{1,12}$/', 'qi' => '/^[\w .+-]{1,12}$/', 'from' => '/^(popup|ask|site)$/'],
     'columns' => ['date', 'type', 'v', 'lang', 'from', 'days', 'runs', 'okRuns', 'files', 'skipped', 'errRuns', 'stopped',
       'pick', 'wait', 'home', 'newOnly', 'folder', 'qv', 'qi',
-      'reason', 'tool', 'rating', 'plan', 'use', 'source', 'volume', 'want', 'chain', 'stay', 'bad', 'good', 'email'],
+      'reason', 'tool', 'rating', 'plan', 'use', 'source', 'volume', 'want', 'chain', 'stay', 'bad', 'good', 'email',
+      // 2.6.4+: why runs stopped (by hand, out of credits, at a credit question, page changed). New columns go at the end.
+      'stopUser', 'stopCredits', 'stopPrompt', 'stopPage'],
   ],
   // Keep in sync with src/pages/SentinelSurvey.jsx and the extension's src/lib/usage.ts → pageUrl().
   'sentinel' => [
@@ -128,6 +131,23 @@ function reply(bool $ok): void {
 
 // The email is only a heads-up; the answer is already saved. If the host has mail() turned off (on PHP 8 calling it
 // is then a fatal error that @ doesn't hide) or sending fails, skip it rather than break the visitor's reply.
+// New columns are only ever added at the end of a product's list. A CSV started before that has a shorter header:
+// give it the new names, so the dashboard and the download show the new cells (older rows just leave them empty).
+// Only called while the CSV is locked.
+function upgradeHeader(string $file, array $columns): void {
+  $raw = file_get_contents($file);
+  $nl = $raw === false ? false : strpos($raw, "\n");
+  if ($nl === false) return;
+  $old = str_getcsv(rtrim(substr($raw, 0, $nl), "\r"), ',', '"', '\\');
+  if (count($old) >= count($columns) || array_slice($columns, 0, count($old)) !== $old) return;
+  $h = fopen('php://temp', 'r+');
+  fputcsv($h, $columns, ',', '"', '\\');
+  rewind($h);
+  $head = stream_get_contents($h);
+  fclose($h);
+  file_put_contents($file, $head . substr($raw, $nl + 1));
+}
+
 function notify(string $subject, string $body): void {
   if (!function_exists('mail')) return;
   try { @mail(NOTIFY, $subject, $body, 'From: Web Whizz <' . NOTIFY . '>'); } catch (\Throwable $e) {}
@@ -200,6 +220,7 @@ $fh = fopen($file, 'a');
 if (!$fh || !flock($fh, LOCK_EX)) reply(false);
 clearstatcache(true, $file);
 if (filesize($file) === 0) fputcsv($fh, $p['columns'], ',', '"', '\\');
+else upgradeHeader($file, $p['columns']);
 // A leading = + - @ would run as a formula when the CSV is opened in Excel.
 $cells = array_map(fn($c) => preg_match('/^[=+\-@\t\r]/', (string)($row[$c] ?? '')) ? "'" . $row[$c] : (string)($row[$c] ?? ''), $p['columns']);
 fputcsv($fh, $cells, ',', '"', '\\');

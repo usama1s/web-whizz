@@ -299,7 +299,7 @@ export default {
   },
   privacy: {
     title: "Privacy",
-    text: "Flow Bulk Downloader collects nothing while you use it: no accounts, no analytics, no tracking. Only if you answer one of our short, optional surveys (after installing, after uninstalling, or via “Feedback”) are your answers and a few anonymous usage counts saved on web-whizz.com. Your settings, and the list of items you've already downloaded, stay in Chrome on your computer, and your files go straight from Google Flow to your computer. [Read the full privacy policy]($privacy)."
+    text: "Flow Bulk Downloader has no accounts and sends nothing that identifies you: your prompts, titles and files never reach us. From version 2.6.4 it sends a few anonymous usage counts at most once a day (how many downloads ran, finished or failed, and why), with no ID; you can turn this off in its popup. If you answer one of our short, optional surveys (after installing, after uninstalling, or via “Feedback”), your answers are saved on web-whizz.com too. Your settings, and the list of items you've already downloaded, stay in Chrome on your computer, and your files go straight from Google Flow to your computer. [Read the full privacy policy]($privacy)."
   },
   waitlist: {
     title: "Flow Bulk Downloader Pro is coming",
